@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSocket } from "../context/socket";
-
+import axios from "axios";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -11,13 +11,28 @@ const Chat = () => {
   const socket = useSocket();
 
   useEffect(() => {
+    if (!receiverEmail || !user) return;
+
+    const fetchMessages = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5001/messages/${user.email}/${receiverEmail}`
+        );
+        setMessages(data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchMessages();
+  }, [receiverEmail, user]);
+
+  useEffect(() => {
     if (!socket || !user) return;
 
-    console.log("🔗 Registering user on socket:", user.email);
     socket.emit("register-user", user.email);
 
     socket.on("receive-message", (data) => {
-      console.log("📩 New message received:", data);
       setMessages((prev) => [...prev, data]);
     });
 
@@ -28,7 +43,6 @@ const Chat = () => {
 
   const sendMessage = () => {
     if (!socket || !user || !receiverEmail || !message.trim()) {
-      console.warn("⚠️ Missing required fields for sending message");
       return;
     }
 
@@ -38,7 +52,6 @@ const Chat = () => {
       message,
     };
 
-    console.log("📤 Sending message:", newMessage);
     socket.emit("send-message", newMessage);
     setMessages((prev) => [...prev, newMessage]);
     setMessage("");
@@ -65,7 +78,10 @@ const Chat = () => {
 
       <div>
         {messages.map((msg, index) => (
-          <p key={index}>
+          <p
+            key={index}
+            style={{ textAlign: msg.sender === user.email ? "right" : "left" }}
+          >
             <strong>{msg.sender}:</strong> {msg.message}
           </p>
         ))}
