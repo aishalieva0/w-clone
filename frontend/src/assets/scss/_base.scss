@@ -1,0 +1,21 @@
+@use "./variables" as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+  font-family: $font-primary;
+}
+
+.container {
+  height: 100%;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}

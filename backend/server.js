@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on("send-message", async ({ sender, receiver, message }) => {
-        console.log(`Message from ${sender} to ${receiver}: ${message}`);
+        console.log(`📩Message from ${sender} to ${receiver}: ${message}`);
 
         // Save message to database
         try {

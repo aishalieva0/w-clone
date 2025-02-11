@@ -10,7 +10,7 @@ import { SocketProvider } from "./context/socket";
 
 const AppContent = () => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
