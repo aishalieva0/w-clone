@@ -7,6 +7,7 @@ import { auth } from "./firebase/firebaseConfig";
 import { setUser, logout } from "./redux/slices/userSlice";
 import AppRoutes from "./routes/AppRoutes";
 import { SocketProvider } from "./context/socket";
+import { ToastContainer } from 'react-toastify';
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
           <AppContent />
         </SocketProvider>
       </BrowserRouter>
+      <ToastContainer />
     </Provider>
   );
 }
