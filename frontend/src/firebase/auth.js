@@ -10,3 +10,14 @@ export const listenForAuthChanges = (dispatch) => {
         }
     });
 };
+
+export const logOutUser = (dispatch) => {
+    auth
+        .signOut()
+        .then(() => {
+            dispatch(logout());
+        })
+        .catch((error) => {
+            console.error("Error logging out: ", error);
+        });
+};

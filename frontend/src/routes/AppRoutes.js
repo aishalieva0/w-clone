@@ -9,12 +9,14 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<Welcome />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
             {/* Protected routes */}
             <Route path="/chat" element={<PrivateRoute>
                 <Chat />
+            </PrivateRoute>} />
+            <Route path="/login" element={<PrivateRoute>
+                <Login />
             </PrivateRoute>} />
 
             <Route path="*" element={<Welcome />} />

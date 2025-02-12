@@ -11,8 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 const AppContent = () => {
   const dispatch = useDispatch();
-  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-
+  const { loading } = useSelector((state) => state.user);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -25,10 +24,13 @@ const AppContent = () => {
     return () => unsubscribe();
   }, [dispatch]);
 
+  if (loading) return null;
   return <AppRoutes />;
 };
 
+
 function App() {
+
   return (
     <Provider store={store}>
       <BrowserRouter>

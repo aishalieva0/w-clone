@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useSocket } from "../context/socket";
 import axios from "axios";
+import { logOutUser } from "../firebase/auth";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -86,6 +87,8 @@ const Chat = () => {
           </p>
         ))}
       </div>
+
+      <button onClick={logOutUser}>logout</button>
     </div>
   );
 };
