@@ -4,6 +4,7 @@ import { auth } from "../firebase/firebaseConfig";
 import { signInWithEmailLink, isSignInWithEmailLink } from "firebase/auth";
 import { setUser } from "../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import notifyToast from "../utils/toastifyMsg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,28 +15,23 @@ const Login = () => {
       let storedEmail = localStorage.getItem("emailForSignIn");
 
       if (!storedEmail) {
-        storedEmail = prompt("Please enter your email:");
+        navigate("/register");
       }
 
       signInWithEmailLink(auth, storedEmail, window.location.href)
         .then((result) => {
           localStorage.removeItem("emailForSignIn");
           dispatch(setUser({ email: result.user.email, uid: result.user.uid }));
-          navigate("/chat"); // Redirect to chat page
+          navigate("/chat");
         })
         .catch((error) => {
           console.error("Error verifying email link:", error);
-          alert(error.message);
+          notifyToast(error.message, "error");
         });
     }
   }, [dispatch, navigate]);
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <p>Check your email and click the verification link to log in.</p>
-    </div>
-  );
+  return null;
 };
 
 export default Login;
