@@ -3,3 +3,14 @@
 // Pages
 @use "./pages/welcome";
 @use "./pages/register";
+@use "./pages/chat";
+
+// Components
+@use "./components/chatWindow";
+@use "./components/messageInput";
+@use "./components/messageItem";
+@use "./components/messageList";
+@use "./components/sidebar";
+@use "./components/leftPanel";
+@use "./components/chatList";
+@use "./components/searchBar";

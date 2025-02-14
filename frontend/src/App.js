@@ -36,6 +36,7 @@ function App() {
       <BrowserRouter>
         <SocketProvider>
           <AppContent />
+
         </SocketProvider>
       </BrowserRouter>
       <ToastContainer />

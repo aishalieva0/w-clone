@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useSocket } from "../context/socket";
 import axios from "axios";
 import { logOutUser } from "../firebase/auth";
+import ChatWindow from "../components/chat/ChatWindow";
+import Sidebar from "../components/sidebar/Sidebar";
 const Chat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -59,38 +61,47 @@ const Chat = () => {
   };
 
   return (
-    <div>
-      <h2>Chat</h2>
-      <input
-        type="email"
-        placeholder="Receiver's Email"
-        value={receiverEmail}
-        onChange={(e) => setReceiverEmail(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Type your message..."
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={sendMessage} disabled={!socket}>
-        Send
-      </button>
-
-      <div>
-        {messages.map((msg, index) => (
-          <p
-            key={index}
-            style={{ textAlign: msg.sender === user.email ? "right" : "left" }}
-          >
-            <strong>{msg.sender}:</strong> {msg.message}
-          </p>
-        ))}
+    <div className="chat">
+      <div className="row">
+        <Sidebar />
+        <ChatWindow />
       </div>
-
-      <button onClick={logOutUser}>logout</button>
     </div>
   );
+
+  // return (
+  //   <div>
+  //     <h2>Chat</h2>
+  //     <input
+  //       type="email"
+  //       placeholder="Receiver's Email"
+  //       value={receiverEmail}
+  //       onChange={(e) => setReceiverEmail(e.target.value)}
+  //     />
+  //     <input
+  //       type="text"
+  //       placeholder="Type your message..."
+  //       value={message}
+  //       onChange={(e) => setMessage(e.target.value)}
+  //     />
+  //     <button onClick={sendMessage} disabled={!socket}>
+  //       Send
+  //     </button>
+
+  //     <div>
+  //       {messages.map((msg, index) => (
+  //         <p
+  //           key={index}
+  //           style={{ textAlign: msg.sender === user.email ? "right" : "left" }}
+  //         >
+  //           <strong>{msg.sender}:</strong> {msg.message}
+  //         </p>
+  //       ))}
+  //     </div>
+
+  //     <button onClick={logOutUser}>logout</button>
+  //   </div>
+  // );
 };
 
 export default Chat;

@@ -1,0 +1,17 @@
+.chatList {
+  width: 85%;
+  margin: 0 auto;
+  .chatItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .profileImg {
+    }
+    .content {
+    }
+    .details {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

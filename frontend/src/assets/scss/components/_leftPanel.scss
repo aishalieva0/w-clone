@@ -1,0 +1,21 @@
+.leftPanel {
+  height: 100%;
+  background: red;
+  .row {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    .topList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+    .bottomList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+  }
+}
