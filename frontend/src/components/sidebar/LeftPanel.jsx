@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../redux/slices/sidebarSlice";
+import { ReactComponent as ChatIcon } from "../../assets/media/icons/chat.svg";
+import { ReactComponent as StatusIcon } from "../../assets/media/icons/status.svg";
+import { ReactComponent as SettingIcon } from "../../assets/media/icons/setting.svg";
+import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 
 const LeftPanel = () => {
   const dispatch = useDispatch();
@@ -10,39 +14,31 @@ const LeftPanel = () => {
     <div className="leftPanel">
       <div className="row">
         <ul className="topList">
-          <li className="topItem">
-            <button
-              className={activeTab === "chats" ? "active" : ""}
-              onClick={() => dispatch(setActiveTab("chats"))}
-            >
-              Chats
-            </button>
+          <li
+            className={`topItem ${activeTab} === "chats" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("chats"))}
+          >
+            <ChatIcon className="icon" />
           </li>
-          <li className="topItem">
-            <button
-              className={activeTab === "status" ? "active" : ""}
-              onClick={() => dispatch(setActiveTab("status"))}
-            >
-              Status
-            </button>
+          <li
+            className={`topItem ${activeTab} === "status" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("status"))}
+          >
+            <StatusIcon className="icon" />
           </li>
         </ul>
         <ul className="bottomList">
-          <li className="bottomItem">
-            <button
-              className={activeTab === "setting" ? "active" : ""}
-              onClick={() => dispatch(setActiveTab("setting"))}
-            >
-              Settings
-            </button>
+          <li
+            className={`bottomItem ${activeTab} === "setting" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("setting"))}
+          >
+            <SettingIcon className="icon" />
           </li>
-          <li className="bottomItem">
-            <button
-              className={activeTab === "profile" ? "active" : ""}
-              onClick={() => dispatch(setActiveTab("profile"))}
-            >
-              Profile
-            </button>
+          <li
+            className={`bottomItem ${activeTab} === "profile" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("profile"))}
+          >
+            <img src={DefaultProfilePhoto} alt="profile_photo" />
           </li>
         </ul>
       </div>

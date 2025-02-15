@@ -46,7 +46,7 @@
             border-color: #017561;
           }
           &::placeholder {
-            color: $dark-sidebar-hover;
+            color: var(--sidebar-hover);
           }
         }
 

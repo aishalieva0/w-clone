@@ -1,12 +1,15 @@
-@use "./variables" as *;
-
 * {
   margin: 0;
   padding: 0;
   text-decoration: none;
   list-style: none;
   box-sizing: border-box;
-  font-family: $font-primary;
+  font-family: var(--font-primary);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 .container {
