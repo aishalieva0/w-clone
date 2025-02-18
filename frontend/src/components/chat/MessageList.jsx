@@ -4,7 +4,11 @@ import MessageItem from "./MessageItem";
 const MessageList = () => {
   return (
     <div className="messageList">
-      <MessageItem />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
     </div>
   );
 };

@@ -5,12 +5,15 @@
   --secondary-text: #555555;
   --sent-msg: #d9fdd3;
   --received-msg: #ffffff;
+  --read-msg-icon: #53bdeb;
+  --msg-status-color: #667181;
   --accent: #25d366;
   --link: #0078f4;
   --icon: #54656f; // #54656F #3B4A54
   --sidebar-bg: #f0f2f5;
   --sidebar-hover: #f0f2f5; // #d9dbdf;
   --active-tab-bg: #e7fce3;
+  --shadow-rgb: 11, 20, 26;
   --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 }
@@ -19,10 +22,11 @@
 .dark-mode {
   --bg-color: #111b21;
   --chat-bg: #1e1e1e;
-  --text-color: #e1e1e1;
+  --text-color: #e9edef;
   --secondary-text: #8a8a8a;
   --sent-msg: #005c4b;
   --received-msg: #202c33;
+  --msg-status-color: #ffffff99;
   --accent: #25d366;
   --link: #0078f4;
   --icon: #aebac1;

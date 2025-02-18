@@ -1,0 +1,79 @@
+.messageItem {
+  box-shadow: 0 1px 0.5px rgba(var(--shadow-rgb), 0.13);
+  width: fit-content;
+  height: fit-content;
+  max-width: 60%;
+  display: flex;
+  padding: 5px 10px 15px 10px;
+  border-radius: 7.5px;
+  position: relative;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  line-height: 1.3;
+  &::after {
+    content: " ";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0px;
+    bottom: auto;
+    border: 11px solid;
+  }
+
+  .messageText {
+    padding-bottom: 10px;
+    padding-right: 7px;
+    color: var(--text-color);
+  }
+  .details {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 12px;
+    gap: 5px;
+    margin-right: 8px;
+    margin-bottom: 3px;
+    .messageTimestamp {
+      color: var(--msg-status-color);
+    }
+    .messageStatus {
+      color: var(--msg-status-color);
+
+      //for read messages
+      .msgReadStatus {
+        color: var(--read-msg-icon);
+      }
+    }
+  }
+}
+
+//for sent messages
+.sentMessage {
+  background: var(--sent-msg);
+  color: var(--text-color);
+  align-self: flex-end;
+  &:after {
+    right: -10px;
+    left: auto;
+    border-color: var(--sent-msg) transparent transparent transparent;
+  }
+}
+
+//for received messages
+.receivedMessage {
+  background: var(--received-msg);
+  color: var(--text-color);
+  align-self: flex-start;
+  .messageStatus {
+    display: none;
+  }
+
+  &:after {
+    left: -10px;
+    right: auto;
+    border-color: var(--received-msg) transparent transparent transparent;
+  }
+}
