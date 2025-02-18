@@ -9,6 +9,23 @@ const MessageList = () => {
       <MessageItem className="sentMessage" />
       <MessageItem className="sentMessage" />
       <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="sentMessage" />
+      <MessageItem className="receivedMessage" />
     </div>
   );
 };
