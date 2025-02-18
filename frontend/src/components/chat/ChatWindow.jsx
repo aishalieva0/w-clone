@@ -1,12 +1,12 @@
 import React from "react";
 import MessageList from "./MessageList";
-import MessageInput from "./MessageInput";
+import MessageInputContainer from "./MessageInputContainer";
 
 const ChatWindow = () => {
   return (
     <div className="chatWindow">
       <MessageList />
-      <MessageInput />
+      <MessageInputContainer />
     </div>
   );
 };
