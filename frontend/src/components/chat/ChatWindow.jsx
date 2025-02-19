@@ -14,6 +14,25 @@ const ChatWindow = () => {
   const activeChat = useSelector((state) => state.chat.activeChat);
   const socket = useSocket();
 
+  const markMessagesAsRead = async () => {
+    if (!activeChat) return;
+
+    try {
+      await axios.put("http://localhost:5001/messages/mark-as-read", {
+        senderEmail: activeChat.email,
+        receiverEmail: user.email,
+      });
+    } catch (err) {
+      console.error("Failed to mark messages as read:", err);
+    }
+  };
+
+  useEffect(() => {
+    if (activeChat) {
+      markMessagesAsRead();
+    }
+  }, [activeChat]);
+
   useEffect(() => {
     if (!activeChat || !user) return;
     const fetchMessages = async () => {
@@ -35,6 +54,11 @@ const ChatWindow = () => {
 
     socket.emit("register-user", user.email);
 
+    socket.emit("mark-as-read", {
+      sender: activeChat?.email,
+      receiver: user?.email,
+    });
+
     socket.on("receive-message", (data) => {
       setMessages((prev) => [...prev, data]);
     });
@@ -42,7 +66,7 @@ const ChatWindow = () => {
     return () => {
       socket.off("receive-message");
     };
-  }, [socket, user]);
+  }, [socket, user, activeChat]);
 
   const sendMessage = () => {
     if (!socket || !user || !activeChat || !message.trim()) {

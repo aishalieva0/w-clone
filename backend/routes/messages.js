@@ -19,4 +19,20 @@ router.get("/:sender/:receiver", async (req, res) => {
     }
 });
 
+router.put("/mark-as-read", async (req, res) => {
+    try {
+        const { senderEmail, receiverEmail } = req.body;
+
+        await Message.updateMany(
+            { sender: senderEmail, receiver: receiverEmail, status: "delivered" },
+            { $set: { status: "read" } }
+        );
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error("Error marking messages as read:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
 module.exports = router;

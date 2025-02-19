@@ -26,6 +26,7 @@ router.get("/:userEmail", async (req, res) => {
                     time: new Date(msg.timestamp).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
+                        hour12: false,
                     }),
                     unread: 0,
                 });

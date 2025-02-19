@@ -1,37 +1,62 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import { ReactComponent as newChatIcon } from "../../assets/media/icons/newChat.svg";
 import { ReactComponent as NewChatIcon } from "../../assets/media/icons/newChat.svg";
 import { ReactComponent as MoreIcon } from "../../assets/media/icons/more.svg";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
-import { useDispatch } from "react-redux";
+import { useSocket } from "../../context/socket";
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveChat } from "../../redux/slices/chatSlice";
+import axios from "axios";
 
 const ChatList = () => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const [conversations, setConversations] = useState([]);
+  const socket = useSocket();
 
-  const conversations = [
-    {
-      email: "john@example.com",
-      name: "John Doe",
-      lastMessage: "Hey! Are you there?",
-      time: "14:13",
-      unread: 1,
-    },
-    {
-      email: "jane@example.com",
-      name: "Jane Doe",
-      lastMessage: "Let's meet tomorrow!",
-      time: "10:45",
-      unread: 0,
-    },
-    {
-      email: "aysalieva6@gmail.com",
-      name: "Aisha",
-      lastMessage: "Let's meet tomorrow!",
-      time: "10:45",
-      unread: 0,
-    },
-  ];
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchConversations = async () => {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5001/conversations/${user.email}`
+        );
+        setConversations(data);
+      } catch (err) {
+        console.error("Error fetching conversations:", err);
+      }
+    };
+
+    fetchConversations();
+  }, [user]);
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("update-conversation", (data) => {
+      setConversations((prev) =>
+        prev.map((conv) =>
+          conv.email === data.receiver || conv.email === data.sender
+            ? {
+                ...conv,
+                lastMessage: data.message,
+                time: new Date(data.timestamp).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false, // 24-hour format
+                }),
+                unread: conv.email === data.sender ? conv.unread + 1 : 0, // Increment unread if it's from sender
+              }
+            : conv
+        )
+      );
+    });
+
+    return () => {
+      socket.off("update-conversation");
+    };
+  }, [socket]);
 
   return (
     <div className="chatList">
@@ -68,11 +93,13 @@ const ChatList = () => {
                 <div className="content">
                   <div className="info">
                     <h3>{chat.name}</h3>
-                    <p>Hey! Are you there?</p>
+                    <p>{chat.lastMessage}</p>
                   </div>
                   <div className="details">
-                    <span className="date">14:13</span>
-                    <span className="unread">1</span>
+                    <span className="date">{chat.time}</span>
+                    {chat.unread > 0 && (
+                      <span className="unread">{chat.unread}</span>
+                    )}
                   </div>
                 </div>
               </li>

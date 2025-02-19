@@ -45,23 +45,46 @@ io.on("connection", (socket) => {
     });
 
     socket.on("send-message", async ({ sender, receiver, message }) => {
-        console.log(`📩Message from ${sender} to ${receiver}: ${message}`);
+        console.log(`Message from ${sender} to ${receiver}: ${message}`);
 
-        // Save message to database
         try {
             const newMessage = new Message({ sender, receiver, message });
             await newMessage.save();
-            console.log("Message stored in DB");
 
             const receiverSocket = users[receiver];
             if (receiverSocket) {
-                io.to(receiverSocket).emit("receive-message", { sender, message });
+                io.to(receiverSocket).emit("receive-message", {
+                    sender,
+                    message,
+                    status: "delivered",
+                });
+
+                await Message.updateOne(
+                    { sender, receiver, message },
+                    { $set: { status: "delivered" } }
+                );
+
                 console.log(`Message delivered to ${receiver}`);
             } else {
                 console.warn(`User ${receiver} is not online`);
             }
+
+            io.emit("update-conversation", { sender, receiver, message, timestamp: newMessage.timestamp });
+
         } catch (err) {
             console.error("Error saving message:", err);
+        }
+    });
+
+    socket.on("mark-as-read", async ({ sender, receiver }) => {
+        try {
+            await Message.updateMany(
+                { sender, receiver, status: "delivered" },
+                { $set: { status: "read" } }
+            );
+            io.to(users[sender]).emit("messages-read", { sender, receiver });
+        } catch (error) {
+            console.error("Error marking messages as read:", error);
         }
     });
 
