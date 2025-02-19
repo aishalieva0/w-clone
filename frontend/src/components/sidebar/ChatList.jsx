@@ -3,8 +3,36 @@ import React from "react";
 import { ReactComponent as NewChatIcon } from "../../assets/media/icons/newChat.svg";
 import { ReactComponent as MoreIcon } from "../../assets/media/icons/more.svg";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
+import { useDispatch } from "react-redux";
+import { setActiveChat } from "../../redux/slices/chatSlice";
 
 const ChatList = () => {
+  const dispatch = useDispatch();
+
+  const conversations = [
+    {
+      email: "john@example.com",
+      name: "John Doe",
+      lastMessage: "Hey! Are you there?",
+      time: "14:13",
+      unread: 1,
+    },
+    {
+      email: "jane@example.com",
+      name: "Jane Doe",
+      lastMessage: "Let's meet tomorrow!",
+      time: "10:45",
+      unread: 0,
+    },
+    {
+      email: "aysalieva6@gmail.com",
+      name: "Aisha",
+      lastMessage: "Let's meet tomorrow!",
+      time: "10:45",
+      unread: 0,
+    },
+  ];
+
   return (
     <div className="chatList">
       <div className="container">
@@ -28,157 +56,27 @@ const ChatList = () => {
             <span>Groups</span>
           </div>
           <ul className="conversationList">
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
+            {conversations.map((chat, index) => (
+              <li
+                className="chatItem"
+                key={index}
+                onClick={() => dispatch(setActiveChat(chat))}
+              >
+                <div className="profileImg">
+                  <img src={DefaultProfilePhoto} alt="profile_photo" />
                 </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
+                <div className="content">
+                  <div className="info">
+                    <h3>{chat.name}</h3>
+                    <p>Hey! Are you there?</p>
+                  </div>
+                  <div className="details">
+                    <span className="date">14:13</span>
+                    <span className="unread">1</span>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
-            <li className="chatItem">
-              <div className="profileImg">
-                <img src={DefaultProfilePhoto} alt="profile_photo" />
-              </div>
-              <div className="content">
-                <div className="info">
-                  <h3>Jhon Doe</h3>
-                  <p>Hey! Are you there?</p>
-                </div>
-                <div className="details">
-                  <span className="date">14:13</span>
-                  <span className="unread">1</span>
-                </div>
-              </div>
-            </li>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

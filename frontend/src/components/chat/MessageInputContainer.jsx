@@ -4,7 +4,7 @@ import { ReactComponent as PlusBtn } from "../../assets/media/icons/plusBtn.svg"
 import { ReactComponent as ExpressionBtn } from "../../assets/media/icons/expressionBtn.svg";
 import { ReactComponent as VoiceMsgBtn } from "../../assets/media/icons/voiceMsgBtn.svg";
 
-const MessageInputContainer = () => {
+const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
   const textareaRef = useRef(null);
   const [inputMsg, setInputMsg] = useState("");
 
@@ -25,6 +25,8 @@ const MessageInputContainer = () => {
           <ExpressionBtn />
         </button>
         <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           ref={textareaRef}
           onInput={handleInput}
           rows={1}
@@ -34,7 +36,7 @@ const MessageInputContainer = () => {
       </div>
 
       {inputMsg ? (
-        <button className="sendMsgBtn">
+        <button onClick={sendMessage} className="sendMsgBtn">
           <SendMsgBtn />
         </button>
       ) : (

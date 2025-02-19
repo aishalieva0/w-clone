@@ -1,31 +1,16 @@
 import React from "react";
 import MessageItem from "./MessageItem";
 
-const MessageList = () => {
+const MessageList = ({ messages, userEmail }) => {
   return (
     <div className="messageList">
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="sentMessage" />
-      <MessageItem className="receivedMessage" />
+      {messages.map((msg, index) => (
+        <MessageItem
+          key={index}
+          message={msg}
+          isSent={msg.sender === userEmail}
+        />
+      ))}
     </div>
   );
 };

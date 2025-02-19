@@ -4,7 +4,7 @@ import { ReactComponent as VideoCallIcon } from "../../assets/media/icons/videoC
 import { ReactComponent as SearchIcon } from "../../assets/media/icons/searchBtn.svg";
 import { ReactComponent as MoreIcon } from "../../assets/media/icons/more.svg";
 
-const ChatHeader = () => {
+const ChatHeader = ({ activeChat }) => {
   return (
     <div className="chatHeader">
       <div className="container">
@@ -14,7 +14,7 @@ const ChatHeader = () => {
               <img src={DefaultProfilePhoto} alt="User" />
             </div>
             <div className="userName">
-              <h3>Jhon Doe</h3>
+              <h3>{activeChat?.email}</h3>
             </div>
           </div>
           <div className="chatOptions">
