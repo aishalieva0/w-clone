@@ -6,6 +6,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const Message = require("./models/Message");
 const messageRoutes = require("./routes/messages");
+const conversationRoutes = require("./routes/conversationRoutes");
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ app.use(cors());
 
 // Routes
 app.use("/messages", messageRoutes);
+app.use("/conversations", conversationRoutes);
 
 // Connect to MongoDB
 mongoose
