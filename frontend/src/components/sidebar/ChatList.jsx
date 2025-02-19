@@ -9,8 +9,8 @@ const ChatList = () => {
     <div className="chatList">
       <div className="container">
         <div className="row">
-          <div className="chatHeader">
-            <div className="heading">
+          <div className="heading">
+            <div className="title">
               <h2>Chats</h2>
             </div>
             <div className="moreIcons">

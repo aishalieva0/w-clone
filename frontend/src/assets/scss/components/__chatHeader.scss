@@ -1,0 +1,48 @@
+.chatHeader {
+  background: var(--sidebar-bg);
+  height: 11%;
+  .container {
+    width: 95%;
+    .row {
+      align-items: center;
+      justify-content: space-between;
+      .userInfo {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 80%;
+        cursor: pointer;
+        .userProfile {
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .userName {
+          h3 {
+            font-weight: 400;
+          }
+        }
+      }
+
+      .chatOptions {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        button {
+          background: none;
+          border: none;
+          color: var(--icon);
+          cursor: pointer;
+          svg {
+            width: 28px;
+            height: 28px;
+          }
+        }
+      }
+    }
+  }
+}

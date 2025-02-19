@@ -8,7 +8,7 @@
     .row {
       flex-direction: column;
       gap: 20px;
-      .chatHeader {
+      .heading {
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -62,7 +62,7 @@
         padding-right: 15px;
         overflow-y: auto;
         scrollbar-width: thin;
-        scrollbar-color: #ced0d1 #fff;
+        scrollbar-color: var(----scrollbar-color) transparent;
         .chatItem {
           display: flex;
           align-items: center;
