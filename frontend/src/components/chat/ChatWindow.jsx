@@ -5,6 +5,8 @@ import ChatHeader from "./ChatHeader";
 import { useSocket } from "../../context/socket";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import setupSocketListeners from "../../socket/socketListeners";
+import { markAsRead, sendMessage } from "../../socket/socketActions";
 
 const ChatWindow = () => {
   const [messages, setMessages] = useState([]);
@@ -14,24 +16,10 @@ const ChatWindow = () => {
   const activeChat = useSelector((state) => state.chat.activeChat);
   const socket = useSocket();
 
-  const markMessagesAsRead = async () => {
-    if (!activeChat) return;
-
-    try {
-      await axios.put("http://localhost:5001/messages/mark-as-read", {
-        senderEmail: activeChat.email,
-        receiverEmail: user.email,
-      });
-    } catch (err) {
-      console.error("Failed to mark messages as read:", err);
-    }
-  };
-
   useEffect(() => {
-    if (activeChat) {
-      markMessagesAsRead();
-    }
-  }, [activeChat]);
+    if (!socket || !user) return;
+    setupSocketListeners(socket, setMessages);
+  }, [socket]);
 
   useEffect(() => {
     if (!activeChat || !user) return;
@@ -50,49 +38,22 @@ const ChatWindow = () => {
   }, [activeChat, user]);
 
   useEffect(() => {
-    if (!socket || !user) return;
-
-    socket.on("message-status-updated", (updatedMessage) => {
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg.message === updatedMessage.message &&
-          msg.sender === updatedMessage.sender &&
-          msg.receiver === updatedMessage.receiver
-            ? { ...msg, status: updatedMessage.status }
-            : msg
-        )
-      );
-    });
-
-    return () => {
-      socket.off("message-status-updated");
-    };
-  }, [socket, user]);
+    if (!activeChat) return;
+    markAsRead(socket, activeChat.email, user.email);
+  }, [activeChat]);
 
   useEffect(() => {
     if (!socket || !user || !activeChat) return;
 
     socket.emit("register-user", user.email);
 
-    socket.emit("mark-as-read", {
-      sender: activeChat.email,
-      receiver: user.email,
-    });
-
-    socket.on("receive-message", (data) => {
-      setMessages((prev) => [...prev, data]);
-    });
-
     return () => {
-      socket.off("receive-message");
+      socket.emit("disconnect-user", user.email);
     };
   }, [socket, user, activeChat]);
 
-  const sendMessage = () => {
-    if (!socket || !user || !activeChat || !message.trim()) {
-      return;
-    }
-
+  const handleSendMessage = () => {
+    if (!socket || !user || !activeChat || !message.trim()) return;
     const newMessage = {
       sender: user.email,
       receiver: activeChat.email,
@@ -102,8 +63,7 @@ const ChatWindow = () => {
     };
 
     setMessages((prev) => [...prev, newMessage]);
-
-    socket.emit("send-message", newMessage);
+    sendMessage(socket, newMessage);
     setMessage("");
   };
 
@@ -114,7 +74,7 @@ const ChatWindow = () => {
       <MessageInputContainer
         message={message}
         setMessage={setMessage}
-        sendMessage={sendMessage}
+        sendMessage={handleSendMessage}
       />
     </div>
   );

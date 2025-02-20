@@ -18,8 +18,21 @@ const chatSlice = createSlice({
         setActiveChat: (state, action) => {
             state.activeChat = action.payload;
         },
+        updateMessageStatus: (state, action) => {
+            const updatedMessage = action.payload;
+            if (state.messages[updatedMessage.receiver]) {
+                state.messages[updatedMessage.receiver] = state.messages[
+                    updatedMessage.receiver
+                ].map((msg) =>
+                    msg.message === updatedMessage.message &&
+                        msg.sender === updatedMessage.sender
+                        ? { ...msg, status: updatedMessage.status }
+                        : msg
+                );
+            }
+        },
     },
 });
 
-export const { addMessage, setMessages, setActiveChat } = chatSlice.actions;
+export const { addMessage, setMessages, setActiveChat, updateMessageStatus } = chatSlice.actions;
 export default chatSlice.reducer;

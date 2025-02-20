@@ -8,10 +8,14 @@ import { setUser, logout } from "./redux/slices/userSlice";
 import AppRoutes from "./routes/AppRoutes";
 import { SocketProvider } from "./context/socket";
 import { ToastContainer } from 'react-toastify';
+import useSocketEvents from "./socket/useSocketEvents";
 
 const AppContent = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
+
+  useSocketEvents();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -30,7 +34,6 @@ const AppContent = () => {
 
 
 function App() {
-
   return (
     <Provider store={store}>
       <BrowserRouter>
