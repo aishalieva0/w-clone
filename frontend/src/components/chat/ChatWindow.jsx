@@ -52,11 +52,31 @@ const ChatWindow = () => {
   useEffect(() => {
     if (!socket || !user) return;
 
+    socket.on("message-status-updated", (updatedMessage) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg.message === updatedMessage.message &&
+          msg.sender === updatedMessage.sender &&
+          msg.receiver === updatedMessage.receiver
+            ? { ...msg, status: updatedMessage.status }
+            : msg
+        )
+      );
+    });
+
+    return () => {
+      socket.off("message-status-updated");
+    };
+  }, [socket, user]);
+
+  useEffect(() => {
+    if (!socket || !user || !activeChat) return;
+
     socket.emit("register-user", user.email);
 
     socket.emit("mark-as-read", {
-      sender: activeChat?.email,
-      receiver: user?.email,
+      sender: activeChat.email,
+      receiver: user.email,
     });
 
     socket.on("receive-message", (data) => {
@@ -77,12 +97,16 @@ const ChatWindow = () => {
       sender: user.email,
       receiver: activeChat.email,
       message,
+      status: "sent",
+      timestamp: new Date().toISOString(),
     };
 
-    socket.emit("send-message", newMessage);
     setMessages((prev) => [...prev, newMessage]);
+
+    socket.emit("send-message", newMessage);
     setMessage("");
   };
+
   return (
     <div className="chatWindow">
       <ChatHeader activeChat={activeChat} />

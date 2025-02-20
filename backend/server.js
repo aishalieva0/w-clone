@@ -39,16 +39,43 @@ let users = {};
 io.on("connection", (socket) => {
     console.log("A user connected: " + socket.id);
 
-    socket.on("register-user", (email) => {
+    socket.on("register-user", async (email) => {
         users[email] = socket.id;
         console.log(`Registered ${email} with socket ${socket.id}`);
+
+        try {
+            const undeliveredMessages = await Message.find({ receiver: email, status: "sent" });
+
+            if (undeliveredMessages.length > 0) {
+                console.log(`Updating ${undeliveredMessages.length} messages to "delivered"`);
+
+                await Message.updateMany(
+                    { receiver: email, status: "sent" },
+                    { $set: { status: "delivered" } }
+                );
+
+                undeliveredMessages.forEach((msg) => {
+                    const senderSocket = users[msg.sender];
+                    if (senderSocket) {
+                        io.to(senderSocket).emit("message-status-updated", {
+                            sender: msg.sender,
+                            receiver: msg.receiver,
+                            message: msg.message,
+                            status: "delivered",
+                        });
+                    }
+                });
+            }
+        } catch (err) {
+            console.error("Error updating message statuses:", err);
+        }
     });
 
     socket.on("send-message", async ({ sender, receiver, message }) => {
         console.log(`Message from ${sender} to ${receiver}: ${message}`);
 
         try {
-            const newMessage = new Message({ sender, receiver, message });
+            const newMessage = new Message({ sender, receiver, message, status: "sent" });
             await newMessage.save();
 
             const receiverSocket = users[receiver];
@@ -64,9 +91,16 @@ io.on("connection", (socket) => {
                     { $set: { status: "delivered" } }
                 );
 
+                io.to(users[sender]).emit("message-status-updated", {
+                    sender,
+                    receiver,
+                    message,
+                    status: "delivered",
+                });
+
                 console.log(`Message delivered to ${receiver}`);
             } else {
-                console.warn(`User ${receiver} is not online`);
+                console.warn(`User ${receiver} is offline. Message remains as 'sent'.`);
             }
 
             io.emit("update-conversation", { sender, receiver, message, timestamp: newMessage.timestamp });
@@ -76,10 +110,11 @@ io.on("connection", (socket) => {
         }
     });
 
+
     socket.on("mark-as-read", async ({ sender, receiver }) => {
         try {
             await Message.updateMany(
-                { sender, receiver, status: "delivered" },
+                { sender, receiver, status: "delivered" }, // Only update delivered messages
                 { $set: { status: "read" } }
             );
             io.to(users[sender]).emit("messages-read", { sender, receiver });

@@ -4,6 +4,7 @@ import { ReactComponent as MsgDeliveredIcon } from "../../assets/media/icons/msg
 import { ReactComponent as MsgSentIcon } from "../../assets/media/icons/msgSent.svg";
 
 const MessageItem = ({ message, isSent }) => {
+  console.log(message.status, message.message);
   return (
     <div
       className={`messageItem ${isSent ? "sentMessage" : "receivedMessage"}`}
@@ -12,7 +13,13 @@ const MessageItem = ({ message, isSent }) => {
       <div className="details">
         <span className="messageTimestamp">12:34</span>
         <span className="messageStatus">
-          <MsgDeliveredIcon />
+          {message.status === "sent" ? (
+            <MsgSentIcon />
+          ) : message.status === "delivered" ? (
+            <MsgDeliveredIcon />
+          ) : message.status === "read" ? (
+            <MsgDeliveredIcon color="blue" />
+          ) : null}
         </span>
       </div>
     </div>
