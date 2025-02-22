@@ -3,23 +3,25 @@ import MessageList from "./MessageList";
 import MessageInputContainer from "./MessageInputContainer";
 import ChatHeader from "./ChatHeader";
 import { useSocket } from "../../context/socket";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import setupSocketListeners from "../../socket/socketListeners";
 import { markAsRead, sendMessage } from "../../socket/socketActions";
+import { addMessage, setMessages } from "../../redux/slices/chatSlice";
 
 const ChatWindow = () => {
-  const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
 
   const { user } = useSelector((state) => state.user);
+  const messages = useSelector((state) => state.chat.messages) || [];
   const activeChat = useSelector((state) => state.chat.activeChat);
+  const dispatch = useDispatch();
   const socket = useSocket();
 
   useEffect(() => {
     if (!socket || !user) return;
-    setupSocketListeners(socket, setMessages);
-  }, [socket]);
+    setupSocketListeners(socket, dispatch);
+  }, [socket, user, dispatch]);
 
   useEffect(() => {
     if (!activeChat || !user) return;
@@ -28,19 +30,28 @@ const ChatWindow = () => {
         const { data } = await axios.get(
           `http://localhost:5001/messages/${user.email}/${activeChat.email}`
         );
-        setMessages(data);
+
+        dispatch(setMessages(Array.isArray(data) ? data : []));
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchMessages();
-  }, [activeChat, user]);
+  }, [activeChat, user, dispatch]);
 
   useEffect(() => {
-    if (!activeChat) return;
+    if (!activeChat || !socket || !user) return;
     markAsRead(socket, activeChat.email, user.email);
-  }, [activeChat]);
+
+    const updatedMessages = messages.map((msg) =>
+      msg.sender === activeChat.email && msg.receiver === user.email
+        ? { ...msg, status: "read" }
+        : msg
+    );
+
+    dispatch(setMessages(updatedMessages));
+  }, [activeChat, socket, user, dispatch]);
 
   useEffect(() => {
     if (!socket || !user || !activeChat) return;
@@ -62,11 +73,11 @@ const ChatWindow = () => {
       timestamp: new Date().toISOString(),
     };
 
-    setMessages((prev) => [...prev, newMessage]);
+    dispatch(addMessage(newMessage));
+
     sendMessage(socket, newMessage);
     setMessage("");
   };
-
   return (
     <div className="chatWindow">
       <ChatHeader activeChat={activeChat} />

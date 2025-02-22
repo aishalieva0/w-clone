@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     messages: [],
     activeChat: null,
+    lastUpdated: null,
 };
 
 const chatSlice = createSlice({
@@ -10,26 +11,33 @@ const chatSlice = createSlice({
     initialState,
     reducers: {
         addMessage: (state, action) => {
+            if (!Array.isArray(state.messages)) {
+                state.messages = [];
+            }
             state.messages.push(action.payload);
         },
         setMessages: (state, action) => {
-            state.messages = action.payload;
+            state.messages = Array.isArray(action.payload) ? action.payload : [];
         },
         setActiveChat: (state, action) => {
             state.activeChat = action.payload;
         },
         updateMessageStatus: (state, action) => {
-            const updatedMessage = action.payload;
-            if (state.messages[updatedMessage.receiver]) {
-                state.messages[updatedMessage.receiver] = state.messages[
-                    updatedMessage.receiver
-                ].map((msg) =>
-                    msg.message === updatedMessage.message &&
-                        msg.sender === updatedMessage.sender
-                        ? { ...msg, status: updatedMessage.status }
-                        : msg
-                );
+
+            if (!Array.isArray(state.messages)) {
+                state.messages = [];
             }
+
+            const { sender, receiver, status } = action.payload;
+
+            state.messages = state.messages.map((msg) =>
+                msg.sender === sender && msg.receiver === receiver && msg.status !== "read" // ✅ Only update unread messages!
+                    ? { ...msg, status: status || "read" }
+                    : msg
+            );
+
+
+            state.lastUpdated = Date.now();
         },
     },
 });

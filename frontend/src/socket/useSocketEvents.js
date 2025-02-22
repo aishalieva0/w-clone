@@ -11,11 +11,14 @@ const useSocketEvents = () => {
     useEffect(() => {
         if (!socket || !user) return;
 
-        console.log("Registering user:", user.email);
         socket.emit("register-user", user.email);
 
         socket.on("message-status-updated", (updatedMessage) => {
             dispatch(updateMessageStatus(updatedMessage));
+        });
+
+        socket.on("messages-read", ({ sender, receiver }) => {
+            dispatch(updateMessageStatus({ sender, receiver, status: "read" }));
         });
 
         return () => {

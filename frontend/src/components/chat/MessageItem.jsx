@@ -4,7 +4,6 @@ import { ReactComponent as MsgDeliveredIcon } from "../../assets/media/icons/msg
 import { ReactComponent as MsgSentIcon } from "../../assets/media/icons/msgSent.svg";
 
 const MessageItem = ({ message, isSent }) => {
-  console.log(message.status, message.message);
   return (
     <div
       className={`messageItem ${isSent ? "sentMessage" : "receivedMessage"}`}
