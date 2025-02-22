@@ -31,7 +31,7 @@ const chatSlice = createSlice({
             const { sender, receiver, status } = action.payload;
 
             state.messages = state.messages.map((msg) =>
-                msg.sender === sender && msg.receiver === receiver && msg.status !== "read" // ✅ Only update unread messages!
+                msg.sender === sender && msg.receiver === receiver && msg.status !== "read"
                     ? { ...msg, status: status || "read" }
                     : msg
             );

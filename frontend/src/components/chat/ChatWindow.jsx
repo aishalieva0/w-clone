@@ -54,6 +54,33 @@ const ChatWindow = () => {
   }, [activeChat, socket, user, dispatch]);
 
   useEffect(() => {
+    if (!socket || !user) return;
+
+    socket.on("new-message", (newMessage) => {
+      dispatch(addMessage(newMessage));
+
+      if (activeChat && newMessage.sender === activeChat.email) {
+        socket.emit("mark-as-read", {
+          sender: newMessage.sender,
+          receiver: user.email,
+        });
+      }
+    });
+
+    return () => socket.off("new-message");
+  }, [socket, user, activeChat, dispatch]);
+
+  useEffect(() => {
+    if (!socket || !user || !activeChat) return;
+
+    socket.emit("join-chat", { user: user.email, chatWith: activeChat.email });
+
+    return () => {
+      socket.emit("leave-chat", user.email);
+    };
+  }, [socket, user, activeChat]);
+
+  useEffect(() => {
     if (!socket || !user || !activeChat) return;
 
     socket.emit("register-user", user.email);
@@ -72,7 +99,7 @@ const ChatWindow = () => {
       status: "sent",
       timestamp: new Date().toISOString(),
     };
-
+    socket.emit("new-message", newMessage);
     dispatch(addMessage(newMessage));
 
     sendMessage(socket, newMessage);

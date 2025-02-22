@@ -34,7 +34,7 @@ mongoose
     .catch((err) => console.error("MongoDB Connection Failed:", err));
 
 let users = {};
-
+const activeChats = {};
 // WebSocket Connection
 io.on("connection", (socket) => {
     console.log("A user connected: " + socket.id);
@@ -72,8 +72,8 @@ io.on("connection", (socket) => {
     });
 
     socket.on("send-message", async ({ sender, receiver, message }) => {
-        console.log(`Message from ${sender} to ${receiver}: ${message}`);
-
+        // console.log(`Message from ${sender} to ${receiver}: ${message}`);
+        // console.log("📥 Server received message:", message);
         try {
             const newMessage = new Message({ sender, receiver, message, status: "sent" });
             await newMessage.save();
@@ -98,7 +98,7 @@ io.on("connection", (socket) => {
                     status: "delivered",
                 });
 
-                console.log(`Message delivered to ${receiver}`);
+                // console.log(`Message delivered to ${receiver}`);
             } else {
                 console.warn(`User ${receiver} is offline. Message remains as 'sent'.`);
             }
@@ -114,13 +114,46 @@ io.on("connection", (socket) => {
     socket.on("mark-as-read", async ({ sender, receiver }) => {
         try {
             await Message.updateMany(
-                { sender, receiver, status: "delivered" }, // Only update delivered messages
+                { sender, receiver, status: "delivered" },
                 { $set: { status: "read" } }
             );
             io.to(users[sender]).emit("messages-read", { sender, receiver });
         } catch (error) {
             console.error("Error marking messages as read:", error);
         }
+    });
+
+    socket.on("new-message", async (messageData) => {
+        try {
+            const newMessage = new Message(messageData);
+            await newMessage.save();
+
+            io.to(users[messageData.receiver]).emit("new-message", newMessage);
+
+            const receiverInChat = activeChats[messageData.receiver] === messageData.sender;
+
+            if (receiverInChat) {
+                await Message.updateOne(
+                    { _id: newMessage._id },
+                    { $set: { status: "read" } }
+                );
+
+                io.to(users[messageData.sender]).emit("messages-read", {
+                    sender: messageData.receiver,
+                    receiver: messageData.sender,
+                });
+            }
+        } catch (error) {
+            console.error("Error sending message:", error);
+        }
+    });
+
+    socket.on("join-chat", ({ user, chatWith }) => {
+        activeChats[user] = chatWith;
+    });
+
+    socket.on("leave-chat", (user) => {
+        delete activeChats[user];
     });
 
     socket.on("disconnect", () => {

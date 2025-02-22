@@ -23,6 +23,24 @@ const setupSocketListeners = (socket, dispatch) => {
         dispatch(updateMessageStatus(updatedMessage));
     });
 
+    socket.on("messages-read", ({ sender, receiver }) => {
+        dispatch(updateMessageStatus({ sender, receiver, status: "read" }));
+    });
+
+    socket.on("new-message", (newMessage) => {
+        if (!newMessage || typeof newMessage !== "object") {
+            console.error("Invalid new-message data received:", newMessage);
+            return;
+        }
+
+        dispatch(addMessage(newMessage));
+
+        dispatch(updateMessageStatus({
+            sender: newMessage.sender,
+            receiver: newMessage.receiver,
+            status: "read",
+        }));
+    });
 };
 
 export default setupSocketListeners;
