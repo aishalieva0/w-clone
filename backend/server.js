@@ -72,8 +72,6 @@ io.on("connection", (socket) => {
     });
 
     socket.on("send-message", async ({ sender, receiver, message }) => {
-        // console.log(`Message from ${sender} to ${receiver}: ${message}`);
-        // console.log("📥 Server received message:", message);
         try {
             const newMessage = new Message({ sender, receiver, message, status: "sent" });
             await newMessage.save();
@@ -98,7 +96,6 @@ io.on("connection", (socket) => {
                     status: "delivered",
                 });
 
-                // console.log(`Message delivered to ${receiver}`);
             } else {
                 console.warn(`User ${receiver} is offline. Message remains as 'sent'.`);
             }
