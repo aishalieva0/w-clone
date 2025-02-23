@@ -3,12 +3,11 @@
   width: fit-content;
   height: fit-content;
   max-width: 60%;
+  min-width: 65px;
   display: flex;
   padding: 5px 10px 15px 10px;
   border-radius: 7.5px;
   position: relative;
-  word-wrap: break-word;
-  white-space: pre-wrap;
   line-height: 1.3;
   &::after {
     content: " ";
@@ -24,6 +23,8 @@
     padding-bottom: 10px;
     padding-right: 7px;
     color: var(--text-color);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
   .details {
     position: absolute;
