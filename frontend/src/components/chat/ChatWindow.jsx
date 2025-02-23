@@ -99,7 +99,7 @@ const ChatWindow = () => {
       status: "sent",
       timestamp: new Date().toISOString(),
     };
-    socket.emit("new-message", newMessage);
+
     dispatch(addMessage(newMessage));
 
     sendMessage(socket, newMessage);

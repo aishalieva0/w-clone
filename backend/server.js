@@ -77,27 +77,40 @@ io.on("connection", (socket) => {
             await newMessage.save();
 
             const receiverSocket = users[receiver];
+            const receiverInChat = activeChats[receiver] === sender;
+
+            let updatedStatus = "sent";
+
             if (receiverSocket) {
+                updatedStatus = receiverInChat ? "read" : "delivered";
+
                 io.to(receiverSocket).emit("receive-message", {
                     sender,
+                    receiver,
                     message,
-                    status: "delivered",
+                    status: updatedStatus,
                 });
-
-                await Message.updateOne(
-                    { sender, receiver, message },
-                    { $set: { status: "delivered" } }
-                );
 
                 io.to(users[sender]).emit("message-status-updated", {
                     sender,
                     receiver,
                     message,
-                    status: "delivered",
+                    status: updatedStatus,
                 });
 
-            } else {
-                console.warn(`User ${receiver} is offline. Message remains as 'sent'.`);
+                if (receiverInChat) {
+                    await Message.updateMany(
+                        { sender, receiver, status: { $ne: "read" } },
+                        { $set: { status: "read" } }
+                    );
+
+                    io.to(users[sender]).emit("messages-read", { sender: receiver, receiver: sender });
+                } else {
+                    await Message.updateOne(
+                        { _id: newMessage._id },
+                        { $set: { status: "delivered" } }
+                    );
+                }
             }
 
             io.emit("update-conversation", { sender, receiver, message, timestamp: newMessage.timestamp });
@@ -106,6 +119,7 @@ io.on("connection", (socket) => {
             console.error("Error saving message:", err);
         }
     });
+
 
 
     socket.on("mark-as-read", async ({ sender, receiver }) => {
@@ -120,30 +134,6 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("new-message", async (messageData) => {
-        try {
-            const newMessage = new Message(messageData);
-            await newMessage.save();
-
-            io.to(users[messageData.receiver]).emit("new-message", newMessage);
-
-            const receiverInChat = activeChats[messageData.receiver] === messageData.sender;
-
-            if (receiverInChat) {
-                await Message.updateOne(
-                    { _id: newMessage._id },
-                    { $set: { status: "read" } }
-                );
-
-                io.to(users[messageData.sender]).emit("messages-read", {
-                    sender: messageData.receiver,
-                    receiver: messageData.sender,
-                });
-            }
-        } catch (error) {
-            console.error("Error sending message:", error);
-        }
-    });
 
     socket.on("join-chat", ({ user, chatWith }) => {
         activeChats[user] = chatWith;
