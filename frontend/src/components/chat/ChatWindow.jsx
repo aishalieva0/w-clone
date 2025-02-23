@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MessageList from "./MessageList";
 import MessageInputContainer from "./MessageInputContainer";
 import ChatHeader from "./ChatHeader";
@@ -17,7 +17,8 @@ const ChatWindow = () => {
   const activeChat = useSelector((state) => state.chat.activeChat);
   const dispatch = useDispatch();
   const socket = useSocket();
-
+  const [page, setPage] = useState(1);
+  const messagesRef = useRef(null);
   useEffect(() => {
     if (!socket || !user) return;
     setupSocketListeners(socket, dispatch);
@@ -28,17 +29,22 @@ const ChatWindow = () => {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5001/messages/${user.email}/${activeChat.email}`
+          `http://localhost:5001/messages/${user.email}/${activeChat.email}?page=${page}&limit=30`
         );
 
-        dispatch(setMessages(Array.isArray(data) ? data : []));
+        dispatch(setMessages(Array.isArray(data) ? data.reverse() : []));
       } catch (err) {
         console.error(err);
       }
     };
 
     fetchMessages();
-  }, [activeChat, user, dispatch]);
+  }, [page, activeChat, user, dispatch]);
+
+  useEffect(() => {
+    dispatch(setMessages([]));
+    setPage(1);
+  }, [activeChat]);
 
   useEffect(() => {
     if (!activeChat || !socket || !user) return;
@@ -105,10 +111,26 @@ const ChatWindow = () => {
     sendMessage(socket, newMessage);
     setMessage("");
   };
+
+  const handleScroll = () => {
+    if (messagesRef.current && messagesRef.current.scrollTop === 0) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const sortedMessages = [...messages].sort(
+    (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+  );
   return (
     <div className="chatWindow">
       <ChatHeader activeChat={activeChat} />
-      <MessageList messages={messages} userEmail={user?.email} />
+      <MessageList
+        messages={sortedMessages}
+        userEmail={user?.email}
+        messagesRef={messagesRef}
+        handleScroll={handleScroll}
+        activeChat={activeChat}
+      />
       <MessageInputContainer
         message={message}
         setMessage={setMessage}
