@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import MessageList from "./MessageList";
 import MessageInputContainer from "./MessageInputContainer";
 import ChatHeader from "./ChatHeader";
@@ -33,7 +33,7 @@ const ChatWindow = () => {
         );
 
         if (Array.isArray(data)) {
-          const existingMessages = [...messages]; // Get existing messages
+          const existingMessages = [...messages];
           dispatch(setMessages([...data.reverse(), ...existingMessages]));
         }
       } catch (err) {
@@ -63,38 +63,11 @@ const ChatWindow = () => {
   }, [activeChat, socket, user, dispatch]);
 
   useEffect(() => {
-    if (!socket || !user) return;
-
-    socket.on("new-message", (newMessage) => {
-      dispatch(addMessage(newMessage));
-
-      if (activeChat && newMessage.sender === activeChat.email) {
-        socket.emit("mark-as-read", {
-          sender: newMessage.sender,
-          receiver: user.email,
-        });
-      }
-    });
-
-    return () => socket.off("new-message");
-  }, [socket, user, activeChat, dispatch]);
-
-  useEffect(() => {
     if (!socket || !user || !activeChat) return;
-
     socket.emit("join-chat", { user: user.email, chatWith: activeChat.email });
-
+    socket.emit("register-user", user.email);
     return () => {
       socket.emit("leave-chat", user.email);
-    };
-  }, [socket, user, activeChat]);
-
-  useEffect(() => {
-    if (!socket || !user || !activeChat) return;
-
-    socket.emit("register-user", user.email);
-
-    return () => {
       socket.emit("disconnect-user", user.email);
     };
   }, [socket, user, activeChat]);
@@ -121,9 +94,12 @@ const ChatWindow = () => {
     }
   };
 
-  const sortedMessages = [...messages].sort(
-    (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-  );
+  const sortedMessages = useMemo(() => {
+    return [...messages].sort(
+      (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+    );
+  }, [messages]);
+
   return (
     <div className="chatWindow">
       <ChatHeader activeChat={activeChat} />
