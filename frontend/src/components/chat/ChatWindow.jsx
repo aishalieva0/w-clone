@@ -29,10 +29,13 @@ const ChatWindow = () => {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5001/messages/${user.email}/${activeChat.email}?page=${page}&limit=30`
+          `http://localhost:5001/messages/${user.email}/${activeChat.email}?page=${page}&limit=20`
         );
 
-        dispatch(setMessages(Array.isArray(data) ? data.reverse() : []));
+        if (Array.isArray(data)) {
+          const existingMessages = [...messages]; // Get existing messages
+          dispatch(setMessages([...data.reverse(), ...existingMessages]));
+        }
       } catch (err) {
         console.error(err);
       }

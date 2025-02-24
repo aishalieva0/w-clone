@@ -17,7 +17,7 @@ const chatSlice = createSlice({
             state.messages.push(action.payload);
         },
         setMessages: (state, action) => {
-            state.messages = Array.isArray(action.payload) ? action.payload.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp)) : [];
+            state.messages = Array.isArray(action.payload) ? [...action.payload].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp)) : [];
         },
         setActiveChat: (state, action) => {
             state.activeChat = action.payload;
