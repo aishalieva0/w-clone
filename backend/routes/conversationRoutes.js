@@ -32,10 +32,11 @@ router.get("/:userEmail", async (req, res) => {
                 });
             }
 
-            if (!msg.read && msg.receiver === userEmail) {
+            if (msg.status !== "read" && msg.receiver === userEmail) {
                 conversationsMap.get(chatPartner).unread += 1;
             }
         });
+
 
         const conversations = await Promise.all(
             [...conversationsMap.values()].map(async (conv) => {
@@ -54,5 +55,23 @@ router.get("/:userEmail", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
+
+router.put("/mark-read", async (req, res) => {
+    try {
+        const { sender, receiver } = req.body;
+
+        const result = await Message.updateMany(
+            { sender, receiver, status: { $ne: "read" } },
+            { $set: { status: "read" } }
+        );
+
+        res.json({ success: true, updated: result.modifiedCount });
+    } catch (error) {
+        console.error("Error marking messages as read:", error);
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+
 
 module.exports = router;

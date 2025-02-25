@@ -44,9 +44,12 @@ const ChatList = () => {
                 time: new Date(data.timestamp).toLocaleTimeString([], {
                   hour: "2-digit",
                   minute: "2-digit",
-                  hour12: false, // 24-hour format
+                  hour12: false,
                 }),
-                unread: conv.email === data.sender ? conv.unread + 1 : 0, // Increment unread if it's from sender
+                unread:
+                  conv.email === data.sender
+                    ? (conv.unread || 0) + 1
+                    : conv.unread,
               }
             : conv
         )
@@ -57,6 +60,26 @@ const ChatList = () => {
       socket.off("update-conversation");
     };
   }, [socket]);
+
+  const handleChatClick = async (chat) => {
+    dispatch(setActiveChat(chat));
+
+    try {
+      await axios.put("http://localhost:5001/conversations/mark-read", {
+        sender: chat.email,
+        receiver: user.email,
+      });
+
+      // Update unread count in state
+      setConversations((prev) =>
+        prev.map((conv) =>
+          conv.email === chat.email ? { ...conv, unread: 0 } : conv
+        )
+      );
+    } catch (err) {
+      console.error("Error marking messages as read:", err);
+    }
+  };
 
   return (
     <div className="chatList">
@@ -85,7 +108,7 @@ const ChatList = () => {
               <li
                 className="chatItem"
                 key={index}
-                onClick={() => dispatch(setActiveChat(chat))}
+                onClick={() => handleChatClick(chat)}
               >
                 <div className="profileImg">
                   <img src={DefaultProfilePhoto} alt="profile_photo" />
