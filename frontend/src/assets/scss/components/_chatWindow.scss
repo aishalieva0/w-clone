@@ -6,3 +6,31 @@
   height: 100%;
   background: green;
 }
+.startWindow {
+  background: var(--sidebar-bg);
+  height: 100%;
+  width: 65%;
+  .row {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+
+    .animation {
+      width: 80%;
+      max-width: 280px;
+      height: auto;
+      object-fit: contain;
+    }
+    .text {
+      text-align: center;
+      font-size: 15px;
+      p {
+        color: var(--secondary-text);
+      }
+      :first-child {
+        margin-bottom: 6px;
+      }
+    }
+  }
+}

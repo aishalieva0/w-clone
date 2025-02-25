@@ -8,6 +8,8 @@ import axios from "axios";
 import setupSocketListeners from "../../socket/socketListeners";
 import { markAsRead, sendMessage } from "../../socket/socketActions";
 import { addMessage, setMessages } from "../../redux/slices/chatSlice";
+import AnimationChatBubble from "../../assets/media/animation/AnimationChatBubble.json";
+import Lottie from "lottie-react";
 
 const ChatWindow = () => {
   const [message, setMessage] = useState("");
@@ -99,6 +101,27 @@ const ChatWindow = () => {
       (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
     );
   }, [messages]);
+
+  if (!activeChat) {
+    return (
+      <div className="startWindow">
+        <div className="row">
+          <Lottie
+            animationData={AnimationChatBubble}
+            loop={true}
+            className="animation"
+          />
+          <div className="text">
+            <p>You are not currently in a chat</p>
+            <p>
+              Start by selecting a chat from the sidebar or create a new one by
+              typing a friend's name
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="chatWindow">
