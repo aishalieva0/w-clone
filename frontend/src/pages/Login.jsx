@@ -76,18 +76,22 @@ const Login = () => {
 
   return (
     <div className="login">
-      {userData && !loading && (
+      <div className="container">
         <div className="row">
-          <h4>Enter your name to continue</h4>
-          <input
-            type="text"
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <button onClick={saveUserName}>Continue</button>
+          {userData && !loading && (
+            <div className="content">
+              <h4>Enter your name to continue</h4>
+              <input
+                type="text"
+                placeholder="Your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <button onClick={saveUserName}>Continue</button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
