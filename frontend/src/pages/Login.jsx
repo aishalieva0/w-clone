@@ -86,8 +86,11 @@ const Login = () => {
                 placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                disabled={loading}
               />
-              <button onClick={saveUserName}>Continue</button>
+              <button onClick={saveUserName} disabled={loading}>
+                {loading ? <span className="spinner"></span> : "Continue"}
+              </button>
             </div>
           )}
         </div>
