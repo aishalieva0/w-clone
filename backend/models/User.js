@@ -2,13 +2,19 @@ const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-        },
-        phone: {
+        uid: {
             type: String,
             required: true,
             unique: true,
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+        },
+        name: {
+            type: String,
+            required: true,
         },
         profilePic: {
             type: String,
@@ -26,23 +32,9 @@ const UserSchema = new mongoose.Schema(
             type: Date,
             default: null,
         },
-        otp: {
-            type: String,
-            default: null,
-        },
-        otpExpires: {
-            type: Date,
-            default: null,
-        },
-        privacy: {
-            lastSeen: { type: String, enum: ["everyone", "contacts", "nobody"], default: "everyone" },
-            profilePic: { type: String, enum: ["everyone", "contacts", "nobody"], default: "everyone" },
-            about: { type: String, enum: ["everyone", "contacts", "nobody"], default: "everyone" },
-        },
     },
     { timestamps: true }
 );
 
 const User = mongoose.model("User", UserSchema);
-
 module.exports = User;
