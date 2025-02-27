@@ -18,7 +18,7 @@ const AppRoutes = () => {
             </PrivateRoute>} />
 
 
-            <Route path="*" element={<Welcome />} />
+            <Route path="*" element={<Chat />} />
         </Routes>
     )
 }

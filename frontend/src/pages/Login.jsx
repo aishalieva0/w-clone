@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase/firebaseConfig";
 import { signInWithEmailLink, isSignInWithEmailLink } from "firebase/auth";
 import { setUser } from "../redux/slices/userSlice";
@@ -10,11 +10,17 @@ import notifyToast from "../utils/toastifyMsg";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.user);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/chat");
+      return;
+    }
+
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let storedEmail = localStorage.getItem("emailForSignIn");
 
@@ -49,7 +55,7 @@ const Login = () => {
           notifyToast(error.message, "error");
         });
     }
-  }, [dispatch, navigate]);
+  }, [isAuthenticated, dispatch, navigate]);
 
   const saveUserName = async () => {
     if (!name.trim()) {

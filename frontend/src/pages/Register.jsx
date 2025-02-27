@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../firebase/firebaseConfig";
 import { sendSignInLinkToEmail } from "firebase/auth";
 import notifyToast from "../utils/toastifyMsg";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const { isAuthenticated } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/chat");
+    }
+  }, [isAuthenticated, navigate]);
 
   const sendEmailLink = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
