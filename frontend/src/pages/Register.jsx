@@ -25,7 +25,7 @@ const Register = () => {
     }
 
     const actionCodeSettings = {
-      url: "http://localhost:3000/login",
+      url: "http://localhost:5173/login",
       handleCodeInApp: true,
     };
 

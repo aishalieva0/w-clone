@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment-timezone";
-import { ReactComponent as MsgDeliveredIcon } from "../../assets/media/icons/msgDelivered.svg";
-import { ReactComponent as MsgSentIcon } from "../../assets/media/icons/msgSent.svg";
+import MsgDeliveredIcon from "../../assets/media/icons/msgDelivered.svg?react";
+import  MsgSentIcon from "../../assets/media/icons/msgSent.svg?react";
 
 const MessageItem = ({ message, isSent }) => {
   const localTimestamp = moment(message.timestamp)
@@ -11,6 +11,7 @@ const MessageItem = ({ message, isSent }) => {
     <div
       className={`messageItem ${isSent ? "sentMessage" : "receivedMessage"}`}
     >
+
       <p className="messageText">{message.message}</p>
       <div className="details">
         <span className="messageTimestamp">{localTimestamp}</span>

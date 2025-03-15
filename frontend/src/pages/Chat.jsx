@@ -5,7 +5,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="row">
-        {/* <button onClick={logOutUser}>logout</button> */}
+        <button onClick={logOutUser}>logout</button>
         <Sidebar />
         <ChatWindow />
       </div>

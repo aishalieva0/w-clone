@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
-import { ReactComponent as SendMsgBtn } from "../../assets/media/icons/sendMsgBtn.svg";
-import { ReactComponent as PlusBtn } from "../../assets/media/icons/plusBtn.svg";
-import { ReactComponent as ExpressionBtn } from "../../assets/media/icons/expressionBtn.svg";
-import { ReactComponent as VoiceMsgBtn } from "../../assets/media/icons/voiceMsgBtn.svg";
+import SendMsgBtn from "../../assets/media/icons/sendMsgBtn.svg?react";
+import PlusBtn from "../../assets/media/icons/plusBtn.svg?react";
+import ExpressionBtn  from "../../assets/media/icons/expressionBtn.svg?react";
+import VoiceMsgBtn  from "../../assets/media/icons/voiceMsgBtn.svg?react";
 
 const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
   const textareaRef = useRef(null);
@@ -17,7 +17,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
   return (
     <div className="messageInputContainer">
       <button className="plusBtn">
-        <PlusBtn />
+        <PlusBtn/>
       </button>
 
       <div className="messageInput">

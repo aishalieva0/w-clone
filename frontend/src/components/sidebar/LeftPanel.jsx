@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../redux/slices/sidebarSlice";
-import { ReactComponent as ChatIcon } from "../../assets/media/icons/chat.svg";
-import { ReactComponent as StatusIcon } from "../../assets/media/icons/status.svg";
-import { ReactComponent as SettingIcon } from "../../assets/media/icons/setting.svg";
+import ChatIcon from "../../assets/media/icons/chat.svg?react";
+import StatusIcon from "../../assets/media/icons/status.svg?react";
+import SettingIcon from "../../assets/media/icons/setting.svg?react";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 
 const LeftPanel = () => {

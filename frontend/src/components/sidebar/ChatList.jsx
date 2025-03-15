@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ReactComponent as NewChatIcon } from "../../assets/media/icons/newChat.svg";
-import { ReactComponent as MoreIcon } from "../../assets/media/icons/more.svg";
+import  NewChatIcon from "../../assets/media/icons/newChat.svg?react";
+import MoreIcon from "../../assets/media/icons/more.svg?react";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import { useSocket } from "../../context/socket";
 import { useDispatch, useSelector } from "react-redux";

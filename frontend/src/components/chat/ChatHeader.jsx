@@ -1,8 +1,8 @@
 import React from "react";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
-import { ReactComponent as VideoCallIcon } from "../../assets/media/icons/videoCallBtn.svg";
-import { ReactComponent as SearchIcon } from "../../assets/media/icons/searchBtn.svg";
-import { ReactComponent as MoreIcon } from "../../assets/media/icons/more.svg";
+import VideoCallIcon from "../../assets/media/icons/videoCallBtn.svg";
+import SearchIcon from "../../assets/media/icons/searchBtn.svg";
+import MoreIcon from "../../assets/media/icons/more.svg";
 
 const ChatHeader = ({ activeChat }) => {
   return (
@@ -19,15 +19,15 @@ const ChatHeader = ({ activeChat }) => {
           </div>
           <div className="chatOptions">
             <button className="videoCall">
-              <VideoCallIcon />
+              {/* <VideoCallIcon /> */}
             </button>
 
             <button className="videoCall">
-              <SearchIcon />
+              {/* <SearchIcon /> */}
             </button>
 
             <button className="videoCall">
-              <MoreIcon />
+              {/* <MoreIcon /> */}
             </button>
           </div>
         </div>
