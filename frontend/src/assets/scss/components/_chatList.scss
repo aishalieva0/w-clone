@@ -2,9 +2,7 @@
   width: 100%;
   margin: 0 auto;
   background: var(--bg-color);
-  padding: 25px 0 25px 15px;
-  .container {
-    width: 100%;
+  padding: 20px 0 25px 15px;
     .row {
       flex-direction: column;
       gap: 20px;
@@ -16,11 +14,6 @@
           display: flex;
           gap: 25px;
           padding: 0 10px;
-          .icon {
-            color: var(--icon);
-            width: 28px;
-            height: auto;
-          }
         }
       }
       .searchBar {
@@ -66,7 +59,7 @@
         padding-right: 15px;
         overflow-y: auto;
         scrollbar-width: thin;
-        scrollbar-color: var(----scrollbar-color) transparent;
+        scrollbar-color: var(--scrollbar-color) transparent;
         .chatItem {
           display: flex;
           align-items: center;
@@ -132,4 +125,3 @@
       }
     }
   }
-}

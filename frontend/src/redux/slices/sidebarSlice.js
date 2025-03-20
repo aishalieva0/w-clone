@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    activeTab: "chats",
+    activeTab: "chatsTab",
 };
 
 const sidebarSlice = createSlice({

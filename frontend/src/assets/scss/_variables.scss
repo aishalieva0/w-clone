@@ -12,12 +12,21 @@
   --accent: #25d366;
   --link: #0078f4;
   --icon: #54656f; // #54656F #3B4A54
+  --highlighted-bg: #f0f2f5;
   --sidebar-bg: #f0f2f5;
   --sidebar-hover: #f0f2f5; // #d9dbdf;
   --active-tab-bg: #e7fce3;
   --blue-light: #009de2;
   --chat-scroll-color: rgba(11, 20, 26, 0.2);
   --scrollbar-color: #c2c6c9;
+  --overlay-background: rgba(84, 101, 111, 0.8);
+  --teal: #008069;
+  --icon-fixed: #8696a0;
+  --input-border: #667781;
+  --input-border-active: #00a884;
+  --secondary-light: #d1d7db;
+  --secondary-dark: #3b4a54;
+  --divider: rgba(17, 27, 33, 0.1);
 }
 
 // Dark Mode Colors
@@ -32,8 +41,12 @@
   --accent: #25d366;
   --link: #0078f4;
   --icon: #aebac1;
+  --highlighted-bg: #111b21;
   --sidebar-bg: #202c33; //#8696A0
   --sidebar-hover: #2a3942; // #202C33
   --active-tab-bg: #0a332c;
   --scrollbar-color: #323a3f90;
+  --secondary-light: #54656f;
+  --secondary-dark: #d1d7db;
+  --divider: rgba(255, 255, 255, 0.1);
 }

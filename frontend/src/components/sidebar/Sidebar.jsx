@@ -10,16 +10,16 @@ const Sidebar = () => {
   const activeTab = useSelector((state) => state.sidebar.activeTab);
   let ContentComponent;
   switch (activeTab) {
-    case "chats":
+    case "chatsTab":
       ContentComponent = <ChatList />;
       break;
-    case "status":
+    case "statusTab":
       ContentComponent = <StatusList />;
       break;
-    case "setting":
+    case "settingTab":
       ContentComponent = <Settings />;
       break;
-    case "profile":
+    case "profileTab":
       ContentComponent = <Profile />;
       break;
     default:

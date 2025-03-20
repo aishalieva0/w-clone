@@ -24,6 +24,17 @@ body {
   width: 100%;
 }
 
+.icon {
+  color: var(--icon);
+  width: 28px;
+  height: auto;
+  cursor: pointer;
+}
+
+.icon-fixed {
+  color: #8696a0 !important;
+}
+
 .spinner {
   width: 15px;
   height: 15px;

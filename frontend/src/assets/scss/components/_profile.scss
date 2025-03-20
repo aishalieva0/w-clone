@@ -1,0 +1,179 @@
+.profile {
+  margin: 0 auto;
+  width: 100%;
+  border: 1px solid var(--scrollbar-color);
+  .row {
+    flex-direction: column;
+    gap: 20px;
+    background: var(--highlighted-bg);
+
+    .heading {
+      background: var(--bg-color);
+      padding: 20px 0 20px 15px;
+      h2 {
+        color: var(--text-color);
+      }
+    }
+    .profileContent {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      background: var(--highlighted-bg);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-color) transparent;
+
+      .profileImgContainer {
+        padding: 10px 0;
+        background: var(--highlighted-bg);
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        position: relative;
+        .profileImg {
+          height: 220px;
+          width: 220px;
+          img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+        .editImg {
+          background: var(--overlay-background);
+          height: 220px;
+          width: 220px;
+          border-radius: 50%;
+          position: absolute;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          color: rgba(233, 237, 239, 0.8);
+          .icon {
+            color: #fff;
+            margin-top: 15px;
+          }
+          span {
+            margin-top: 10px;
+
+            text-transform: uppercase;
+            font-size: 14px;
+            width: 50%;
+            text-align: center;
+          }
+        }
+        .optionList {
+          display: none;
+          background: var(--received-msg);
+          position: absolute;
+          left: 0;
+          top: 0;
+          flex-direction: column;
+          padding: 8px 0;
+          .divider {
+            border-style: none;
+            border-top: 1px solid var(--divider);
+            margin: 5px 0;
+          }
+          .optionItem {
+            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            padding: 10px 22px 10px 11px;
+            align-items: center;
+            transition: 0.3s ease;
+            &:hover {
+              background: var(--highlighted-bg);
+            }
+            span {
+              color: var(--secondary-dark);
+              font-size: 15px;
+            }
+          }
+        }
+      }
+      .profileInfo {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: var(--bg-color);
+        .desc {
+          background: var(--highlighted-bg);
+          width: 100%;
+          height: 75px;
+          p {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px 0;
+            color: var(--icon);
+          }
+        }
+
+        .detailContainer {
+          background: var(--bg-color);
+          width: 90%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          padding: 10px 0 20px;
+          display: flex;
+          gap: 20px;
+          .title {
+            color: var(--teal);
+          }
+          .display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            p {
+              color: var(--text-color);
+              font-size: 16px;
+            }
+          }
+          .inputGroup {
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            input {
+              padding-bottom: 10px;
+              background: transparent;
+              width: 100%;
+              border: none;
+              outline: none;
+              font-size: 16px;
+              color: var(--text-color);
+              border-bottom: 3px solid var(--input-border);
+              &:focus {
+                border-bottom: 3px solid var(--input-border-active);
+              }
+            }
+            .btnGroup {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: absolute;
+              right: 0;
+              margin-bottom: 20px;
+              gap: 15px;
+              .letterCount {
+                color: var(--secondary-light);
+                font-size: 14px;
+              }
+              .iconGroup {
+                .emoji {
+                  color: #8d9599;
+                  width: 24px;
+                  height: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

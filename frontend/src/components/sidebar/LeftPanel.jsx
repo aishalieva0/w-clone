@@ -15,28 +15,28 @@ const LeftPanel = () => {
       <div className="row">
         <ul className="topList">
           <li
-            className={`topItem ${activeTab} === "chats" ? "active" : ""`}
-            onClick={() => dispatch(setActiveTab("chats"))}
+            className={`topItem ${activeTab} === "chatsTab" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("chatsTab"))}
           >
             <ChatIcon className="icon" />
           </li>
           <li
-            className={`topItem ${activeTab} === "status" ? "active" : ""`}
-            onClick={() => dispatch(setActiveTab("status"))}
+            className={`topItem ${activeTab} === "statusTab" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("statusTab"))}
           >
             <StatusIcon className="icon" />
           </li>
         </ul>
         <ul className="bottomList">
           <li
-            className={`bottomItem ${activeTab} === "setting" ? "active" : ""`}
-            onClick={() => dispatch(setActiveTab("setting"))}
+            className={`bottomItem ${activeTab} === "settingTab" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("settingTab"))}
           >
             <SettingIcon className="icon" />
           </li>
           <li
-            className={`bottomItem ${activeTab} === "profile" ? "active" : ""`}
-            onClick={() => dispatch(setActiveTab("profile"))}
+            className={`bottomItem ${activeTab} === "profileTab" ? "active" : ""`}
+            onClick={() => dispatch(setActiveTab("profileTab"))}
           >
             <img src={DefaultProfilePhoto} alt="profile_photo" />
           </li>

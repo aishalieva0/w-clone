@@ -108,7 +108,7 @@ const ChatList = () => {
 
   return (
     <div className="chatList">
-      <div className="container">
+      {/* <div className="container"> */}
         <div className="row">
           <div className="heading">
             <div className="title">
@@ -183,7 +183,7 @@ const ChatList = () => {
           </ul>
         </div>
       </div>
-    </div>
+    // </div>
   );
 };
 
