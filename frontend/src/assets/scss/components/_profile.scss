@@ -10,6 +10,7 @@
     .heading {
       background: var(--bg-color);
       padding: 20px 0 20px 15px;
+      user-select: none;
       h2 {
         color: var(--text-color);
       }
@@ -29,67 +30,76 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        position: relative;
         .profileImg {
           height: 220px;
           width: 220px;
+          user-select: none;
+
           img {
             border-radius: 50%;
             width: 100%;
             height: 100%;
             object-fit: contain;
-          }
-        }
-        .editImg {
-          background: var(--overlay-background);
-          height: 220px;
-          width: 220px;
-          border-radius: 50%;
-          position: absolute;
-          display: none;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          color: rgba(233, 237, 239, 0.8);
-          .icon {
-            color: #fff;
-            margin-top: 15px;
-          }
-          span {
-            margin-top: 10px;
-
-            text-transform: uppercase;
-            font-size: 14px;
-            width: 50%;
-            text-align: center;
-          }
-        }
-        .optionList {
-          display: none;
-          background: var(--received-msg);
-          position: absolute;
-          left: 0;
-          top: 0;
-          flex-direction: column;
-          padding: 8px 0;
-          .divider {
-            border-style: none;
-            border-top: 1px solid var(--divider);
-            margin: 5px 0;
-          }
-          .optionItem {
             cursor: pointer;
+          }
+          .editImg {
+            background: var(--overlay-background);
+            height: 220px;
+            width: 220px;
+            border-radius: 50%;
+            transform: translateY(-102%) translateX(0);
             display: flex;
-            gap: 10px;
-            padding: 10px 22px 10px 11px;
             align-items: center;
-            transition: 0.3s ease;
-            &:hover {
-              background: var(--highlighted-bg);
+            justify-content: center;
+            flex-direction: column;
+            color: rgba(233, 237, 239, 0.8);
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            user-select: none;
+            cursor: pointer;
+            .icon {
+              color: #fff;
+              margin-top: 15px;
+              cursor: pointer;
             }
             span {
-              color: var(--secondary-dark);
-              font-size: 15px;
+              margin-top: 10px;
+              text-transform: uppercase;
+              font-size: 14px;
+              width: 50%;
+              text-align: center;
+              cursor: pointer;
+            }
+          }
+          .optionList {
+            display: flex;
+            background: var(--received-msg);
+            position: absolute;
+            flex-direction: column;
+            padding: 8px 0;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            visibility: hidden;
+            user-select: none;
+            .divider {
+              border-style: none;
+              border-top: 1px solid var(--divider);
+              margin: 5px 0;
+            }
+            .optionItem {
+              cursor: pointer;
+              display: flex;
+              gap: 10px;
+              padding: 10px 22px 10px 11px;
+              align-items: center;
+              transition: 0.3s ease;
+              &:hover {
+                background: var(--highlighted-bg);
+              }
+              span {
+                color: var(--secondary-dark);
+                font-size: 15px;
+              }
             }
           }
         }

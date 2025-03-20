@@ -35,6 +35,11 @@ body {
   color: #8696a0 !important;
 }
 
+.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .spinner {
   width: 15px;
   height: 15px;
