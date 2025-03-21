@@ -30,6 +30,11 @@ body {
   height: auto;
   cursor: pointer;
 }
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
 
 .icon-fixed {
   color: #8696a0 !important;
@@ -38,6 +43,14 @@ body {
 .visible {
   opacity: 1 !important;
   visibility: visible !important;
+  position: static !important;
+}
+
+.visible-static {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: static !important;
+  transform: translateY(5px) !important;
 }
 
 .spinner {

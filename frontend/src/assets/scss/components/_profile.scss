@@ -21,6 +21,7 @@
       gap: 25px;
       background: var(--highlighted-bg);
       overflow-y: auto;
+      overflow-x: hidden;
       scrollbar-width: thin;
       scrollbar-color: var(--scrollbar-color) transparent;
 
@@ -130,24 +131,38 @@
           padding: 10px 0 20px;
           display: flex;
           gap: 20px;
+          position: relative;
           .title {
             color: var(--teal);
           }
           .display {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            gap: 10px;
+            align-items: flex-start;
+            transition: opacity 0.3s ease-in-out;
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+
             p {
               color: var(--text-color);
               font-size: 16px;
+              padding-bottom: 10px;
+              width: 90%;
+              word-break: break-all;
+            }
+            .icon {
+              margin-bottom: 10px;
             }
           }
           .inputGroup {
-            display: none;
-            justify-content: space-between;
-            align-items: center;
+            display: flex;
             position: relative;
+            transition: opacity 0.3s ease-in-out;
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
             input {
               padding-bottom: 10px;
               background: transparent;
@@ -156,9 +171,25 @@
               outline: none;
               font-size: 16px;
               color: var(--text-color);
-              border-bottom: 3px solid var(--input-border);
+              border-bottom: 2px solid var(--input-border);
               &:focus {
-                border-bottom: 3px solid var(--input-border-active);
+                border-bottom: 2px solid var(--input-border-active);
+              }
+            }
+            textarea {
+              padding-bottom: 10px;
+              background: transparent;
+              width: 100%;
+              border: none;
+              outline: none;
+              overflow: hidden;
+              resize: none;
+              font-size: 16px;
+              color: var(--text-color);
+              border-bottom: 2px solid var(--input-border);
+              padding-right: 88px;
+              &:focus {
+                border-bottom: 2px solid var(--input-border-active);
               }
             }
             .btnGroup {
@@ -167,8 +198,9 @@
               justify-content: center;
               position: absolute;
               right: 0;
-              margin-bottom: 20px;
               gap: 15px;
+              margin-bottom: 10px;
+              transform: translateY(-6px);
               .letterCount {
                 color: var(--secondary-light);
                 font-size: 14px;
