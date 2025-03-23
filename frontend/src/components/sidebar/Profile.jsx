@@ -1,4 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeEmojiPicker,
+  openEmojiPicker,
+  setSelectedEmoji,
+} from "../../redux/slices/emojiSlice";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import CameraIcon from "../../assets/media/icons/camera.svg?react";
 import EmojiInput from "../../assets/media/icons/emojiInput.svg?react";
@@ -8,8 +14,11 @@ import View from "../../assets/media/icons/view.svg?react";
 import CameraOutline from "../../assets/media/icons/cameraOutline.svg?react";
 import Folder from "../../assets/media/icons/folder.svg?react";
 import Delete from "../../assets/media/icons/delete.svg?react";
+import EmojiPicker from "../EmojiPicker";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const { targetInput, selectedEmoji } = useSelector((state) => state.emoji);
   const [isEditingName, setIsEditingName] = useState(false);
   const [name, setName] = useState("aisha");
   const [isEditingAbout, setIsEditingAbout] = useState(false);
@@ -22,6 +31,7 @@ const Profile = () => {
   const optionRef = useRef(null);
   const nameRef = useRef(null);
   const aboutRef = useRef(null);
+  const emojiPickerRef = useRef(null);
 
   const handleOptionClick = (e) => {
     setOptionVisible(!optionVisible);
@@ -31,6 +41,14 @@ const Profile = () => {
     if (optionRef.current && !optionRef.current.contains(e.target)) {
       setOptionVisible(false);
       setShowEditImg(false);
+    }
+
+    if (
+      emojiPickerRef.current &&
+      !emojiPickerRef.current.contains(e.target) &&
+      !e.target.closest(".emojiBtn")
+    ) {
+      dispatch(closeEmojiPicker());
     }
   };
 
@@ -60,6 +78,48 @@ const Profile = () => {
       aboutRef.current.focus();
     }
   }, [isEditingName, isEditingAbout]);
+
+  useEffect(() => {
+    if (selectedEmoji && targetInput) {
+      handleEmojiSelect(selectedEmoji, targetInput);
+      dispatch(setSelectedEmoji(null));
+    }
+  }, [selectedEmoji, targetInput]);
+
+  const handleEmojiSelect = (emoji, target) => {
+    if (target === "name") {
+      insertAtCursor(nameRef.current, setName, emoji);
+    } else if (target === "about") {
+      insertAtCursor(aboutRef.current, setAbout, emoji);
+    }
+  };
+
+  const handleEmojiButtonClick = (e, target) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    dispatch(
+      openEmojiPicker({
+        target,
+        position: {
+          top: rect.top + window.scrollY,
+          left: rect.left + window.scrollX,
+        },
+      })
+    );
+  };
+
+  const insertAtCursor = (input, setState, emoji) => {
+    if (!input) return;
+    const { selectionStart, selectionEnd, value } = input;
+    const newValue =
+      value.substring(0, selectionStart) +
+      emoji +
+      value.substring(selectionEnd);
+    setState(newValue);
+    setTimeout(() => {
+      input.selectionStart = input.selectionEnd = selectionStart + emoji.length;
+      input.focus();
+    }, 0);
+  };
 
   return (
     <div className="profile">
@@ -142,7 +202,10 @@ const Profile = () => {
                 <div className="btnGroup">
                   <span className="letterCount">{25 - name.length}</span>
                   <div className="iconGroup">
-                    <button>
+                    <button
+                      className="emojiBtn"
+                      onClick={(e) => handleEmojiButtonClick(e, "name")}
+                    >
                       <EmojiInput className="icon emoji" />
                     </button>
                     <button
@@ -191,7 +254,10 @@ const Profile = () => {
                 <div className="btnGroup">
                   <span className="letterCount">{139 - about.length}</span>
                   <div className="iconGroup">
-                    <button>
+                    <button
+                      className="emojiBtn"
+                      onClick={(e) => handleEmojiButtonClick(e, "about")}
+                    >
                       <EmojiInput className="icon emoji" />
                     </button>
                     <button
@@ -208,6 +274,11 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      {targetInput && (
+        <div ref={emojiPickerRef} className="emojiField">
+          <EmojiPicker />
+        </div>
+      )}
     </div>
   );
 };

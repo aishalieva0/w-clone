@@ -82,6 +82,7 @@
             opacity: 0;
             visibility: hidden;
             user-select: none;
+            z-index: 9;
             .divider {
               border-style: none;
               border-top: 1px solid var(--divider);
@@ -157,12 +158,12 @@
           }
           .inputGroup {
             display: flex;
-            position: relative;
             transition: opacity 0.3s ease-in-out;
             visibility: hidden;
             opacity: 0;
             position: absolute;
             width: 100%;
+            z-index: 5;
             input {
               padding-bottom: 10px;
               background: transparent;
