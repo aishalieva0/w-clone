@@ -5,6 +5,8 @@ import {
   openEmojiPicker,
   setSelectedEmoji,
 } from "../../redux/slices/emojiSlice";
+import { setUser } from "../../redux/slices/userSlice";
+import axios from "axios";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import CameraIcon from "../../assets/media/icons/camera.svg?react";
 import EmojiInput from "../../assets/media/icons/emojiInput.svg?react";
@@ -15,16 +17,16 @@ import CameraOutline from "../../assets/media/icons/cameraOutline.svg?react";
 import Folder from "../../assets/media/icons/folder.svg?react";
 import Delete from "../../assets/media/icons/delete.svg?react";
 import EmojiPicker from "../EmojiPicker";
+import notifyToast from "../../utils/toastifyMsg";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { targetInput, selectedEmoji } = useSelector((state) => state.emoji);
+  const { user } = useSelector((state) => state.user);
   const [isEditingName, setIsEditingName] = useState(false);
-  const [name, setName] = useState("aisha");
+  const [name, setName] = useState("");
   const [isEditingAbout, setIsEditingAbout] = useState(false);
-  const [about, setAbout] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  );
+  const [about, setAbout] = useState("");
   const [optionVisible, setOptionVisible] = useState(false);
   const [optionPosition, setOptionPosition] = useState({ top: 0, left: 0 });
   const [showEditImg, setShowEditImg] = useState(false);
@@ -37,6 +39,7 @@ const Profile = () => {
     setOptionVisible(!optionVisible);
     setOptionPosition({ top: e.clientY, left: e.clientX });
   };
+
   const handleClickOutside = (e) => {
     if (optionRef.current && !optionRef.current.contains(e.target)) {
       setOptionVisible(false);
@@ -119,6 +122,25 @@ const Profile = () => {
       input.selectionStart = input.selectionEnd = selectionStart + emoji.length;
       input.focus();
     }, 0);
+  };
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setAbout(user.about);
+    }
+  }, [user]);
+
+  const handleSave = async () => {
+    try {
+      const res = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/users/${user.uid}`,
+        { name, about }
+      );
+      dispatch(setUser(res.data));
+    } catch (error) {
+      console.error("Error updating profile", error);
+    }
   };
 
   return (
@@ -210,7 +232,12 @@ const Profile = () => {
                     </button>
                     <button
                       onClick={() => {
+                        if (!name.trim()) {
+                          notifyToast("Name cannot be empty!", "error");
+                          return;
+                        }
                         setIsEditingName(false);
+                        handleSave();
                       }}
                     >
                       <CheckMark className="icon icon-fixed" />
@@ -262,7 +289,12 @@ const Profile = () => {
                     </button>
                     <button
                       onClick={() => {
+                        if (!about.trim()) {
+                          notifyToast("Name cannot be empty!", "error");
+                          return;
+                        }
                         setIsEditingAbout(false);
+                        handleSave();
                       }}
                     >
                       <CheckMark className="icon icon-fixed" />

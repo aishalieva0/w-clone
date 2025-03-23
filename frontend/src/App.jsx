@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter } from "react-router-dom";
 import store from "./redux/store";
-import { auth } from "./firebase/firebaseConfig";
-import { setUser, logout } from "./redux/slices/userSlice";
 import AppRoutes from "./routes/AppRoutes";
 import { SocketProvider } from "./context/socket";
 import { ToastContainer } from "react-toastify";
 import useSocketEvents from "./socket/useSocketEvents";
+import { handleLogin } from "./firebase/auth";
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -17,15 +15,7 @@ const AppContent = () => {
   useSocketEvents();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(setUser({ email: user.email, uid: user.uid }));
-      } else {
-        dispatch(logout());
-      }
-    });
-
-    return () => unsubscribe();
+    handleLogin(dispatch);
   }, [dispatch]);
 
   if (loading) return null;
