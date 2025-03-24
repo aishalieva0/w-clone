@@ -27,6 +27,7 @@ app.use(cors());
 app.use('/users', userRoutes)
 app.use("/messages", messageRoutes);
 app.use("/conversations", conversationRoutes);
+app.use("/uploads", express.static("uploads"));
 
 // Connect to MongoDB
 mongoose
