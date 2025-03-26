@@ -30,6 +30,8 @@ const Profile = () => {
   const [optionVisible, setOptionVisible] = useState(false);
   const [optionPosition, setOptionPosition] = useState({ top: 0, left: 0 });
   const [showEditImg, setShowEditImg] = useState(false);
+  const [profileImage, setProfileImage] = useState(null);
+  const fileInputRef = useRef(null);
   const optionRef = useRef(null);
   const nameRef = useRef(null);
   const aboutRef = useRef(null);
@@ -128,6 +130,13 @@ const Profile = () => {
     if (user) {
       setName(user.name);
       setAbout(user.about);
+      if (user.profilePic) {
+        setProfileImage(
+          `${import.meta.env.VITE_BASE_URL}/uploads/${user.profilePic}`
+        );
+      } else {
+        setProfileImage(null);
+      }
     }
   }, [user]);
 
@@ -140,6 +149,61 @@ const Profile = () => {
       dispatch(setUser(res.data));
     } catch (error) {
       console.error("Error updating profile", error);
+    }
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      notifyToast("Only JPG, PNG, and WEBP files are allowed!", "error");
+      return;
+    }
+
+    if (file.size > 2 * 1024 * 1024) {
+      notifyToast("File size should be less than 2MB!", "error");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      setProfileImage(reader.result);
+      await uploadProfileImage(file);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const uploadProfileImage = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("profilePic", file);
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/users/${user.uid}/profile-photo`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      dispatch(setUser({ ...user, profilePic: res.data.profilePic }));
+      notifyToast("Profile photo updated!", "success");
+    } catch (error) {
+      notifyToast("Failed to update profile photo!", "error");
+      console.error("Upload error:", error);
+    }
+  };
+
+  const handleRemovePhoto = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_BASE_URL}/users/${user.uid}/profile-photo`
+      );
+      setProfileImage(DefaultProfilePhoto);
+      dispatch(setUser({ ...user, profilePic: "" }));
+      notifyToast("Profile photo removed!", "success");
+    } catch (error) {
+      notifyToast(error, "error");
     }
   };
 
@@ -157,7 +221,10 @@ const Profile = () => {
               onMouseEnter={() => setShowEditImg(true)}
               onMouseLeave={() => !optionVisible && setShowEditImg(false)}
             >
-              <img src={DefaultProfilePhoto} alt="Profile Image" />
+              <img
+                src={profileImage || DefaultProfilePhoto}
+                alt="Profile Image"
+              />
               <div
                 className={`editImg ${
                   showEditImg || optionVisible ? "visible" : ""
@@ -171,25 +238,42 @@ const Profile = () => {
                 className={`optionList ${optionVisible ? "visible" : ""}`}
                 style={{ top: optionPosition.top, left: optionPosition.left }}
               >
-                <li className="optionItem">
-                  <View className="icon" />
-                  <span>View photo</span>
-                </li>
+                {profileImage && (
+                  <li className="optionItem">
+                    <View className="icon" />
+                    <span>View photo</span>
+                  </li>
+                )}
+
                 <li className="optionItem">
                   <CameraOutline className="icon" />
                   <span>Take photo</span>
                 </li>
-                <li className="optionItem">
+                <li
+                  className="optionItem"
+                  onClick={() => fileInputRef.current.click()}
+                >
                   <Folder className="icon" />
                   <span>Upload photo</span>
                 </li>
-                <hr className="divider" />
-                <li className="optionItem">
-                  <Delete className="icon" />
-                  <span>Remove photo</span>
-                </li>
+                {profileImage && (
+                  <>
+                    <hr className="divider" />
+                    <li className="optionItem" onClick={handleRemovePhoto}>
+                      <Delete className="icon" />
+                      <span>Remove photo</span>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              style={{ display: "none" }}
+              accept="image/png, image/jpeg, image/webp"
+              onChange={handleFileChange}
+            />
           </div>
           <div className="profileInfo">
             <div className="detailContainer">

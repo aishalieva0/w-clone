@@ -1,47 +1,49 @@
 .messageInputContainer {
-  display: flex;
   background: var(--sidebar-bg);
-  justify-content: space-around;
-  align-items: center;
   padding: 8px 15px 10px 15px;
 
-  .messageInput {
-    background: var(--sidebar-hover);
-    width: 90%;
-    padding: 15px;
+  .row {
     display: flex;
-    gap: 10px;
-    border-radius: 10px;
-    textarea {
+    justify-content: space-around;
+    align-items: center;
+    .messageInput {
       background: var(--sidebar-hover);
-      width: 100%;
-      outline: none;
-      border: none;
-      resize: none;
-      font-size: 16px;
-      min-height: 20px;
-      max-height: 200px;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--chat-scroll-color) transparent;
-      &::placeholder {
-        font-size: 17px;
-        color: var(--icon);
+      width: 90%;
+      padding: 15px;
+      display: flex;
+      gap: 10px;
+      border-radius: 10px;
+      textarea {
+        background: var(--sidebar-hover);
+        width: 100%;
+        outline: none;
+        border: none;
+        resize: none;
+        font-size: 16px;
+        min-height: 20px;
+        max-height: 200px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--chat-scroll-color) transparent;
+        &::placeholder {
+          font-size: 17px;
+          color: var(--icon);
+        }
       }
     }
-  }
-  .plusBtn,
-  .sendVoiceMsgBtn,
-  .sendMsgBtn {
-    margin-bottom: 12px;
-  }
-  button {
-    background: none;
-    border: none;
-    display: flex;
-    align-items: flex-end;
-    align-self: flex-end;
-    color: var(--icon);
-    cursor: pointer;
+    .plusBtn,
+    .sendVoiceMsgBtn,
+    .sendMsgBtn {
+      margin-bottom: 12px;
+    }
+    button {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: flex-end;
+      align-self: flex-end;
+      color: var(--icon);
+      cursor: pointer;
+    }
   }
 }
