@@ -51,7 +51,9 @@ const ChatWindow = () => {
   useEffect(() => {
     dispatch(setMessages([]));
     setPage(1);
-    chatWindowRef.current.classList.remove("open");
+    if (chatWindowRef.current) {
+      chatWindowRef.current.classList.remove("open");
+    }
   }, [activeChat]);
 
   useEffect(() => {
@@ -127,7 +129,7 @@ const ChatWindow = () => {
   }
 
   return (
-    <div className="chatWindow open" ref={chatWindowRef}>
+    <div className="chatWindow" ref={chatWindowRef}>
       <div className="row">
         <ChatHeader activeChat={activeChat} chatWindowRef={chatWindowRef} />
         <MessageList

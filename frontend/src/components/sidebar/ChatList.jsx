@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewChatIcon from "../../assets/media/icons/newChat.svg?react";
 import MoreIcon from "../../assets/media/icons/more.svg?react";
-import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
+import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 import { useSocket } from "../../context/socket";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -140,8 +140,19 @@ const ChatList = () => {
                   handleChatClick(user);
                 }}
               >
-                <div className="profileImg">
-                  <img src={DefaultProfilePhoto} alt="profile_photo" />
+                <div className="profileImgContainer">
+                  <div className="profileImg">
+                    {user.profilePic ? (
+                      <img
+                        src={`${import.meta.env.VITE_BASE_URL}/uploads/${
+                          user.profilePic
+                        }`}
+                        alt="profile image"
+                      />
+                    ) : (
+                      <DefaultProfilePhoto className="defaultImg" />
+                    )}
+                  </div>
                 </div>
                 <div className="content">
                   <div className="info">
@@ -162,8 +173,19 @@ const ChatList = () => {
                 key={index}
                 onClick={() => handleChatClick(chat)}
               >
-                <div className="profileImg">
-                  <img src={DefaultProfilePhoto} alt="profile_photo" />
+                <div className="profileImgContainer">
+                  <div className="profileImg">
+                    {chat.profilePic ? (
+                      <img
+                        src={`${import.meta.env.VITE_BASE_URL}/uploads/${
+                          chat.profilePic
+                        }`}
+                        alt="profile image"
+                      />
+                    ) : (
+                      <DefaultProfilePhoto className="defaultImg" />
+                    )}
+                  </div>
                 </div>
                 <div className="content">
                   <div className="info">

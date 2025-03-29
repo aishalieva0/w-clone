@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
+import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 import VideoCallIcon from "../../assets/media/icons/videoCallBtn.svg";
 import SearchIcon from "../../assets/media/icons/searchBtn.svg";
 import MoreIcon from "../../assets/media/icons/more.svg";
@@ -19,7 +19,16 @@ const ChatHeader = ({ activeChat, chatWindowRef }) => {
             }}
           >
             <div className="userProfile">
-              <img src={DefaultProfilePhoto} alt="User" />
+              {activeChat.profilePic ? (
+                <img
+                  src={`${import.meta.env.VITE_BASE_URL}/uploads/${
+                    activeChat.profilePic
+                  }`}
+                  alt="profile image"
+                />
+              ) : (
+                <DefaultProfilePhoto className="defaultImg" />
+              )}
             </div>
             <div className="userName">
               <h3>{activeChat?.email}</h3>
