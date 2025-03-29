@@ -44,7 +44,8 @@ router.get("/:userEmail", async (req, res) => {
                 return {
                     ...conv,
                     name: user ? user.name : "Unknown",
-                    profilePhoto: user ? user.profilePhoto : null,
+                    profilePic: user ? user.profilePic : null,
+                    about: user ? user.about : null,
                 };
             })
         );

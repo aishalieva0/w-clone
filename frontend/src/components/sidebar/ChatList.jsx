@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import  NewChatIcon from "../../assets/media/icons/newChat.svg?react";
+import NewChatIcon from "../../assets/media/icons/newChat.svg?react";
 import MoreIcon from "../../assets/media/icons/more.svg?react";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import { useSocket } from "../../context/socket";
@@ -109,80 +109,80 @@ const ChatList = () => {
   return (
     <div className="chatList">
       {/* <div className="container"> */}
-        <div className="row">
-          <div className="heading">
-            <div className="title">
-              <h2>Chats</h2>
-            </div>
-            <div className="moreIcons">
-              <NewChatIcon className="icon" />
-              <MoreIcon className="icon" />
-            </div>
+      <div className="row">
+        <div className="heading">
+          <div className="title">
+            <h2>Chats</h2>
           </div>
-          <div className="searchBar">
-            <input
-              type="text"
-              name="search"
-              id="search"
-              placeholder="Search"
-              value={query}
-              onChange={handleSearch}
-            />
+          <div className="moreIcons">
+            <NewChatIcon className="icon" />
+            <MoreIcon className="icon" />
           </div>
-          <ul className="conversationList">
-            {query && results.length > 0 ? (
-              results.map((user, index) => (
-                <li
-                  className="chatItem"
-                  key={index}
-                  onClick={() => {
-                    startChat(user);
-                    handleChatClick(user);
-                  }}
-                >
-                  <div className="profileImg">
-                    <img src={DefaultProfilePhoto} alt="profile_photo" />
-                  </div>
-                  <div className="content">
-                    <div className="info">
-                      <h3>{user.name}</h3>
-                      <p>{user.email}</p>
-                    </div>
-                  </div>
-                </li>
-              ))
-            ) : query.length > 0 && results.length === 0 ? (
-              <div className="noResult">
-                <span>No users found.</span>
-              </div>
-            ) : (
-              conversations.map((chat, index) => (
-                <li
-                  className="chatItem"
-                  key={index}
-                  onClick={() => handleChatClick(chat)}
-                >
-                  <div className="profileImg">
-                    <img src={DefaultProfilePhoto} alt="profile_photo" />
-                  </div>
-                  <div className="content">
-                    <div className="info">
-                      <h3>{chat.name}</h3>
-                      <p>{chat.lastMessage}</p>
-                    </div>
-                    <div className="details">
-                      <span className="date">{chat.time}</span>
-                      {chat.unread > 0 && (
-                        <span className="unread">{chat.unread}</span>
-                      )}
-                    </div>
-                  </div>
-                </li>
-              ))
-            )}
-          </ul>
         </div>
+        <div className="searchBar">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search"
+            value={query}
+            onChange={handleSearch}
+          />
+        </div>
+        <ul className="conversationList">
+          {query && results.length > 0 ? (
+            results.map((user, index) => (
+              <li
+                className="chatItem"
+                key={index}
+                onClick={() => {
+                  startChat(user);
+                  handleChatClick(user);
+                }}
+              >
+                <div className="profileImg">
+                  <img src={DefaultProfilePhoto} alt="profile_photo" />
+                </div>
+                <div className="content">
+                  <div className="info">
+                    <h3>{user.name}</h3>
+                    <p>{user.email}</p>
+                  </div>
+                </div>
+              </li>
+            ))
+          ) : query.length > 0 && results.length === 0 ? (
+            <div className="noResult">
+              <span>No users found.</span>
+            </div>
+          ) : (
+            conversations.map((chat, index) => (
+              <li
+                className="chatItem"
+                key={index}
+                onClick={() => handleChatClick(chat)}
+              >
+                <div className="profileImg">
+                  <img src={DefaultProfilePhoto} alt="profile_photo" />
+                </div>
+                <div className="content">
+                  <div className="info">
+                    <h3>{chat.name}</h3>
+                    <p>{chat.lastMessage}</p>
+                  </div>
+                  <div className="details">
+                    <span className="date">{chat.time}</span>
+                    {chat.unread > 0 && (
+                      <span className="unread">{chat.unread}</span>
+                    )}
+                  </div>
+                </div>
+              </li>
+            ))
+          )}
+        </ul>
       </div>
+    </div>
     // </div>
   );
 };

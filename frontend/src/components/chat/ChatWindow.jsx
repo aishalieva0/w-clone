@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import MessageList from "./MessageList";
 import MessageInputContainer from "./MessageInputContainer";
+import ChatInfo from "./ChatInfo";
 import ChatHeader from "./ChatHeader";
 import { useSocket } from "../../context/socket";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +22,7 @@ const ChatWindow = () => {
   const socket = useSocket();
   const [page, setPage] = useState(1);
   const messagesRef = useRef(null);
+  const chatWindowRef = useRef(null);
   useEffect(() => {
     if (!socket || !user) return;
     setupSocketListeners(socket, dispatch);
@@ -49,6 +51,7 @@ const ChatWindow = () => {
   useEffect(() => {
     dispatch(setMessages([]));
     setPage(1);
+    chatWindowRef.current.classList.remove("open");
   }, [activeChat]);
 
   useEffect(() => {
@@ -124,20 +127,25 @@ const ChatWindow = () => {
   }
 
   return (
-    <div className="chatWindow">
-      <ChatHeader activeChat={activeChat} />
-      <MessageList
-        messages={sortedMessages}
-        userEmail={user?.email}
-        messagesRef={messagesRef}
-        handleScroll={handleScroll}
-        activeChat={activeChat}
-      />
-      <MessageInputContainer
-        message={message}
-        setMessage={setMessage}
-        sendMessage={handleSendMessage}
-      />
+    <div className="chatWindow open" ref={chatWindowRef}>
+      <div className="row">
+        <ChatHeader activeChat={activeChat} chatWindowRef={chatWindowRef} />
+        <MessageList
+          messages={sortedMessages}
+          userEmail={user?.email}
+          messagesRef={messagesRef}
+          handleScroll={handleScroll}
+          activeChat={activeChat}
+        />
+        <MessageInputContainer
+          message={message}
+          setMessage={setMessage}
+          sendMessage={handleSendMessage}
+        />
+      </div>
+      <div className="chatInfoContainer">
+        <ChatInfo chatWindowRef={chatWindowRef} />
+      </div>
     </div>
   );
 };

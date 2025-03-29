@@ -3,18 +3,19 @@
   padding: 8px 15px 10px 15px;
 
   .row {
-    display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    flex-direction: row;
     align-items: center;
+    width: 100%;
     .messageInput {
-      background: var(--sidebar-hover);
+      background: var(--bg-color);
       width: 90%;
       padding: 15px;
       display: flex;
       gap: 10px;
       border-radius: 10px;
       textarea {
-        background: var(--sidebar-hover);
+        background: var(--bg-color);
         width: 100%;
         outline: none;
         border: none;

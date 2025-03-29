@@ -1,11 +1,10 @@
 .chatHeader {
   background: var(--sidebar-bg);
-  height: 11%;
+  height: 80px;
   .container {
     width: 95%;
     .row {
-      align-items: center;
-      justify-content: space-between;
+      justify-content: center;
       .userInfo {
         display: flex;
         align-items: center;

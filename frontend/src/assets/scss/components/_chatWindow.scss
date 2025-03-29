@@ -1,10 +1,19 @@
 .chatWindow {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 65%;
   height: 100%;
+  width: 65%;
   background: green;
+  .row {
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+  }
+  .chatInfoContainer {
+    transition: 0.3s ease-in;
+    background: var(--bg-color);
+    width: 0;
+  }
 }
 .startWindow {
   background: var(--sidebar-bg);
@@ -32,5 +41,14 @@
         margin-bottom: 6px;
       }
     }
+  }
+}
+
+.open {
+  .row {
+    width: 60%;
+  }
+  .chatInfoContainer {
+    width: 50%;
   }
 }
