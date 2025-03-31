@@ -79,16 +79,18 @@ const ChatWindow = () => {
     };
   }, [socket, user, activeChat]);
 
-  const handleSendMessage = () => {
-    if (!socket || !user || !activeChat || !message.trim()) return;
+  const handleSendMessage = (message, media = null, mediaType = null) => {
+    if (!socket || !user || !activeChat || (!message.trim() && !media)) return;
+
     const newMessage = {
       sender: user.email,
       receiver: activeChat.email,
       message,
+      media,
+      mediaType,
       status: "sent",
       timestamp: new Date().toISOString(),
     };
-
     dispatch(addMessage(newMessage));
 
     sendMessage(socket, newMessage);

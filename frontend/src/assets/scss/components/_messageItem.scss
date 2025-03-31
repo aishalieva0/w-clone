@@ -19,6 +19,64 @@
     border: 11px solid;
   }
 
+  &:has(.messageMedia) {
+    padding: 4px;
+  }
+
+  &:has(.messageDoc) {
+    padding: 4px 4px 15px 4px;
+  }
+
+  .messageMedia {
+    width: 350px;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+    }
+  }
+  .messageMedia + .details {
+    bottom: 5px;
+    .messageTimestamp {
+      color: var(--preview-bg);
+    }
+    .messageStatus {
+      color: var(--preview-bg);
+    }
+  }
+
+  .messageDoc {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: inherit;
+    padding: 10px;
+    background: #d1f4cc;
+    margin-bottom: 5px;
+
+    a {
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--icon);
+      img {
+        width: 25px;
+        height: auto;
+      }
+    }
+  }
   .messageText {
     padding-bottom: 10px;
     padding-right: 7px;

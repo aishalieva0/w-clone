@@ -73,9 +73,9 @@ io.on("connection", (socket) => {
         }
     });
 
-    socket.on("send-message", async ({ sender, receiver, message }) => {
+    socket.on("send-message", async ({ sender, receiver, message, media, mediaType }) => {
         try {
-            const newMessage = new Message({ sender, receiver, message, status: "sent" });
+            const newMessage = new Message({ sender, receiver, message, media, mediaType, status: "sent" });
             await newMessage.save();
 
             const receiverSocket = users[receiver];
