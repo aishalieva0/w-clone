@@ -12,7 +12,7 @@ import { addMessage, setMessages } from "../../redux/slices/chatSlice";
 import AnimationChatBubble from "../../assets/media/animation/AnimationChatBubble.json";
 import Lottie from "lottie-react";
 
-const ChatWindow = () => {
+const ChatWindow = ({ chatWindowRef }) => {
   const [message, setMessage] = useState("");
 
   const { user } = useSelector((state) => state.user);
@@ -22,12 +22,11 @@ const ChatWindow = () => {
   const socket = useSocket();
   const [page, setPage] = useState(1);
   const messagesRef = useRef(null);
-  const chatWindowRef = useRef(null);
   useEffect(() => {
     if (!socket || !user) return;
     setupSocketListeners(socket, dispatch);
   }, [socket, user, dispatch]);
-
+  console.log(chatWindowRef);
   useEffect(() => {
     if (!activeChat || !user) return;
     const fetchMessages = async () => {
@@ -131,7 +130,7 @@ const ChatWindow = () => {
   }
 
   return (
-    <div className="chatWindow" ref={chatWindowRef}>
+    <>
       <div className="row">
         <ChatHeader activeChat={activeChat} chatWindowRef={chatWindowRef} />
         <MessageList
@@ -150,7 +149,7 @@ const ChatWindow = () => {
       <div className="chatInfoContainer">
         <ChatInfo chatWindowRef={chatWindowRef} />
       </div>
-    </div>
+    </>
   );
 };
 

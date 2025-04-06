@@ -26,10 +26,10 @@ const Sidebar = () => {
       ContentComponent = <ChatList />;
   }
   return (
-    <div className="sidebar">
+    <>
       <LeftPanel />
       {ContentComponent}
-    </div>
+    </>
   );
 };
 

@@ -14,31 +14,31 @@
     background: var(--bg-color);
     width: 0;
   }
-}
-.startWindow {
-  background: var(--sidebar-bg);
-  height: 100%;
-  width: 65%;
-  .row {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 90%;
+  .startWindow {
+    background: var(--sidebar-bg);
+    height: 100%;
+    width: 100%;
+    .row {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 90%;
 
-    .animation {
-      width: 80%;
-      max-width: 280px;
-      height: auto;
-      object-fit: contain;
-    }
-    .text {
-      text-align: center;
-      font-size: 15px;
-      p {
-        color: var(--secondary-text);
+      .animation {
+        width: 80%;
+        max-width: 280px;
+        height: auto;
+        object-fit: contain;
       }
-      :first-child {
-        margin-bottom: 6px;
+      .text {
+        text-align: center;
+        font-size: 15px;
+        p {
+          color: var(--secondary-text);
+        }
+        :first-child {
+          margin-bottom: 6px;
+        }
       }
     }
   }
@@ -50,5 +50,17 @@
   }
   .chatInfoContainer {
     width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatWindow {
+    display: none;
+  width: 100%;
+
+  }
+
+  .startWindow {
+    display: none;
   }
 }

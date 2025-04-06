@@ -4,3 +4,11 @@
   height: 100%;
   display: flex;
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    flex-direction: column-reverse;
+    display: none;
+  }
+}
