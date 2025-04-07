@@ -10,7 +10,7 @@ import axios from "axios";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import CameraIcon from "../../assets/media/icons/camera.svg?react";
 import EmojiInput from "../../assets/media/icons/emojiInput.svg?react";
-import CheckMark from "../../assets/media/icons/checkMark.svg?react";
+import CheckMark from "../../assets/media/icons/checkmark.svg?react";
 import Pencil from "../../assets/media/icons/pencil.svg?react";
 import View from "../../assets/media/icons/view.svg?react";
 import CameraOutline from "../../assets/media/icons/cameraOutline.svg?react";
