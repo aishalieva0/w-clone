@@ -40,7 +40,7 @@ const Login = () => {
 
           try {
             const response = await axios.get(
-              `http://localhost:5001/users/${user.uid}`
+              `${import.meta.env.VITE_BASE_URL}/users/${user.uid}`
             );
             if (response.data.name) {
               dispatch(setUser(response.data));
@@ -65,10 +65,13 @@ const Login = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5001/users", {
-        ...userData,
-        name,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/users`,
+        {
+          ...userData,
+          name,
+        }
+      );
 
       dispatch(setUser(response.data));
       navigate("/chat");

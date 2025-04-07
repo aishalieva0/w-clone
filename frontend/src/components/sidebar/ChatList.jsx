@@ -23,7 +23,7 @@ const ChatList = () => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5001/conversations/${user.email}`
+          `${import.meta.env.VITE_BASE_URL}/conversations/${user.email}`
         );
         setConversations(data);
       } catch (err) {
@@ -68,10 +68,13 @@ const ChatList = () => {
     dispatch(setActiveChat(chat));
 
     try {
-      await axios.put("http://localhost:5001/conversations/mark-read", {
-        sender: chat.email,
-        receiver: user.email,
-      });
+      await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/conversations/mark-read`,
+        {
+          sender: chat.email,
+          receiver: user.email,
+        }
+      );
 
       setConversations((prev) =>
         prev.map((conv) =>
@@ -93,9 +96,12 @@ const ChatList = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:5001/users/search`, {
-        params: { query: searchTerm, uid: user.uid },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/users/search`,
+        {
+          params: { query: searchTerm, uid: user.uid },
+        }
+      );
       setResults(response.data);
     } catch (error) {
       console.error("Error searching users:", error);

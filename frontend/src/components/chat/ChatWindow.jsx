@@ -32,7 +32,7 @@ const ChatWindow = ({ chatWindowRef }) => {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:5001/messages/${user.email}/${activeChat.email}?page=${page}&limit=20`
+          `${import.meta.env.VITE_BASE_URL}/messages/${user.email}/${activeChat.email}?page=${page}&limit=20`
         );
 
         if (Array.isArray(data)) {

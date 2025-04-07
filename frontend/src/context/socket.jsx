@@ -6,13 +6,15 @@ const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children }) => {
-    const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState(null);
 
-    useEffect(() => {
-        const newSocket = io("http://localhost:5001");
-        setSocket(newSocket);
-        return () => newSocket.close();
-    }, []);
+  useEffect(() => {
+    const newSocket = io(import.meta.env.VITE_BASE_URL);
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
 
-    return <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>;
+  return (
+    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
+  );
 };
