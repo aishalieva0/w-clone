@@ -87,6 +87,7 @@ const ChatList = () => {
   };
 
   const handleSearch = async (e) => {
+    console.log(user);
     const searchTerm = e.target.value;
     setQuery(searchTerm);
 
@@ -96,10 +97,11 @@ const ChatList = () => {
     }
 
     try {
+      console.log("search try");
       const response = await axios.get(
         `${import.meta.env.VITE_BASE_URL}/users/search`,
         {
-          params: { query: searchTerm, uid: user.uid },
+          params: { query: searchTerm, uid: user._id },
         }
       );
       setResults(response.data);
