@@ -26,7 +26,7 @@ const ChatWindow = ({ chatWindowRef }) => {
     if (!socket || !user) return;
     setupSocketListeners(socket, dispatch);
   }, [socket, user, dispatch]);
-  console.log(chatWindowRef);
+
   useEffect(() => {
     if (!activeChat || !user) return;
     const fetchMessages = async () => {
