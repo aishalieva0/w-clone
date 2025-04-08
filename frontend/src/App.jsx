@@ -10,13 +10,19 @@ import { handleLogin } from "./firebase/auth";
 
 const AppContent = () => {
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.user);
+  const { loading, authReady } = useSelector((state) => state.user);
 
   useSocketEvents();
 
   useEffect(() => {
     handleLogin(dispatch);
   }, [dispatch]);
+
+  if (!authReady) {
+    console.log("🕓 Waiting for Firebase auth to finish...");
+    return <div>Loading...</div>;
+  }
+  
 
   if (loading) return null;
   return <AppRoutes />;

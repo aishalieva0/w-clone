@@ -22,10 +22,13 @@ export const fetchUserData = async (uid, dispatch) => {
 };
 
 export const handleLogin = async (dispatch) => {
+    console.log("👀 Waiting for Firebase auth...");
     auth.onAuthStateChanged(async (firebaseUser) => {
         if (firebaseUser) {
+            console.log("✅ Firebase user detected:", firebaseUser.uid);
             await fetchUserData(firebaseUser.uid, dispatch);
         } else {
+            console.log("❌ No Firebase user found.");
             dispatch(setUser(null));
         }
     });
