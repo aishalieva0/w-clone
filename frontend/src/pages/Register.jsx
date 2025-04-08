@@ -25,7 +25,8 @@ const Register = () => {
     }
 
     const actionCodeSettings = {
-      url: `${import.meta.env.VITE_APP_URL}/login`,
+      // url: `${import.meta.env.VITE_APP_URL}/login`,
+      url: "https://w-clone-ruddy.vercel.app/login",
       handleCodeInApp: true,
     };
 
