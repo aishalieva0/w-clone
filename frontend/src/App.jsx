@@ -6,7 +6,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { SocketProvider } from "./context/socket";
 import { ToastContainer } from "react-toastify";
 import useSocketEvents from "./socket/useSocketEvents";
-import { handleLogin } from "./firebase/auth";
+import { handleLogin, listenForAuthChanges } from "./firebase/auth";
 
 const AppContent = () => {
   const dispatch = useDispatch();
@@ -15,8 +15,9 @@ const AppContent = () => {
   useSocketEvents();
 
   useEffect(() => {
-    handleLogin(dispatch);
-    console.log('app.js')
+    // handleLogin(dispatch);
+    
+    listenForAuthChanges(dispatch); 
   }, [dispatch]);
 
   if (loading) return null;

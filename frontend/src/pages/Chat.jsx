@@ -1,5 +1,5 @@
-// import { logOutUser } from "../firebase/auth";
-import { useSelector } from "react-redux";
+import { logOutUser } from "../firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 import ChatWindow from "../components/chat/ChatWindow";
 import Sidebar from "../components/sidebar/Sidebar";
 import { useRef } from "react";
@@ -8,6 +8,11 @@ const Chat = () => {
   const sidebarRef = useRef(null);
   const chatWindowRef = useRef(null);
   const activeChat = useSelector((state) => state.chat.activeChat);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    logOutUser(dispatch); // Pass dispatch to logOutUser
+  };
 
   useEffect(() => {
     if (activeChat) {
@@ -21,7 +26,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="row">
-        {/* <button onClick={logOutUser}>logout</button> */}
+        <button onClick={handleLogout}>logout</button>
         <div className="sidebar" ref={sidebarRef}>
           <Sidebar />
         </div>
