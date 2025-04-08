@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ children }) => {
-  console.log("🔍 authReady:", authReady);
+  // console.log("🔍 authReady:", authReady);
 
-  const { isAuthenticated, loading, authReady } = useSelector(
+  const { isAuthenticated, loading } = useSelector(
     (state) => state.user
   );
 
