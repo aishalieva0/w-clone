@@ -16,6 +16,7 @@ const AppContent = () => {
 
   useEffect(() => {
     handleLogin(dispatch);
+    console.log('app.js')
   }, [dispatch]);
 
   if (loading) return null;
