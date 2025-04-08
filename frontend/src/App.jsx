@@ -16,7 +16,7 @@ const AppContent = () => {
 
   useEffect(() => {
     handleLogin(dispatch);
-  }, [dispatch]);
+  }, []);
 
   if (!authReady) {
     console.log("🕓 Waiting for Firebase auth to finish...");
