@@ -10,9 +10,9 @@ const PrivateRoute = ({ children }) => {
   );
 
   if (loading) return null;
-  if (!authReady) {
-    return null;
-  }
+  // if (!authReady) {
+  //   return null;
+  // }
   return isAuthenticated ? children : <Navigate to="/register" replace />;
 };
 
