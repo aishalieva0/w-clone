@@ -24,8 +24,10 @@ router.post("/", async (req, res) => {
 });
 
 router.get("/search", async (req, res) => {
-    const { query, uid } = req.query;
+    console.log('search started');
 
+    const { query, uid } = req.query;
+    console.log('search uid', uid);
     if (!query) return res.json([]);
 
     try {
