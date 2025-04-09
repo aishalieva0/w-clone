@@ -15,7 +15,7 @@ const AppContent = () => {
   useSocketEvents();
 
   useEffect(() => {
-    // handleLogin(dispatch);
+    handleLogin(dispatch);
     
     listenForAuthChanges(dispatch); 
   }, [dispatch]);

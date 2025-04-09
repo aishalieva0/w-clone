@@ -16,9 +16,7 @@ const auth = getAuth(app);
 const storage = getStorage(app);
 // setPersistence(auth, browserLocalPersistence)
 //   .then(() => {
-//     console.log("✅ Firebase persistence set to localStorage");
 //   })
 //   .catch((error) => {
-//     console.error("🔥 Error setting persistence", error);
 //   });
 export { auth, storage };
