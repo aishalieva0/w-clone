@@ -57,11 +57,10 @@
 @media (max-width: 768px) {
   .chatWindow {
     display: none;
-  width: 100%;
-
-  }
-
-  .startWindow {
-    display: none;
+    width: 100%;
+    .startWindow {
+      display: none;
+    }
   }
 }
+

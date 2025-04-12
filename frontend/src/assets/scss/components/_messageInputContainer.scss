@@ -88,6 +88,7 @@
     .sendVoiceMsgBtn,
     .sendMsgBtn {
       margin-bottom: 12px;
+      margin-left: 8px;
     }
     button {
       background: none;
@@ -181,6 +182,38 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .messageInputContainer {
+    padding: 6px 12px 6px 10px;
+    .row {
+      .plusBtn {
+        .icon {
+          width: 29px;
+        }
+      }
+      .messageInput {
+        padding: 4px 7px;
+        textarea {
+          font-size: 15px;
+          &::placeholder {
+            font-size: 15px;
+          }
+        }
+        .emojiBtn {
+          width: 22px;
+          height: 22px;
+        }
+      }
+      .sendVoiceMsgBtn,
+      .sendMsgBtn {
+        margin-bottom: 9px;
+        width: 22px;
+        height: 22px;
       }
     }
   }

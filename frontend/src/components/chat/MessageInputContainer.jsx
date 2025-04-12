@@ -259,6 +259,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
             ref={textareaRef}
             onInput={handleInput}
             rows={1}
+            cols={1}
             type="text"
             placeholder="Type a message"
           />
@@ -300,7 +301,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
                   ) : (
                     <video controls className="previewVideo">
                       <source src={previewUrl} type={selectedFile.type} />
-                      Your browser does not support the video tag.
+                      Your browser does not support the video.
                     </video>
                   )
                 ) : (

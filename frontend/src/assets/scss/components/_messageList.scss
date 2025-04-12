@@ -10,3 +10,9 @@
   scrollbar-width: thin;
   scrollbar-color: var(--chat-scroll-color) transparent;
 }
+
+@media (max-width: 425px) {
+  .messageList {
+    padding: 10px 12px;
+  }
+}

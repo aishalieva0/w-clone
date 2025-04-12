@@ -136,3 +136,22 @@
     border-color: var(--received-msg) transparent transparent transparent;
   }
 }
+
+@media (max-width: 425px) {
+  .messageItem {
+    .messageText {
+      padding-bottom: 4px;
+      font-size: 14px;
+    }
+    .details {
+      bottom: 0;
+      right: 0;
+      gap: 3px;
+      margin-right: 6px;
+      font-size: 10px;
+
+      .messageTimestamp {
+      }
+    }
+  }
+}
