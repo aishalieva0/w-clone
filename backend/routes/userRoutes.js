@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
         await user.save();
         res.json(user);
     } catch (error) {
-
         res.status(500).json({ message: "Server error" });
     }
 });

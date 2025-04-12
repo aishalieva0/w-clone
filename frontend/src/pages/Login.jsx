@@ -23,48 +23,53 @@ const Login = () => {
 
     if (isSignInWithEmailLink(auth, window.location.href)) {
       let storedEmail = localStorage.getItem("emailForSignIn");
-
-      if (!storedEmail) {
+      if (!storedEmail || !window.location.href.includes("signIn")) {
         navigate("/register");
+        return;
       }
+      if (!auth.currentUser) {
+        signInWithEmailLink(auth, storedEmail, window.location.href)
+          .then(async (result) => {
+            const user = {
+              email: result.user.email,
+              uid: result.user.uid,
+            };
 
-      signInWithEmailLink(auth, storedEmail, window.location.href)
-        .then(async (result) => {
-          localStorage.removeItem("emailForSignIn");
+            try {
+              const response = await axios.get(
+                `${import.meta.env.VITE_BASE_URL}/users/${user.uid}`
+              );
 
-          const user = {
-            email: result.user.email,
-            uid: result.user.uid,
-          };
-          setUserData(user);
-
-          try {
-            const response = await axios.get(
-              `${import.meta.env.VITE_BASE_URL}/users/${user.uid}`
-            );
-            if (response.data.name) {
-              dispatch(setUser(response.data));
-              navigate("/chat");
+              if (response.data.name) {
+                dispatch(setUser(response.data));
+                navigate("/chat");
+              } else {
+                setUserData(user);
+              }
+            } catch (error) {
+              setUserData(user);
             }
-          } catch (error) {
-            console.info("User not found, asking for name");
-          }
-        })
-        .catch((error) => {
-          console.error("Error verifying email link:", error);
-          notifyToast(error.message, "error");
-        });
+          })
+          .catch((error) => {
+            if (error.code === "auth/email-already-in-use") {
+              console.warn("User is already signed in.");
+            } else {
+              console.error("Error verifying email link:", error);
+            }
+          });
+      }
     }
-  }, [isAuthenticated, dispatch, navigate]);
+  }, [dispatch, navigate]);
 
   const saveUserName = async () => {
     if (!name.trim()) {
       notifyToast("Please enter your name.", "error");
       return;
     }
-
+    console.log("saveUserName");
     setLoading(true);
     try {
+      console.log("----user saved to db");
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/users`,
         {
