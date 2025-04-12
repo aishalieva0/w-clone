@@ -11,7 +11,7 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    logOutUser(dispatch); // Pass dispatch to logOutUser
+    logOutUser(dispatch); 
   };
 
   useEffect(() => {

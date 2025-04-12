@@ -38,15 +38,17 @@
     height: 50px;
     .row {
       flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: center;
+      padding: 0;
+      gap: 100px;
 
       .topList {
         flex-direction: row;
-        gap: 50px;
+        gap: 100px;
       }
       .bottomList {
         flex-direction: row;
-        gap: 50px;
+        gap: 100px;
       }
     }
   }
