@@ -53,3 +53,29 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .leftPanel {
+    .row {
+      gap: 55px;
+
+      .topList {
+        gap: 55px;
+      }
+      .bottomList {
+        gap: 55px;
+        .bottomItem {
+          img {
+            width: 26px;
+            height: 26px;
+          }
+        }
+      }
+
+      .icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}

@@ -176,3 +176,26 @@
     }
   }
 }
+
+@media (max-width: 425px) {
+  .chatList {
+    padding: 10px 10px 15px 10px;
+    .row {
+      gap: 12px;
+      .heading {
+        .moreIcons {
+          gap: 14px;
+        }
+      }
+      .searchBar {
+        input {
+          height: 30px;
+          padding: 0 14px;
+          &::placeholder {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}
