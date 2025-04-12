@@ -26,7 +26,7 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="row">
-        <button onClick={handleLogout}>logout</button>
+        {/* <button onClick={handleLogout}>logout</button> */}
         <div className="sidebar" ref={sidebarRef}>
           <Sidebar />
         </div>
