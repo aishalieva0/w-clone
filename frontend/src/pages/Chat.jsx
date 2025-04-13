@@ -11,7 +11,7 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    logOutUser(dispatch); 
+    logOutUser(dispatch);
   };
 
   useEffect(() => {
@@ -23,6 +23,24 @@ const Chat = () => {
       chatWindowRef.current.classList.remove("activeWindow");
     }
   }, [activeChat]);
+
+  useEffect(() => {
+    const setAppHeight = () => {
+      const appHeight = window.innerHeight;
+      document.documentElement.style.setProperty(
+        "--app-height",
+        `${appHeight}px`
+      );
+    };
+
+    setAppHeight(); // initial call
+    window.addEventListener("resize", setAppHeight); // update on resize
+
+    return () => {
+      window.removeEventListener("resize", setAppHeight);
+    };
+  }, []);
+
   return (
     <div className="chat">
       <div className="row">
