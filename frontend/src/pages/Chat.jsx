@@ -33,8 +33,8 @@ const Chat = () => {
       );
     };
 
-    setAppHeight(); // initial call
-    window.addEventListener("resize", setAppHeight); // update on resize
+    setAppHeight();
+    window.addEventListener("resize", setAppHeight);
 
     return () => {
       window.removeEventListener("resize", setAppHeight);
