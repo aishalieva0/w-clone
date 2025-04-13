@@ -2,9 +2,10 @@
   margin: 0 auto;
   width: 100%;
   border: 1px solid var(--scrollbar-color);
+  height: 100%;
+
   .row {
     flex-direction: column;
-    gap: 20px;
     background: var(--highlighted-bg);
 
     .heading {
@@ -211,6 +212,107 @@
                   color: #8d9599;
                   width: 24px;
                   height: auto;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .profile {
+    padding-top: 20px;
+
+    .row {
+      .heading {
+        padding: 20px 0 20px 15px;
+        h2 {
+          font-size: 20px;
+        }
+      }
+      .profileContent {
+        gap: 12px;
+
+        .profileImgContainer {
+          .profileImg {
+            height: 160px;
+            width: 160px;
+
+            .editImg {
+              height: 160px;
+              width: 160px;
+              .icon {
+                margin-top: 12px;
+              }
+              span {
+                margin-top: 4px;
+                font-size: 11px;
+              }
+            }
+            .optionList {
+              padding: 0;
+              .divider {
+                margin: 0;
+              }
+              .optionItem {
+                gap: 5px;
+                padding: 8px 8px 5px 7px;
+
+                span {
+                  font-size: 12px;
+                }
+              }
+              .icon {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+        }
+        .profileInfo {
+          .desc {
+            height: 60px;
+            p {
+              padding: 10px 0;
+              font-size: 13px;
+            }
+          }
+
+          .detailContainer {
+            width: 90%;
+            padding: 10px 0 20px;
+            gap: 5px;
+            .display {
+              p {
+                font-size: 15px;
+                padding-bottom: 0;
+              }
+              .icon {
+                width: 20px;
+                height: 20px;
+              }
+            }
+            .inputGroup {
+              input {
+                font-size: 15px;
+              }
+              textarea {
+                font-size: 15px;
+              }
+              .btnGroup {
+                .letterCount {
+                  font-size: 12px;
+                }
+                .iconGroup {
+                  .icon {
+                    width: 20px;
+                    height: 20px;
+                  }
+                  .emoji {
+                    width: 18px;
+                  }
                 }
               }
             }
