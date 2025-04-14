@@ -3,7 +3,7 @@ import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 import VideoCallIcon from "../../assets/media/icons/videoCallBtn.svg";
 import SearchIcon from "../../assets/media/icons/searchBtn.svg";
 import MoreIcon from "../../assets/media/icons/more.svg";
-import BackArrowBtn from "../../assets/media/icons/backArrow.svg";
+import BackArrowBtn from "../../assets/media/icons/backArrow.svg?react";
 
 const ChatHeader = ({ activeChat, chatWindowRef }) => {
   const openChatInfo = () => {
