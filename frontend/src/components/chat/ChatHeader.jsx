@@ -3,10 +3,15 @@ import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 import VideoCallIcon from "../../assets/media/icons/videoCallBtn.svg";
 import SearchIcon from "../../assets/media/icons/searchBtn.svg";
 import MoreIcon from "../../assets/media/icons/more.svg";
+import BackArrowBtn from "../../assets/media/icons/backArrow.svg";
 
 const ChatHeader = ({ activeChat, chatWindowRef }) => {
   const openChatInfo = () => {
     chatWindowRef.current.classList.add("open");
+  };
+
+  const closeChat = () => {
+    activeChat = null;
   };
   return (
     <div className="chatHeader">
@@ -18,6 +23,14 @@ const ChatHeader = ({ activeChat, chatWindowRef }) => {
               openChatInfo();
             }}
           >
+            <div
+              className="backBtn"
+              onClick={() => {
+                closeChat();
+              }}
+            >
+              <BackArrowBtn className="icon" />
+            </div>
             <div className="userProfile">
               {activeChat.profilePic ? (
                 <img

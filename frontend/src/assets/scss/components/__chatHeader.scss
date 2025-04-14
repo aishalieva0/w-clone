@@ -11,6 +11,9 @@
         gap: 20px;
         width: 80%;
         cursor: pointer;
+        .backBtn {
+          display: none;
+        }
         .userProfile {
           width: 45px;
           height: 45px;
@@ -59,6 +62,9 @@
       .row {
         .userInfo {
           gap: 15px;
+          .backBtn {
+            display: block;
+          }
           .userProfile {
             width: 40px;
             height: 40px;
