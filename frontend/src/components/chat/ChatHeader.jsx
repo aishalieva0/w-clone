@@ -18,19 +18,19 @@ const ChatHeader = ({ activeChat, chatWindowRef }) => {
       <div className="container">
         <div className="row">
           <div
+            className="backBtn"
+            onClick={() => {
+              closeChat();
+            }}
+          >
+            <BackArrowBtn className="icon" />
+          </div>
+          <div
             className="userInfo"
             onClick={() => {
               openChatInfo();
             }}
           >
-            <div
-              className="backBtn"
-              onClick={() => {
-                closeChat();
-              }}
-            >
-              <BackArrowBtn className="icon" />
-            </div>
             <div className="userProfile">
               {activeChat.profilePic ? (
                 <img
