@@ -1,8 +1,5 @@
 const express = require("express");
 const User = require("../models/User");
-const upload = require("../middleware/uploadMiddleware")
-const path = require("path");
-const fs = require("fs");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -79,27 +76,18 @@ router.put("/:uid", async (req, res) => {
     }
 });
 
-router.put("/:uid/profile-photo", upload.single("profilePic"), async (req, res) => {
+router.put("/:uid/profile-photo", async (req, res) => {
     try {
         const { uid } = req.params;
-
-        if (!req.file) {
-            return res.status(400).json({ error: "No file uploaded" });
-        }
+        const { profilePic } = req.body;
 
         const user = await User.findOne({ uid });
         if (!user) {
             return res.status(404).json({ error: "User not found" });
         }
 
-        if (user.profilePic && user.profilePic !== null) {
-            const oldPath = path.join(__dirname, "../uploads/", user.profilePic);
-            if (fs.existsSync(oldPath)) {
-                fs.unlinkSync(oldPath);
-            }
-        }
+        user.profilePic = profilePic || null;
 
-        user.profilePic = req.file.filename;
         await user.save();
 
         res.json({ message: "Profile photo updated successfully", profilePic: user.profilePic });
@@ -108,33 +96,5 @@ router.put("/:uid/profile-photo", upload.single("profilePic"), async (req, res) 
         res.status(500).json({ error: "Server error" });
     }
 });
-router.delete("/:uid/profile-photo", async (req, res) => {
-    try {
-        const { uid } = req.params;
-
-        const user = await User.findOne({ uid });
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        if (!user.profilePic || user.profilePic === "default.jpg") {
-            return res.status(400).json({ error: "No profile photo to delete" });
-        }
-
-        const photoPath = path.join(__dirname, "../uploads", user.profilePic);
-        if (fs.existsSync(photoPath)) {
-            fs.unlinkSync(photoPath);
-        }
-
-        user.profilePic = null;
-        await user.save();
-
-        res.json({ message: "Profile photo removed", profilePic: null });
-    } catch (error) {
-        console.error("Error deleting profile photo:", error);
-        res.status(500).json({ error: "Server error" });
-    }
-});
-
 
 module.exports = router;
