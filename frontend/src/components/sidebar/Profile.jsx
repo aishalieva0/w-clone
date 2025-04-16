@@ -18,6 +18,15 @@ import Folder from "../../assets/media/icons/folder.svg?react";
 import Delete from "../../assets/media/icons/delete.svg?react";
 import EmojiPicker from "../EmojiPicker";
 import notifyToast from "../../utils/toastifyMsg";
+import { storage } from "../../firebase/firebaseConfig";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+  getStorage,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -130,13 +139,7 @@ const Profile = () => {
     if (user) {
       setName(user.name);
       setAbout(user.about);
-      if (user.profilePic) {
-        setProfileImage(
-          `${import.meta.env.VITE_BASE_URL}/uploads/${user.profilePic}`
-        );
-      } else {
-        setProfileImage(null);
-      }
+      setProfileImage(user.profilePic || DefaultProfilePhoto);
     }
   }, [user]);
 
@@ -177,16 +180,17 @@ const Profile = () => {
 
   const uploadProfileImage = async (file) => {
     try {
-      const formData = new FormData();
-      formData.append("profilePic", file);
+      const storageRef = ref(storage, `profileImages/${uuidv4()}`);
+      await uploadBytes(storageRef, file);
 
-      const res = await axios.put(
+      const imageUrl = await getDownloadURL(storageRef);
+
+      await axios.put(
         `${import.meta.env.VITE_BASE_URL}/users/${user.uid}/profile-photo`,
-        formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        { profilePic: imageUrl }
       );
 
-      dispatch(setUser({ ...user, profilePic: res.data.profilePic }));
+      dispatch(setUser({ ...user, profilePic: imageUrl }));
       notifyToast("Profile photo updated!", "success");
     } catch (error) {
       notifyToast("Failed to update profile photo!", "error");
@@ -196,14 +200,28 @@ const Profile = () => {
 
   const handleRemovePhoto = async () => {
     try {
-      await axios.delete(
-        `${import.meta.env.VITE_BASE_URL}/users/${user.uid}/profile-photo`
+      if (user.profilePic) {
+        const storage = getStorage();
+        const decodedUrl = decodeURIComponent(user.profilePic);
+        const path = decodedUrl.split("/o/")[1].split("?")[0];
+        const imageRef = ref(storage, path);
+
+        await deleteObject(imageRef);
+      }
+
+      await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/users/${user.uid}/profile-photo`,
+        {
+          profilePic: null,
+        }
       );
+
+      dispatch(setUser({ ...user, profilePic: null }));
       setProfileImage(DefaultProfilePhoto);
-      dispatch(setUser({ ...user, profilePic: "" }));
       notifyToast("Profile photo removed!", "success");
     } catch (error) {
-      notifyToast(error, "error");
+      notifyToast("Failed to remove photo!", "error");
+      console.error("Remove photo error:", error);
     }
   };
 

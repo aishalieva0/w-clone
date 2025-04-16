@@ -37,12 +37,7 @@ const ChatHeader = ({ activeChat, chatWindowRef }) => {
             </div>
             <div className="userProfile">
               {activeChat.profilePic ? (
-                <img
-                  src={`${import.meta.env.VITE_BASE_URL}/uploads/${
-                    activeChat.profilePic
-                  }`}
-                  alt="profile image"
-                />
+                <img src={activeChat.profilePic} alt="profile image" />
               ) : (
                 <DefaultProfilePhoto className="defaultImg" />
               )}

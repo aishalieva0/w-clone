@@ -9,9 +9,7 @@ const ChatInfo = ({ chatWindowRef }) => {
 
   useEffect(() => {
     if (activeChat.profilePic) {
-      setProfileImage(
-        `${import.meta.env.VITE_BASE_URL}/uploads/${activeChat.profilePic}`
-      );
+      setProfileImage(activeChat.profilePic);
     } else {
       setProfileImage(null);
     }

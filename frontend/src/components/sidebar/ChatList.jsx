@@ -148,12 +148,7 @@ const ChatList = () => {
                 <div className="profileImgContainer">
                   <div className="profileImg">
                     {user.profilePic ? (
-                      <img
-                        src={`${import.meta.env.VITE_BASE_URL}/uploads/${
-                          user.profilePic
-                        }`}
-                        alt="profile image"
-                      />
+                      <img src={user.profilePic} alt="profile image" />
                     ) : (
                       <DefaultProfilePhoto className="defaultImg" />
                     )}
@@ -181,12 +176,7 @@ const ChatList = () => {
                 <div className="profileImgContainer">
                   <div className="profileImg">
                     {chat.profilePic ? (
-                      <img
-                        src={`${import.meta.env.VITE_BASE_URL}/uploads/${
-                          chat.profilePic
-                        }`}
-                        alt="profile image"
-                      />
+                      <img src={chat.profilePic} alt="profile image" />
                     ) : (
                       <DefaultProfilePhoto className="defaultImg" />
                     )}
