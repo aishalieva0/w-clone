@@ -81,7 +81,6 @@ router.put("/:uid", async (req, res) => {
 
 router.put("/:uid/profile-photo", upload.single("profilePic"), async (req, res) => {
     try {
-        console.log('dfdf');
         const { uid } = req.params;
 
         if (!req.file) {
@@ -94,9 +93,7 @@ router.put("/:uid/profile-photo", upload.single("profilePic"), async (req, res) 
         }
 
         if (user.profilePic && user.profilePic !== null) {
-            console.log('older--------------');
             const oldPath = path.join(__dirname, "../uploads/", user.profilePic);
-            console.log(oldPath);
             if (fs.existsSync(oldPath)) {
                 fs.unlinkSync(oldPath);
             }
