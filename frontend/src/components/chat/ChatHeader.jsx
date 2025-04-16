@@ -43,7 +43,7 @@ const ChatHeader = ({ activeChat, chatWindowRef }) => {
               )}
             </div>
             <div className="userName">
-              <h3>{activeChat?.email}</h3>
+              <h3>{activeChat?.name}</h3>
             </div>
           </div>
           <div className="chatOptions">
