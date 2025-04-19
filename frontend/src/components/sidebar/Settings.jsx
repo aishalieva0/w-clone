@@ -6,16 +6,36 @@ import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import { logOutUser } from "../../firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../redux/slices/sidebarSlice";
+import PopupModal from "../PopupModal";
 
 const Setting = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const [showThemePopup, setShowThemePopup] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
   const handleLogout = () => {
     logOutUser(dispatch);
+    setShowLogoutPopup(false);
+  };
+
+  const openLogoutPopup = () => {
+    setShowLogoutPopup(true);
+  };
+
+  const closeLogoutPopup = () => {
+    setShowLogoutPopup(false);
+  };
+
+  const openThemePopup = () => {
+    setShowThemePopup(true);
+  };
+
+  const closeThemePopup = () => {
+    setShowThemePopup(false);
   };
 
   useEffect(() => {
@@ -50,7 +70,7 @@ const Setting = () => {
             </div>
           </div>
           <div className="settingList">
-            <button className="settingItem">
+            <button className="settingItem" onClick={openThemePopup}>
               <div className="container">
                 <div className="row">
                   <div className="settingItemInner">
@@ -75,7 +95,7 @@ const Setting = () => {
                 </div>
               </div>
             </button>
-            <button className="settingItem logout" onClick={handleLogout}>
+            <button className="settingItem logout" onClick={openLogoutPopup}>
               <div className="container">
                 <div className="row">
                   <LogoutBtn className="icon" />
@@ -86,6 +106,36 @@ const Setting = () => {
           </div>
         </div>
       </div>
+      <PopupModal
+        title="Log out"
+        confirmBtnText="Log out"
+        isOpen={showLogoutPopup}
+        onConfirm={handleLogout}
+        onCancel={closeLogoutPopup}
+      >
+        <p>Are you sure you want to logout?</p>
+      </PopupModal>
+
+      <PopupModal
+        title="Theme"
+        confirmBtnText="OK"
+        isOpen={showThemePopup}
+        onConfirm={null} 
+        onCancel={closeThemePopup}
+      >
+        <div className="themeOption">
+          <input type="radio" name="theme" id="light" />
+          <label htmlFor="light">Light</label>
+        </div>
+        <div className="themeOption">
+          <input type="radio" name="theme" id="dark" />
+          <label htmlFor="dark">Dark</label>
+        </div>
+        <div className="themeOption">
+          <input type="radio" name="theme" id="default" />
+          <label htmlFor="default">System default</label>
+        </div>
+      </PopupModal>
     </div>
   );
 };
