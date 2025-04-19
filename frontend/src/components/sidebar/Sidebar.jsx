@@ -5,6 +5,7 @@ import StatusList from "./StatusList";
 import Settings from "./Settings";
 import Profile from "./Profile";
 import { useSelector } from "react-redux";
+import Wallpaper from "./Wallpaper";
 
 const Sidebar = () => {
   const activeTab = useSelector((state) => state.sidebar.activeTab);
@@ -21,6 +22,9 @@ const Sidebar = () => {
       break;
     case "profileTab":
       ContentComponent = <Profile />;
+      break;
+    case "wallpaperTab":
+      ContentComponent = <Wallpaper />;
       break;
     default:
       ContentComponent = <ChatList />;

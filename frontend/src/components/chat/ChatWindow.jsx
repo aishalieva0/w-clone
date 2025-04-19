@@ -18,6 +18,7 @@ const ChatWindow = ({ chatWindowRef }) => {
   const { user } = useSelector((state) => state.user);
   const messages = useSelector((state) => state.chat.messages) || [];
   const activeChat = useSelector((state) => state.chat.activeChat);
+  const preview = useSelector((state) => state.wallpaper.preview);
   const dispatch = useDispatch();
   const socket = useSocket();
   const [page, setPage] = useState(1);
@@ -32,7 +33,9 @@ const ChatWindow = ({ chatWindowRef }) => {
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/messages/${user.email}/${activeChat.email}?page=${page}&limit=20`
+          `${import.meta.env.VITE_BASE_URL}/messages/${user.email}/${
+            activeChat.email
+          }?page=${page}&limit=20`
         );
 
         if (Array.isArray(data)) {
@@ -108,7 +111,7 @@ const ChatWindow = ({ chatWindowRef }) => {
     );
   }, [messages]);
 
-  if (!activeChat) {
+  if (!activeChat && !preview) {
     return (
       <div className="startWindow">
         <div className="row">
@@ -125,6 +128,20 @@ const ChatWindow = ({ chatWindowRef }) => {
             </p>
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (preview) {
+    return (
+      <div
+        className="chatWindow"
+        style={{
+          backgroundImage: `url(${preview})`,
+          width: "100%",
+        }}
+      >
+        <div className="row"></div>
       </div>
     );
   }

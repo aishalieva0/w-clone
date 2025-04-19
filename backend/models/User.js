@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema(
             type: Date,
             default: null,
         },
+        wallpaper: {
+            type: String,
+            default: "/wallpapers/default.jpg",
+        }
     },
     { timestamps: true }
 );

@@ -59,6 +59,7 @@ const Setting = () => {
       setProfileImage(user.profilePic || DefaultProfilePhoto);
     }
   }, [user]);
+
   return (
     <div className="settings">
       <div className="row">
@@ -104,7 +105,10 @@ const Setting = () => {
                 </div>
               </div>
             </button>
-            <button className="settingItem">
+            <button
+              className="settingItem"
+              onClick={() => dispatch(setActiveTab("wallpaperTab"))}
+            >
               <div className="container">
                 <div className="row">
                   <div className="settingItemInner">

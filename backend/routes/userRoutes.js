@@ -97,4 +97,29 @@ router.put("/:uid/profile-photo", async (req, res) => {
     }
 });
 
+router.post("/wallpaper", async (req, res) => {
+    const { uid, wallpaper } = req.body;
+
+    if (!uid || !wallpaper) {
+        return res.status(400).json({ message: "UID and wallpaper are required" });
+    }
+
+    try {
+        const user = await User.findOneAndUpdate(
+            { uid },
+            { wallpaper },
+            { new: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({ message: "Wallpaper updated", wallpaper: user.wallpaper });
+    } catch (err) {
+        console.error("Error updating wallpaper:", err);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 module.exports = router;
