@@ -20,6 +20,7 @@ const PopupModal = ({
     setShowModal(false);
     setTimeout(() => {
       onCancel();
+      onConfirm();
     }, 300);
   };
 
@@ -39,7 +40,7 @@ const PopupModal = ({
                 <button className="cancelBtn" onClick={handleClose}>
                   Cancel
                 </button>
-                <button className="confirmBtn" onClick={onConfirm}>
+                <button className="confirmBtn" type="button" onClick={handleClose}>
                   {confirmBtnText}
                 </button>
               </div>

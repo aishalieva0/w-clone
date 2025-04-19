@@ -7,6 +7,7 @@ import { logOutUser } from "../../firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../redux/slices/sidebarSlice";
 import PopupModal from "../PopupModal";
+import { setTheme } from "../../redux/slices/themeSlice";
 
 const Setting = () => {
   const [name, setName] = useState("");
@@ -16,6 +17,8 @@ const Setting = () => {
   const [showThemePopup, setShowThemePopup] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
+  const [selectedTheme, setSelectedTheme] = useState("default");
 
   const handleLogout = () => {
     logOutUser(dispatch);
@@ -37,6 +40,17 @@ const Setting = () => {
   const closeThemePopup = () => {
     setShowThemePopup(false);
   };
+
+  const applyTheme = () => {
+    dispatch(setTheme(selectedTheme));
+    closeThemePopup();
+  };
+
+  useEffect(() => {
+    if (showThemePopup) {
+      setSelectedTheme(theme);
+    }
+  }, [showThemePopup]);
 
   useEffect(() => {
     if (user) {
@@ -120,19 +134,37 @@ const Setting = () => {
         title="Theme"
         confirmBtnText="OK"
         isOpen={showThemePopup}
-        onConfirm={null} 
+        onConfirm={applyTheme}
         onCancel={closeThemePopup}
       >
         <div className="themeOption">
-          <input type="radio" name="theme" id="light" />
+          <input
+            type="radio"
+            name="theme"
+            id="light"
+            checked={selectedTheme === "light"}
+            onChange={() => setSelectedTheme("light")}
+          />
           <label htmlFor="light">Light</label>
         </div>
         <div className="themeOption">
-          <input type="radio" name="theme" id="dark" />
+          <input
+            type="radio"
+            name="theme"
+            id="dark"
+            checked={selectedTheme === "dark"}
+            onChange={() => setSelectedTheme("dark")}
+          />
           <label htmlFor="dark">Dark</label>
         </div>
         <div className="themeOption">
-          <input type="radio" name="theme" id="default" />
+          <input
+            type="radio"
+            name="theme"
+            id="default"
+            checked={selectedTheme === "default"}
+            onChange={() => setSelectedTheme("default")}
+          />
           <label htmlFor="default">System default</label>
         </div>
       </PopupModal>

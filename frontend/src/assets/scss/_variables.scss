@@ -37,7 +37,7 @@
 }
 
 // Dark Mode Colors
-.dark-mode {
+[data-theme="dark"] {
   --bg-color: #111b21;
   --chat-bg: #1e1e1e;
   --text-color: #e9edef;

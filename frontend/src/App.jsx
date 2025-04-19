@@ -11,14 +11,30 @@ import { handleLogin, listenForAuthChanges } from "./firebase/auth";
 const AppContent = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
 
   useSocketEvents();
 
   useEffect(() => {
     handleLogin(dispatch);
-    
-    listenForAuthChanges(dispatch); 
+
+    listenForAuthChanges(dispatch);
   }, [dispatch]);
+
+  useEffect(() => {
+    const applyTheme = () => {
+      const root = document.documentElement;
+      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches
+        ? "dark"
+        : "light";
+      const finalTheme = theme === "default" ? systemTheme : theme;
+
+      root.setAttribute("data-theme", finalTheme);
+    };
+
+    applyTheme();
+  }, [theme]);
 
   if (loading) return null;
   return <AppRoutes />;
