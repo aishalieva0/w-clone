@@ -91,7 +91,13 @@ const Setting = () => {
                     <ChatIcon className="icon" />
                     <div className="settingText">
                       <h4>Theme</h4>
-                      <span>Light mode</span>
+                      <span>
+                        {theme === "light"
+                          ? "Light mode"
+                          : theme === "dark"
+                          ? "Dark mode"
+                          : "System default"}
+                      </span>
                     </div>
                   </div>
                   <Chevron className="icon chevron" />
