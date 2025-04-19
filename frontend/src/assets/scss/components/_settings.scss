@@ -5,7 +5,6 @@
   height: 100%;
   .row {
     flex-direction: column;
-    background: var(--bg-color);
     .heading {
       background: var(--bg-color);
       padding: 20px 0 20px 15px;
@@ -17,19 +16,22 @@
 
     .settingContainer {
       display: flex;
+      flex-direction: column;
       background: var(--bg-color);
       overflow-y: auto;
       overflow-x: hidden;
       scrollbar-width: thin;
       scrollbar-color: var(--scrollbar-color) transparent;
-      .container {
-        width: 90%;
-        .profileInfo {
-          display: flex;
-          align-items: center;
+      transition: all 0.3s ease-eas-out;
+
+      .profileInfo {
+        padding-bottom: 25px;
+        padding-top: 10px;
+        .container {
+          width: 90%;
           gap: 20px;
-          margin-bottom: 25px;
-          margin-top: 10px;
+          align-items: center;
+          display: flex;
           .profileImg {
             width: 90px;
             height: 90px;
@@ -40,27 +42,73 @@
             }
           }
         }
+        &:hover {
+          background: var(--sidebar-hover);
+          cursor: pointer;
+        }
+      }
 
-        .settingList {
-          display: flex;
-          flex-direction: column;
-          width: 95%;
-          margin: 0 auto;
-          align-items: flex-start;
-          justify-content: flex-start;
-          .settingItem {
-            width: 100%;
-            display: flex;
-            gap: 15px;
-            padding: 10px 0;
-            font-size: 17px;
-            color: var(--text-color);
-          }
-          .logout {
-            color: var(--danger);
-            .icon {
-              color: var(--danger);
+      .settingList {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        .settingItem {
+          width: 100%;
+          padding: 5px 0;
+          transition: all 0.3s ease-in-out;
+          .container {
+            // width: 90%;
+            .row {
+              align-items: center;
+              padding: 10px 0;
+              font-size: 17px;
+              justify-content: space-between;
+              flex-direction: row;
+              .settingItemInner {
+                display: flex;
+                gap: 15px;
+                h4 {
+                  font-size: 18px;
+                  color: var(--text-color);
+                  font-weight: 400;
+                }
+                .settingText {
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: flex-start;
+                  align-items: flex-start;
+
+                  span {
+                    font-size: 14px;
+                    color: var(--input-border);
+                    font-weight: 300;
+                    margin-top: -3px;
+                  }
+                }
+              }
+              .chevron {
+                width: 20px;
+                height: 20px;
+              }
             }
+          }
+
+          &:hover {
+            background: var(--sidebar-hover);
+            cursor: pointer;
+          }
+        }
+        .logout {
+          color: var(--danger);
+          .container {
+            .row {
+              justify-content: flex-start;
+              gap: 15px;
+            }
+          }
+          .icon {
+            color: var(--danger);
           }
         }
       }
