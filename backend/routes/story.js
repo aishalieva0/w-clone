@@ -1,6 +1,7 @@
 const express = require("express");
 const Story = require("../models/Story");
 const User = require("../models/User");
+const { now } = require("mongoose");
 
 const router = express.Router();
 
@@ -38,7 +39,7 @@ router.post("/upload", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
 
-        const stories = await Story.find({ expiresAt: { $gt: now } }).sort({ createdAt: -1 });
+        const stories = await Story.find({ expiresAt: { $gt: now() } }).sort({ createdAt: -1 });
 
         const userUids = stories.map((s) => s.userId);
 

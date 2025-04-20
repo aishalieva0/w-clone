@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Stories from "react-insta-stories";
 import formatStoryTime from "../../utils/formatStoryTime";
 
