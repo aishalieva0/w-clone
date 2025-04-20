@@ -16,11 +16,17 @@ const PopupModal = ({
     }
   }, [isOpen]);
 
-  const handleClose = () => {
+  const handleConfirm = () => {
+    setShowModal(false);
+    setTimeout(() => {
+      onConfirm();
+    }, 300);
+  };
+
+  const handleCancel = () => {
     setShowModal(false);
     setTimeout(() => {
       onCancel();
-      onConfirm();
     }, 300);
   };
 
@@ -37,13 +43,13 @@ const PopupModal = ({
             <div className="popupContent">{children}</div>
             <div className="footer">
               <div className="btnGroup">
-                <button className="cancelBtn" onClick={handleClose}>
+                <button className="cancelBtn" onClick={handleCancel}>
                   Cancel
                 </button>
                 <button
                   className="confirmBtn"
                   type="button"
-                  onClick={handleClose}
+                  onClick={handleConfirm}
                 >
                   {confirmBtnText}
                 </button>
