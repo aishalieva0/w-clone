@@ -66,10 +66,10 @@ const Login = () => {
       notifyToast("Please enter your name.", "error");
       return;
     }
-    console.log("saveUserName");
+
     setLoading(true);
     try {
-      console.log("----user saved to db");
+
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/users`,
         {

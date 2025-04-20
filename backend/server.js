@@ -8,6 +8,7 @@ const Message = require("./models/Message");
 const userRoutes = require('./routes/userRoutes')
 const messageRoutes = require("./routes/messages");
 const conversationRoutes = require("./routes/conversationRoutes");
+const storyRoutes = require("./routes/story.js");
 dotenv.config();
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(cors());
 app.use('/users', userRoutes)
 app.use("/messages", messageRoutes);
 app.use("/conversations", conversationRoutes);
+app.use("/stories", storyRoutes);
 
 // Connect to MongoDB
 mongoose
