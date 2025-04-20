@@ -66,4 +66,25 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.delete("/:storyId", async (req, res) => {
+    console.log("Deleting story with ID:", req);
+    try {
+        const { storyId } = req.params;
+
+        const story = await Story.findById(storyId);
+
+        if (!story) {
+            return res.status(404).json({ message: "Story not found" });
+        }
+
+        await Story.findByIdAndDelete(storyId);
+
+        res.status(200).json({ message: "Story deleted successfully" });
+    } catch (err) {
+        console.error("Error deleting story:", err);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 module.exports = router;

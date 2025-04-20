@@ -49,6 +49,18 @@ const StatusList = () => {
     }
   };
 
+  const handleDeleteStory = async (storyId) => {
+    console.log("Deleting story with ID:", storyId);
+    try {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/stories/${storyId}`);
+      notifyToast("Story deleted", "success");
+      setStories(stories.filter((story) => story._id !== storyId));
+    } catch (err) {
+      console.error("Failed to delete story:", err);
+      notifyToast("Story deletion failed", "error");
+    }
+  };
+
   useEffect(() => {
     const fetchStories = async () => {
       try {
@@ -121,7 +133,7 @@ const StatusList = () => {
                 src={user?.profilePic || DefaultProfilePhoto}
                 alt="Profile"
               />
-              {myStories.length < 0 && (
+              {myStories.length == 0 && (
                 <button className="addBtn">
                   <AddBtn />
                 </button>
@@ -129,14 +141,11 @@ const StatusList = () => {
             </div>
             <div className="details">
               <h3>My status</h3>
-              {myStories.length < 0 ? (
-                <p>Click to add status update</p>
-              ) : (
-                <p>
-                  {myStories.length > 0 &&
-                    formatStoryTime(myStories[myStories.length - 1].createdAt)}
-                </p>
-              )}
+              <p>
+                {myStories.length === 0
+                  ? "Click to add status update"
+                  : formatStoryTime(myStories[myStories.length - 1].createdAt)}
+              </p>
             </div>
           </div>
           <input
@@ -190,6 +199,7 @@ const StatusList = () => {
         <StoryViewer
           stories={viewerStories}
           onClose={() => setViewerStories(null)}
+          handleDeleteStory={handleDeleteStory}
         />
       )}
     </div>
