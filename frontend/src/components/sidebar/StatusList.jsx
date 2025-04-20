@@ -43,8 +43,10 @@ const StatusList = () => {
   };
 
   const handleStoryClick = (userId) => {
-    const userStories = stories.filter((s) => s.userId === userId);
-    setViewerStories(userStories);
+    const group = groupedStories.find((g) => g.userId === userId);
+    if (group) {
+      setViewerStories(group.stories);
+    }
   };
 
   useEffect(() => {
@@ -74,7 +76,13 @@ const StatusList = () => {
         acc[story.userId].stories.push(story);
         return acc;
       }, {})
-    );
+    ).map((group) => ({
+      ...group,
+      stories: group.stories.sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      ),
+    }));
+
     setGroupedStories(grouped);
   }, [stories]);
 
