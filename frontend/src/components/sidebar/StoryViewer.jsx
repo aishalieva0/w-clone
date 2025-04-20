@@ -1,5 +1,6 @@
 import React from "react";
 import Stories from "react-insta-stories";
+import formatStoryTime from "../../utils/formatStoryTime";
 
 const StoryViewer = ({ stories, onClose }) => {
   const formattedStories = stories.map((story) => ({
@@ -7,7 +8,7 @@ const StoryViewer = ({ stories, onClose }) => {
     type: story.type === "video" ? "video" : "image",
     header: {
       heading: story.username || "Unknown",
-      subheading: new Date(story.createdAt).toLocaleString(),
+      subheading: formatStoryTime(story.createdAt),
     },
   }));
   return (

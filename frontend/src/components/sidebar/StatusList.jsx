@@ -8,34 +8,14 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../firebase/firebaseConfig";
 import axios from "axios";
 import StoryViewer from "./StoryViewer";
+import formatStoryTime from "../../utils/formatStoryTime";
 
-const formatStoryTime = (dateString) => {
-  const date = new Date(dateString);
-  const now = new Date();
-
-  const isToday =
-    date.getDate() === now.getDate() &&
-    date.getMonth() === now.getMonth() &&
-    date.getFullYear() === now.getFullYear();
-
-  const time = date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  return isToday ? `Today at ${time}` : date.toLocaleString();
-};
 const StatusList = () => {
   const { user } = useSelector((state) => state.user);
   const fileInputRef = useRef();
   const [stories, setStories] = useState([]);
   const [viewerStories, setViewerStories] = useState(null);
   const [groupedStories, setGroupedStories] = useState([]);
-
-  const handleAddStoryClick = (e) => {
-    e.stopPropagation();
-    fileInputRef.current.click();
-  };
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
