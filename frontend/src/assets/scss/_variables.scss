@@ -34,6 +34,11 @@
   --background-active: rgba(11, 20, 26, 0.1);
   --preview-bg: #e9edef;
   --danger: #ea0038;
+  --overlay-background: rgba(255, 255, 255, 0.85);
+  --button-border: #e9edef;
+  --modal-background: #fff;
+  --button-hover-bg-color: #019479;
+  --button-hover-text-color: #019479;
 }
 
 // Dark Mode Colors
@@ -56,4 +61,9 @@
   --secondary-light: #54656f;
   --secondary-dark: #d1d7db;
   --divider: rgba(255, 255, 255, 0.1);
+  --overlay-background: rgba(11, 20, 26, 0.85);
+  --button-border: rgba(134, 150, 160, 0.15);
+  --modal-background: #3b4a54;
+  --button-hover-bg-color: #00bd9a;
+  --button-hover-text-color: #00bd9a;
 }

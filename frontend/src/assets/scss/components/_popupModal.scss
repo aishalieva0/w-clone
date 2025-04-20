@@ -5,14 +5,14 @@
   top: 0;
   left: 0;
   z-index: 9999;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--overlay-background);
   display: flex;
   justify-content: center;
   align-items: center;
   .popupModal {
     box-shadow: 0 17px 50px 0 rgba(11, 20, 26, 0.19),
       0 12px 15px 0 rgba(11, 20, 26, 0.24);
-    background: var(--bg-color);
+    background: var(--modal-background);
     width: 450px;
     max-width: 100%;
     overflow: hidden;
@@ -55,11 +55,32 @@
             font-size: 13px;
 
             input[type="radio"] {
-              width: 17px;
-              height: 17px;
               cursor: pointer;
+              appearance: none;
+              -webkit-appearance: none;
+              background-color: transparent;
+              border: 1px solid var(--icon-fixed);
+              width: 18px;
+              height: 18px;
+              border-radius: 50%;
+              position: relative;
+              cursor: pointer;
+              transition: 0.3s;
               &:checked {
-                accent-color: var(--teal);
+                border-color: var(--teal);
+                &::after {
+                  background-color: var(--teal);
+                }
+              }
+
+              &::after {
+                content: "";
+                position: absolute;
+                top: 3px;
+                left: 3px;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
               }
             }
 
@@ -79,20 +100,22 @@
             gap: 10px;
             .cancelBtn {
               color: var(--teal);
-              background: #fff;
-              border: 1px solid var(--preview-bg);
+              background: transparent;
+              border: 1px solid var(--button-border);
               &:hover {
-                box-shadow: 0px -3px 0px 0px rgba(79, 0, 26, 0),
+                box-shadow: 1px -3px 1px 1px rgba(79, 0, 26, 0),
                   0 2px 10px 0px rgba(109, 11, 26, 0.09);
+                color: var(--button-hover-text-color);
               }
             }
 
             .confirmBtn {
               background: var(--teal);
-              color: #fff;
+              color: var(--chat-bg);
               &:hover {
                 box-shadow: inset 6px 15px 10px 3px rgba(79, 0, 26, 0),
                   inset 9px 15px 10px 0px rgba(19, 20, 26, 0.1);
+                background: var(--button-hover-bg-color);
               }
             }
 

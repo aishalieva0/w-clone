@@ -141,7 +141,11 @@ const ChatWindow = ({ chatWindowRef }) => {
           width: "100%",
         }}
       >
-        <div className="row"></div>
+        <div className="previewHeader">
+          <div className="row">
+            <p>Wallpaper preview</p>
+          </div>
+        </div>
       </div>
     );
   }

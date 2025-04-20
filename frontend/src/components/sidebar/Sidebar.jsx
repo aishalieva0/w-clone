@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LeftPanel from "./LeftPanel";
 import ChatList from "./ChatList";
 import StatusList from "./StatusList";
 import Settings from "./Settings";
 import Profile from "./Profile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Wallpaper from "./Wallpaper";
+import { clearPreviewWallpaper } from "../../redux/slices/wallpaperSlice";
 
 const Sidebar = () => {
   const activeTab = useSelector((state) => state.sidebar.activeTab);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (activeTab !== "wallpaperTab") {
+      dispatch(clearPreviewWallpaper());
+    }
+  }, [activeTab]);
+
   let ContentComponent;
   switch (activeTab) {
     case "chatsTab":

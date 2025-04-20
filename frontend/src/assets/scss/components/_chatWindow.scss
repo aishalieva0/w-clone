@@ -45,6 +45,19 @@
       }
     }
   }
+  .previewHeader {
+    height: 60px;
+    background: var(--sidebar-bg);
+    width: 100%;
+    .row {
+      align-items: center;
+      justify-content: center;
+      p {
+        font-size: 14px;
+        color: var(--text-color);
+      }
+    }
+  }
 }
 
 .open {
