@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Stories from "react-insta-stories";
 import formatStoryTime from "../../utils/formatStoryTime";
 
@@ -13,13 +13,15 @@ const StoryViewer = ({ stories, onClose }) => {
   }));
   return (
     <div className="storyViewerOverlay">
-      <Stories
-        stories={formattedStories}
-        defaultInterval={5000}
-        width="100%"
-        height="100%"
-        onAllStoriesEnd={onClose}
-      />
+      <div className="storyContainer">
+        <Stories
+          stories={formattedStories}
+          defaultInterval={5000}
+          width="100%"
+          height="100vh"
+          onAllStoriesEnd={onClose}
+        />
+      </div>
     </div>
   );
 };

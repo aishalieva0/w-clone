@@ -38,7 +38,7 @@ router.post("/upload", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
 
-        const stories = await Story.find().sort({ createdAt: -1 });
+        const stories = await Story.find({ expiresAt: { $gt: now } }).sort({ createdAt: -1 });
 
         const userUids = stories.map((s) => s.userId);
 
