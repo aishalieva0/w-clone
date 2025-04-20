@@ -7,10 +7,19 @@
     flex-direction: column;
     .heading {
       background: var(--bg-color);
-      padding: 20px 0 20px 15px;
+      padding: 20px 25px 20px 15px;
       user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
       h2 {
         color: var(--text-color);
+      }
+
+      .icon{
+        width: 24px;
+        height: 24px;
       }
     }
 

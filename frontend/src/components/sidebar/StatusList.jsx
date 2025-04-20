@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import AddBtn from "../../assets/media/icons/add.svg?react";
+import PlusBtn from "../../assets/media/icons/plusSmall.svg?react";
 import notifyToast from "../../utils/toastifyMsg";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -31,7 +32,8 @@ const StatusList = () => {
   const [viewerStories, setViewerStories] = useState(null);
   const [groupedStories, setGroupedStories] = useState([]);
 
-  const handleAddStoryClick = () => {
+  const handleAddStoryClick = (e) => {
+    e.stopPropagation();
     fileInputRef.current.click();
   };
 
@@ -98,20 +100,31 @@ const StatusList = () => {
 
   const myStories = stories.filter((s) => s.userId === user?.uid);
 
-  const handleOwnerStoryClick = (userId) => {
-    myStories.length > 0 ? handleStoryClick(userId) : handleAddStoryClick();
-  };
-
   return (
     <div className="statusList">
       <div className="row">
         <div className="heading">
           <h2>Status</h2>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              fileInputRef.current.click();
+            }}
+          >
+            <PlusBtn className="icon" />
+          </button>
         </div>
         <div className="content">
           <div
             className="statusShareContainer"
-            onClick={() => handleOwnerStoryClick(user?.uid)}
+            onClick={(e) => {
+              if (myStories.length > 0) {
+                handleStoryClick(user?.uid);
+              } else {
+                fileInputRef.current.click();
+                e.stopPropagation();
+              }
+            }}
           >
             <div
               className={`profileImg ${myStories.length > 0 ? "hasStory" : ""}`}
@@ -137,14 +150,14 @@ const StatusList = () => {
                 </p>
               )}
             </div>
-            <input
-              type="file"
-              accept="image/*,video/*"
-              style={{ display: "none" }}
-              ref={fileInputRef}
-              onChange={handleFileChange}
-            />
           </div>
+          <input
+            type="file"
+            accept="image/*,video/*"
+            style={{ display: "none" }}
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
           <div className="statusContainer">
             <div className="title">
               <h2>recent</h2>
