@@ -67,11 +67,14 @@ router.get("/", async (req, res) => {
 });
 
 router.delete("/:storyId", async (req, res) => {
-    console.log("Deleting story with ID:", req);
     try {
         const { storyId } = req.params;
 
         const story = await Story.findById(storyId);
+
+        if (!storyId) {
+            return res.status(400).json({ message: "Story ID is required" });
+        }
 
         if (!story) {
             return res.status(404).json({ message: "Story not found" });

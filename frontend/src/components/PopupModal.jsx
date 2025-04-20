@@ -34,13 +34,17 @@ const PopupModal = ({
             <div className="header">
               <h2>{title}</h2>
             </div>
-            <div className="content">{children}</div>
+            <div className="popupContent">{children}</div>
             <div className="footer">
               <div className="btnGroup">
                 <button className="cancelBtn" onClick={handleClose}>
                   Cancel
                 </button>
-                <button className="confirmBtn" type="button" onClick={handleClose}>
+                <button
+                  className="confirmBtn"
+                  type="button"
+                  onClick={handleClose}
+                >
                   {confirmBtnText}
                 </button>
               </div>
