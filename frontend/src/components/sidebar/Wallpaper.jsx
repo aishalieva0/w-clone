@@ -19,6 +19,8 @@ const Wallpaper = () => {
     "/wallpapers/w1.jpg",
     "/wallpapers/w2.jpg",
     "/wallpapers/w3.jpg",
+    "/wallpapers/w4.jpeg",
+    "/wallpapers/w5.jpeg",
   ];
 
   const handleBackClick = () => {
@@ -56,9 +58,7 @@ const Wallpaper = () => {
           <div className="row">
             {wallpapers.map((img) => (
               <div
-                className={`item ${
-                  img == wallpaper ? "borderActive" : ""
-                }`}
+                className={`item ${img == wallpaper ? "borderActive" : ""}`}
                 key={img}
               >
                 <img
