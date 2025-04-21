@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Stories from "react-insta-stories";
 import formatStoryTime from "../../utils/formatStoryTime";
 import MoreIcon from "../../assets/media/icons/more.svg?react";
@@ -9,6 +9,7 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
   const { user } = useSelector((state) => state.user);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const dropdownRef = useRef(null);
 
   const formattedStories = stories.map((story) => ({
     url: story.mediaUrl,
@@ -32,6 +33,13 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
       ? stories[currentIndex]
       : null;
 
+  const toggleMoreMenu = (e) => {
+    e.stopPropagation();
+    if (dropdownRef.current) {
+      dropdownRef.current.classList.toggle("show");
+    }
+  };
+
   return (
     <div className="storyViewerOverlay">
       <div className="storyContainer">
@@ -48,11 +56,11 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
           }}
         />
         {currentStory && user.uid === currentStory.userId && (
-          <>
-            <button className="moreBtn">
+          <div className="storyHeader">
+            <button className="moreBtn" onClick={toggleMoreMenu}>
               <MoreIcon />
             </button>
-            <div className="dropdown">
+            <div className="dropdown" ref={dropdownRef}>
               <button
                 className="deleteBtn"
                 onClick={(e) => {
@@ -63,7 +71,7 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
                 Delete
               </button>
             </div>
-          </>
+          </div>
         )}
       </div>
       <PopupModal
