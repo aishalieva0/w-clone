@@ -1,7 +1,6 @@
 .chatWindow {
   display: flex;
-  // height: 100%;
-  height: calc(var(--vh, 1vh) * 100);
+  height: var(--app-height); 
   width: 65%;
   overflow: hidden;
   background-repeat: no-repeat;

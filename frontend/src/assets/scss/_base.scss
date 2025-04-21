@@ -11,6 +11,9 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   // overflow: hidden;
+
+  overscroll-behavior-y: none;
+  touch-action: manipulation;
 }
 
 .container {
