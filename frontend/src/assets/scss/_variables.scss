@@ -39,6 +39,12 @@
   --modal-background: #fff;
   --button-hover-bg-color: #019479;
   --button-hover-text-color: #019479;
+  --border-hover: #f5f6f6;
+  --detail-text: #667781;
+  --drawer-background-deep: #f0f2f5;
+  --drawer-box-shadow: 0px 7px 8px rgb(177 177 177 / 7%);
+  --dropdown-bg: #fff;
+  --dropdown-hover-bg: #f5f6f6;
 }
 
 // Dark Mode Colors
@@ -55,7 +61,7 @@
   --icon: #aebac1;
   --highlighted-bg: #111b21;
   --sidebar-bg: #202c33; //#8696A0
-  --sidebar-hover: #2a3942; // #202C33
+  --sidebar-hover: #202c33; // #2a3942
   --active-tab-bg: #0a332c;
   --scrollbar-color: #323a3f90;
   --secondary-light: #54656f;
@@ -66,4 +72,10 @@
   --modal-background: #3b4a54;
   --button-hover-bg-color: #00bd9a;
   --button-hover-text-color: #00bd9a;
+  --border-hover: #2b373e;
+  --detail-text: #8696a0;
+  --drawer-background-deep: #0c1317;
+  --drawer-box-shadow: 0 2px 4px rgba(11, 20, 26, 0.16);
+  --dropdown-bg: #233138;
+  --dropdown-hover-bg: #182229;
 }

@@ -17,25 +17,25 @@
         color: var(--text-color);
       }
 
-      .icon{
+      .icon {
         width: 24px;
         height: 24px;
       }
     }
 
     .content {
-      background: var(--sidebar-bg);
+      background: var(--drawer-background-deep);
+
       overflow-y: auto;
       scrollbar-width: thin;
-      scrollbar-color: var(--scrollbar-color) transparent;
+      scrollbar-color: var(--scrollbar-color) transparent !important;
 
       .statusShareContainer {
         display: flex;
         gap: 15px;
         align-items: center;
         background: var(--bg-color);
-        border-bottom: 1px solid var(--divider);
-        box-shadow: 0px 7px 8px rgb(177 177 177 / 7%);
+        box-shadow: var(--drawer-box-shadow);
         padding: 10px 20px 12px;
         margin-bottom: 10px;
         cursor: pointer;
@@ -70,7 +70,7 @@
 
         .details {
           h3 {
-            color: var(--secondary-text);
+            color: var(--secondary-dark);
             font-size: 17px;
             font-weight: 400;
           }
@@ -126,16 +126,16 @@
                   font-weight: 400;
                 }
                 p {
-                  color: var(--input-border);
+                  color: var(--detail-text);
                   font-size: 14px;
                 }
               }
 
               &:hover {
-                background: var(--highlighted-bg);
+                background: var(--sidebar-hover);
                 cursor: pointer;
                 .details {
-                  border-top-color: #f5f6f6;
+                  border-top-color: var(--border-hover);
                 }
               }
             }

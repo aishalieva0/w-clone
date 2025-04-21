@@ -26,39 +26,46 @@
         color: white;
         font-size: 20px;
         cursor: pointer;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        transition: 0.3s ease;
       }
       .dropdown {
         position: absolute;
         top: 25px;
-        right: 5px;
-        background-color: #fff;
+        right: 8px;
+        background: var(--dropdown-bg);
         z-index: 10000;
-        width: 90px;
+        width: 110px;
         transition: 0.5s ease;
         border-radius: 3px;
         transform-origin: right top;
         transform: scale(0);
         opacity: 0;
-        max-width: 340px;
+        max-width: 120px;
         padding: 5px 0;
         box-shadow: 0 2px 5px 0 rgba(var(--shadow-rgb), 0.26),
           0 2px 10px 0 rgba(var(--shadow-rgb), 0.16);
 
         .deleteBtn {
           color: var(--secondary-dark);
-          font-size: 15px;
+          font-size: 13px;
           width: 100%;
           transition: 0.5s ease;
-          padding: 5px 15px;
+          padding: 9px 15px;
           text-align: left;
           &:hover {
-            background: var(--sidebar-hover);
+            background: var(--dropdown-hover-bg);
           }
         }
       }
       .show {
         opacity: 1;
         transform: scale(1);
+      }
+      .active {
+        background: rgba(255, 255, 255, 0.1);
       }
     }
   }

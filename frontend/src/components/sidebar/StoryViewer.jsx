@@ -10,6 +10,7 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const dropdownRef = useRef(null);
+  const moreBtnRef = useRef(null);
 
   const formattedStories = stories.map((story) => ({
     url: story.mediaUrl,
@@ -37,6 +38,7 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
     e.stopPropagation();
     if (dropdownRef.current) {
       dropdownRef.current.classList.toggle("show");
+      moreBtnRef.current.classList.toggle("active");
     }
   };
 
@@ -57,7 +59,11 @@ const StoryViewer = ({ stories, onClose, handleDeleteStory }) => {
         />
         {currentStory && user.uid === currentStory.userId && (
           <div className="storyHeader">
-            <button className="moreBtn" onClick={toggleMoreMenu}>
+            <button
+              className="moreBtn"
+              onClick={toggleMoreMenu}
+              ref={moreBtnRef}
+            >
               <MoreIcon />
             </button>
             <div className="dropdown" ref={dropdownRef}>
