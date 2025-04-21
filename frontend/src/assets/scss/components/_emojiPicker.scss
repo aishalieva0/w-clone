@@ -7,3 +7,10 @@
   overflow: hidden;
   z-index: 1000;
 }
+
+@media (max-width: 768px) {
+  .emojiPickerContainer {
+    border-radius: 10px 10px 0 0;
+    overflow-y: auto;
+  }
+}
