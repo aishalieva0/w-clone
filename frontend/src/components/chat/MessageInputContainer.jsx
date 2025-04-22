@@ -147,6 +147,20 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
     setPreviewUrl(URL.createObjectURL(file));
   };
 
+  useEffect(() => {
+    const input = document.querySelector("textarea"); 
+    if (!input) return;
+
+    const handleFocus = () => {
+      setTimeout(() => {
+        input.scrollIntoView({ block: "nearest" }); 
+      }, 200);
+    };
+
+    input.addEventListener("focus", handleFocus);
+    return () => input.removeEventListener("focus", handleFocus);
+  }, []);
+
   const uploadFileToFirebase = async (file) => {
     return new Promise((resolve, reject) => {
       if (!file) return reject("No file selected");
