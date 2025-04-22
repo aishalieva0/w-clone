@@ -196,6 +196,13 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
     setSelectedFile(null);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
   return (
     <div className="messageInputContainer">
       <div className="row">
@@ -260,12 +267,16 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
             onInput={handleInput}
             rows={1}
             cols={1}
+            onKeyDown={handleKeyDown}
             type="text"
             placeholder="Type a message"
           />
         </div>
 
-        {inputMsg ? (
+        <button onClick={handleSend} className="sendMsgBtn">
+          <SendMsgBtn />
+        </button>
+        {/* {inputMsg ? (
           <button onClick={handleSend} className="sendMsgBtn">
             <SendMsgBtn />
           </button>
@@ -273,7 +284,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
           <button className="sendVoiceMsgBtn">
             <VoiceMsgBtn />
           </button>
-        )}
+        )} */}
       </div>
       {targetInput && (
         <div ref={emojiPickerRef} className="emojiField">
