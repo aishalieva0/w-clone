@@ -10,7 +10,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    height: 100%;
+    height: var(--app-height); 
     width: 100%;
     transition: 0.3s ease-in-out;
   }

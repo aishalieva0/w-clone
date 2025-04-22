@@ -22,20 +22,37 @@ const Chat = () => {
     }
   }, [activeChat]);
 
+  // useEffect(() => {
+  //   const setAppHeight = () => {
+  //     const appHeight = window.innerHeight;
+  //     document.documentElement.style.setProperty(
+  //       "--app-height",
+  //       `${appHeight}px`
+  //     );
+  //   };
+
+  //   setAppHeight();
+  //   window.addEventListener("resize", setAppHeight);
+
+  //   return () => {
+  //     window.removeEventListener("resize", setAppHeight);
+  //   };
+  // }, []);
+
   useEffect(() => {
     const setAppHeight = () => {
-      const appHeight = window.innerHeight;
-      document.documentElement.style.setProperty(
-        "--app-height",
-        `${appHeight}px`
-      );
+      const vh = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--app-height", `${vh}px`);
     };
 
     setAppHeight();
-    window.addEventListener("resize", setAppHeight);
+
+    window.visualViewport?.addEventListener("resize", setAppHeight);
+    window.addEventListener("orientationchange", setAppHeight);
 
     return () => {
-      window.removeEventListener("resize", setAppHeight);
+      window.visualViewport?.removeEventListener("resize", setAppHeight);
+      window.removeEventListener("orientationchange", setAppHeight);
     };
   }, []);
 
