@@ -29,38 +29,6 @@ const ChatWindow = ({ chatWindowRef }) => {
     setupSocketListeners(socket, dispatch);
   }, [socket, user, dispatch]);
 
-  // works---------
-  // useEffect(() => {
-  //   dispatch(setMessages([]));
-  //   setPage(1);
-  //   if (chatWindowRef.current) {
-  //     chatWindowRef.current.classList.remove("open");
-  //   }
-  // }, [activeChat]);
-
-  // useEffect(() => {
-  //   if (!activeChat || !user) return;
-  //   const fetchMessages = async () => {
-  //     try {
-  //       const { data } = await axios.get(
-  //         `${import.meta.env.VITE_BASE_URL}/messages/${user.email}/${
-  //           activeChat.email
-  //         }?page=${page}&limit=20`
-  //       );
-
-  //       if (Array.isArray(data)) {
-  //         const existingMessages = [...messages];
-  //         dispatch(setMessages([...data.reverse(), ...existingMessages]));
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   fetchMessages();
-  // }, [page, activeChat, user, dispatch]);
-  // works--------
-
   useEffect(() => {
     if (!activeChat || !user) return;
     dispatch(setMessages([]));
