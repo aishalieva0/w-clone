@@ -18,6 +18,7 @@ const ChatWindow = ({ chatWindowRef }) => {
   const { user } = useSelector((state) => state.user);
   const messages = useSelector((state) => state.chat.messages) || [];
   const activeChat = useSelector((state) => state.chat.activeChat);
+  const currentMessages = useSelector((state) => state.chat.messages) || [];
   const preview = useSelector((state) => state.wallpaper.preview);
   const dispatch = useDispatch();
   const socket = useSocket();
@@ -28,8 +29,47 @@ const ChatWindow = ({ chatWindowRef }) => {
     setupSocketListeners(socket, dispatch);
   }, [socket, user, dispatch]);
 
+  // works---------
+  // useEffect(() => {
+  //   dispatch(setMessages([]));
+  //   setPage(1);
+  //   if (chatWindowRef.current) {
+  //     chatWindowRef.current.classList.remove("open");
+  //   }
+  // }, [activeChat]);
+
+  // useEffect(() => {
+  //   if (!activeChat || !user) return;
+  //   const fetchMessages = async () => {
+  //     try {
+  //       const { data } = await axios.get(
+  //         `${import.meta.env.VITE_BASE_URL}/messages/${user.email}/${
+  //           activeChat.email
+  //         }?page=${page}&limit=20`
+  //       );
+
+  //       if (Array.isArray(data)) {
+  //         const existingMessages = [...messages];
+  //         dispatch(setMessages([...data.reverse(), ...existingMessages]));
+  //       }
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+
+  //   fetchMessages();
+  // }, [page, activeChat, user, dispatch]);
+  // works--------
+
   useEffect(() => {
     if (!activeChat || !user) return;
+    dispatch(setMessages([]));
+    setPage(1);
+  }, [activeChat?.email, user?.email]);
+
+  useEffect(() => {
+    if (!activeChat || !user || !page) return;
+
     const fetchMessages = async () => {
       try {
         const { data } = await axios.get(
@@ -39,24 +79,19 @@ const ChatWindow = ({ chatWindowRef }) => {
         );
 
         if (Array.isArray(data)) {
-          const existingMessages = [...messages];
-          dispatch(setMessages([...data.reverse(), ...existingMessages]));
+          if (page === 1) {
+            dispatch(setMessages(data.reverse()));
+          } else {
+            dispatch(setMessages([...data.reverse(), ...currentMessages]));
+          }
         }
       } catch (err) {
-        console.error(err);
+        console.error("Failed to load messages", err);
       }
     };
 
     fetchMessages();
-  }, [page, activeChat, user, dispatch]);
-
-  useEffect(() => {
-    dispatch(setMessages([]));
-    setPage(1);
-    if (chatWindowRef.current) {
-      chatWindowRef.current.classList.remove("open");
-    }
-  }, [activeChat]);
+  }, [page, activeChat?.email, user?.email, dispatch]);
 
   useEffect(() => {
     if (!activeChat || !socket || !user) return;
