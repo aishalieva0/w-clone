@@ -36,6 +36,7 @@ const StatusList = () => {
       });
 
       notifyToast("Story uploaded", "success");
+      fetchStories();
     } catch (err) {
       console.error("Story upload error:", err);
       notifyToast("Story upload failed", "error");
@@ -55,22 +56,23 @@ const StatusList = () => {
       await axios.delete(`${import.meta.env.VITE_BASE_URL}/stories/${storyId}`);
       notifyToast("Story deleted", "success");
       setStories(stories.filter((story) => story._id !== storyId));
+      fetchStories();
     } catch (err) {
       console.error("Failed to delete story:", err);
       notifyToast("Story deletion failed", "error");
     }
   };
 
-  useEffect(() => {
-    const fetchStories = async () => {
-      try {
-        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/stories`);
-        setStories(res.data.stories);
-      } catch (err) {
-        console.error("Failed to fetch stories:", err);
-      }
-    };
+  const fetchStories = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/stories`);
+      setStories(res.data.stories);
+    } catch (err) {
+      console.error("Failed to fetch stories:", err);
+    }
+  };
 
+  useEffect(() => {
     fetchStories();
   }, []);
 
