@@ -80,6 +80,7 @@
         overflow-y: auto;
         scrollbar-width: thin;
         scrollbar-color: var(--chat-scroll-color) transparent;
+        color: var(--text-color);
         &::placeholder {
           font-size: 17px;
           color: var(--icon);
