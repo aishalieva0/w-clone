@@ -54,7 +54,7 @@ const LeftPanel = () => {
             {profileImage ? (
               <img src={profileImage} alt="profile_photo" />
             ) : (
-              <DefaultProfilePhoto />
+              <DefaultProfilePhoto className="defaultImg" />
             )}
           </li>
         </ul>
