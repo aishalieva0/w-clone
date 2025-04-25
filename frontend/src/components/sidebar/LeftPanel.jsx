@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTab } from "../../redux/slices/sidebarSlice";
 import ChatIcon from "../../assets/media/icons/chat.svg?react";
 import StatusIcon from "../../assets/media/icons/status.svg?react";
 import SettingIcon from "../../assets/media/icons/setting.svg?react";
-import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
+// import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
+import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 
 const LeftPanel = () => {
   const dispatch = useDispatch();
   const activeTab = useSelector((state) => state.sidebar.activeTab);
+  const { user } = useSelector((state) => state.user);
+  const [profileImage, setProfileImage] = useState(null);
+
+  useEffect(() => {
+    if (user) {
+      setProfileImage(user.profilePic);
+    }
+  }, [user]);
 
   return (
     <div className="leftPanel">
@@ -42,7 +51,11 @@ const LeftPanel = () => {
             }`}
             onClick={() => dispatch(setActiveTab("profileTab"))}
           >
-            <img src={DefaultProfilePhoto} alt="profile_photo" />
+            {profileImage ? (
+              <img src={profileImage} alt="profile_photo" />
+            ) : (
+              <DefaultProfilePhoto />
+            )}
           </li>
         </ul>
       </div>
