@@ -11,6 +11,7 @@ import axios from "axios";
 const ChatList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  const activeChat = useSelector((state) => state.chat.activeChat);
   const [conversations, setConversations] = useState([]);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -201,7 +202,9 @@ const ChatList = () => {
           ) : (
             conversations.map((chat, index) => (
               <li
-                className="chatItem"
+                className={`chatItem ${
+                  activeChat?.email === chat.email ? "activeChat" : ""
+                }`}
                 key={index}
                 onClick={() => handleChatClick(chat)}
               >
