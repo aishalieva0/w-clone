@@ -17,6 +17,39 @@ const ChatList = () => {
   const navigate = useNavigate();
   const socket = useSocket();
 
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "";
+
+    const date = new Date(timestamp);
+    if (isNaN(date.getTime())) return "Invalid date";
+
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const isToday =
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+
+    const isYesterday =
+      date.getDate() === yesterday.getDate() &&
+      date.getMonth() === yesterday.getMonth() &&
+      date.getFullYear() === yesterday.getFullYear();
+
+    if (isToday) {
+      return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      });
+    } else if (isYesterday) {
+      return "Yesterday";
+    } else {
+      return date.toLocaleDateString();
+    }
+  };
+
   useEffect(() => {
     if (!user) return;
 
@@ -38,25 +71,24 @@ const ChatList = () => {
     if (!socket) return;
 
     socket.on("update-conversation", (data) => {
-      setConversations((prev) =>
-        prev.map((conv) =>
+      setConversations((prev) => {
+        const updated = prev.map((conv) =>
           conv.email === data.receiver || conv.email === data.sender
             ? {
                 ...conv,
                 lastMessage: data.message,
-                time: new Date(data.timestamp).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: false,
-                }),
+                timestamp: data.timestamp,
                 unread:
                   conv.email === data.sender
                     ? (conv.unread || 0) + 1
                     : conv.unread,
               }
             : conv
-        )
-      );
+        );
+        return updated.sort(
+          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+        );
+      });
     });
 
     return () => {
@@ -188,7 +220,7 @@ const ChatList = () => {
                     <p>{chat.lastMessage}</p>
                   </div>
                   <div className="details">
-                    <span className="date">{chat.time}</span>
+                    <span className="date">{formatDate(chat.timestamp)}</span>
                     {chat.unread > 0 && (
                       <span className="unread">{chat.unread}</span>
                     )}

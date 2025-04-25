@@ -23,11 +23,7 @@ router.get("/:userEmail", async (req, res) => {
                 conversationsMap.set(chatPartner, {
                     email: chatPartner,
                     lastMessage: msg.message,
-                    time: new Date(msg.timestamp).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                    }),
+                    timestamp: msg.timestamp,
                     unread: 0,
                 });
             }
