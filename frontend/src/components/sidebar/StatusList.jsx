@@ -107,14 +107,16 @@ const StatusList = () => {
       <div className="row">
         <div className="heading">
           <h2>Status</h2>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              fileInputRef.current.click();
-            }}
-          >
-            <PlusBtn className="icon" />
-          </button>
+          {myStories.length == 0 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                fileInputRef.current.click();
+              }}
+            >
+              <PlusBtn className="icon" />
+            </button>
+          )}
         </div>
         <div className="content">
           <div
