@@ -13,6 +13,18 @@
       flex-direction: column;
       align-items: center;
       gap: 30px;
+      .topItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        .icon {
+          width: 22px;
+          height: 22px;
+        }
+      }
     }
     .bottomList {
       display: flex;
@@ -20,6 +32,16 @@
       align-items: center;
       gap: 30px;
       .bottomItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        .icon {
+          width: 22px;
+          height: 22px;
+        }
         img {
           width: 30px;
           height: 30px;
@@ -27,6 +49,9 @@
           border: 1px solid #c9c6c6f0;
         }
       }
+    }
+    .active {
+      background: var(--active-tab-bg) !important;
     }
   }
 }
