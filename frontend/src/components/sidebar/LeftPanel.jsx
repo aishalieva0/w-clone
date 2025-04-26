@@ -14,9 +14,9 @@ const LeftPanel = () => {
 
   useEffect(() => {
     if (user) {
-      setProfileImage(user.profilePic || DefaultProfilePhoto);
+      setProfileImage(user?.profilePic || DefaultProfilePhoto);
     }
-  }, [user]);
+  }, [user?.profilePic]);
 
   return (
     <div className="leftPanel">
