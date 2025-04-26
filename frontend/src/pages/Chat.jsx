@@ -22,23 +22,6 @@ const Chat = () => {
     }
   }, [activeChat]);
 
-  // useEffect(() => {
-  //   const setAppHeight = () => {
-  //     const appHeight = window.innerHeight;
-  //     document.documentElement.style.setProperty(
-  //       "--app-height",
-  //       `${appHeight}px`
-  //     );
-  //   };
-
-  //   setAppHeight();
-  //   window.addEventListener("resize", setAppHeight);
-
-  //   return () => {
-  //     window.removeEventListener("resize", setAppHeight);
-  //   };
-  // }, []);
-
   useEffect(() => {
     const setAppHeight = () => {
       const vh = window.visualViewport?.height || window.innerHeight;

@@ -30,7 +30,6 @@ const AppContent = () => {
         : "light";
       const finalTheme = theme === "default" ? systemTheme : theme;
 
-      // root.setAttribute("data-theme", finalTheme);
       root.className = finalTheme;
     };
 

@@ -51,7 +51,6 @@ const StatusList = () => {
   };
 
   const handleDeleteStory = async (storyId) => {
-    console.log("Deleting story with ID:", storyId);
     try {
       await axios.delete(`${import.meta.env.VITE_BASE_URL}/stories/${storyId}`);
       notifyToast("Story deleted", "success");

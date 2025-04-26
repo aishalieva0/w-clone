@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-import AnimationWelcomeDoodle from "../assets/media/AnimationWelcomeDoodle.json";
+import AnimationWelcomeDoodle from "../assets/media/animation/AnimationWelcomeDoodle.json";
 import { useSelector } from "react-redux";
 const Welcome = () => {
   const { isAuthenticated } = useSelector((state) => state.user);

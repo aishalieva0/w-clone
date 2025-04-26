@@ -26,7 +26,6 @@ const Register = () => {
 
     const actionCodeSettings = {
       url: `${import.meta.env.VITE_APP_URL}/login`,
-      // url: "http://localhost:5173/login",
       handleCodeInApp: true,
     };
 

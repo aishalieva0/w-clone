@@ -4,7 +4,6 @@ import { setActiveTab } from "../../redux/slices/sidebarSlice";
 import ChatIcon from "../../assets/media/icons/chat.svg?react";
 import StatusIcon from "../../assets/media/icons/status.svg?react";
 import SettingIcon from "../../assets/media/icons/setting.svg?react";
-// import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
 
 const LeftPanel = () => {
