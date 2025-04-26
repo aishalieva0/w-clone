@@ -165,8 +165,8 @@ const Profile = () => {
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      notifyToast("File size should be less than 2MB!", "error");
+    if (file.size > 10 * 1024 * 1024) {
+      notifyToast("File size should be less than 10MB!", "error");
       return;
     }
 
