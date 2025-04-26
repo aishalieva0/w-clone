@@ -15,12 +15,16 @@ const Wallpaper = () => {
   const wallpaper = useSelector((state) => state.wallpaper.image);
 
   const wallpapers = [
-    "/wallpapers/default.jpg",
+    "/wallpapers/default.jpeg",
     "/wallpapers/w1.jpg",
-    "/wallpapers/w2.jpg",
-    "/wallpapers/w3.jpg",
+    "/wallpapers/w2.jpeg",
+    "/wallpapers/w3.jpeg",
     "/wallpapers/w4.jpeg",
     "/wallpapers/w5.jpeg",
+    "/wallpapers/w6.jpeg",
+    "/wallpapers/w7.jpeg",
+    "/wallpapers/w8.jpeg",
+    "/wallpapers/w9.jpeg",
   ];
 
   const handleBackClick = () => {

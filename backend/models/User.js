@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema(
         },
         about: {
             type: String,
-            default: "Hey there! I am using WhatsApp.",
+            default: "Staying connected on Bubble!",
         },
         isOnline: {
             type: Boolean,

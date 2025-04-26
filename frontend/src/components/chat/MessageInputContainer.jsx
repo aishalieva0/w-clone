@@ -254,12 +254,12 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
         </div>
 
         <div className="messageInput">
-          <button
+          {/* <button
             className="emojiBtn"
             onClick={(e) => handleEmojiButtonClick(e, "message")}
           >
             <EmojiInput className="icon emoji" />
-          </button>
+          </button> */}
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}

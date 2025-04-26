@@ -49,7 +49,7 @@ const Register = () => {
         <div className="row">
           <div className="content">
             <h4>Enter your email</h4>
-            <p>We'll send you a login link to access WhatsApp.</p>
+            <p>We'll send you a login link to access Bubble.</p>
             <input
               type="email"
               placeholder="Enter your email address"

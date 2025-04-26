@@ -4,7 +4,7 @@ import { setActiveTab } from "../../redux/slices/sidebarSlice";
 import ChatIcon from "../../assets/media/icons/chat.svg?react";
 import StatusIcon from "../../assets/media/icons/status.svg?react";
 import SettingIcon from "../../assets/media/icons/setting.svg?react";
-import DefaultProfilePhoto from "../../assets/media/user/userDefault.svg?react";
+import DefaultProfilePhoto from "../../assets/media/user/user-default.jpg";
 
 const LeftPanel = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const LeftPanel = () => {
 
   useEffect(() => {
     if (user) {
-      setProfileImage(user.profilePic);
+      setProfileImage(user.profilePic || DefaultProfilePhoto);
     }
   }, [user]);
 
@@ -50,11 +50,7 @@ const LeftPanel = () => {
             }`}
             onClick={() => dispatch(setActiveTab("profileTab"))}
           >
-            {profileImage ? (
-              <img src={profileImage} alt="profile_photo" />
-            ) : (
-              <DefaultProfilePhoto className="defaultImg" />
-            )}
+            <img src={profileImage} alt="profile_photo" />
           </li>
         </ul>
       </div>

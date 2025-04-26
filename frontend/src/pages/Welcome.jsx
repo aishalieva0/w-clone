@@ -23,7 +23,7 @@ const Welcome = () => {
             className="doodle-animation"
           />
           <div className="details">
-            <h1>Welcome to WhatsApp</h1>
+            <h1>Welcome to Bubble</h1>
             <p>
               Connect with friends and family, share messages, and stay in touch
               anytime, anywhere.

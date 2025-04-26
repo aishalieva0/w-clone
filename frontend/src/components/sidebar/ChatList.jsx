@@ -152,10 +152,6 @@ const ChatList = () => {
           <div className="title">
             <h2>Chats</h2>
           </div>
-          <div className="moreIcons">
-            <NewChatIcon className="icon" />
-            <MoreIcon className="icon" />
-          </div>
         </div>
         <div className="searchBar">
           <input
