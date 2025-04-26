@@ -143,3 +143,11 @@
     opacity: 0;
   }
 }
+
+@media (max-width: 500px) {
+  .popupOverlay {
+    .popupModal {
+      width: 350px !important;
+    }
+  }
+}
