@@ -44,6 +44,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
   };
 
   const handleClickOutside = (e) => {
+    if (!emojiPickerRef.current) return;
     if (
       emojiPickerRef.current &&
       !emojiPickerRef.current.contains(e.target) &&
@@ -68,18 +69,17 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
     };
   }, []);
 
+  const handleEmojiSelect = (emoji, target) => {
+    if (target === "message") {
+      insertAtCursor(textareaRef.current, setMessage, emoji);
+    }
+  };
   useEffect(() => {
     if (selectedEmoji && targetInput) {
       handleEmojiSelect(selectedEmoji, targetInput);
       dispatch(setSelectedEmoji(null));
     }
   }, [selectedEmoji, targetInput]);
-
-  const handleEmojiSelect = (emoji, target) => {
-    if (target === "message") {
-      insertAtCursor(textareaRef.current, setMessage, emoji);
-    }
-  };
 
   const handleEmojiButtonClick = (e, target) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -238,7 +238,7 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
           <PlusBtn className="icon" />
         </button>
 
-        <div className="attachmentModal open" ref={attachmentModalRef}>
+        <div className="attachmentModal" ref={attachmentModalRef}>
           <button onClick={() => documentInputRef.current.click()}>
             <DocumentIcon />
             <span>Document</span>
@@ -276,15 +276,6 @@ const MessageInputContainer = ({ message, setMessage, sendMessage }) => {
         <button onClick={handleSend} className="sendMsgBtn">
           <SendMsgBtn />
         </button>
-        {/* {inputMsg ? (
-          <button onClick={handleSend} className="sendMsgBtn">
-            <SendMsgBtn />
-          </button>
-        ) : (
-          <button className="sendVoiceMsgBtn">
-            <VoiceMsgBtn />
-          </button>
-        )} */}
       </div>
       {targetInput && (
         <div ref={emojiPickerRef} className="emojiField">

@@ -7,12 +7,11 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    position: relative;
     .attachmentModal {
       background: var(--bg-color);
       position: absolute;
-      top: -155px;
-      left: 15px;
+      top: -140px;
+      left: 25px;
       opacity: 0;
       visibility: hidden;
       transform: scale(0);
@@ -193,6 +192,18 @@
   .messageInputContainer {
     padding: 6px 12px 6px 10px;
     .row {
+      .attachmentModal {
+        left: 20px;
+        button {
+          svg {
+            width: 19px;
+            height: 19px;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+      }
       .plusBtn {
         .icon {
           width: 29px;
@@ -216,6 +227,49 @@
         margin-bottom: 9px;
         width: 22px;
         height: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 380px) {
+  .messageInputContainer {
+    padding: 6px 14px 6px 3px;
+    .row {
+      .attachmentModal {
+        top: -132px;
+        left: 10px;
+        padding: 10px 6px;
+        button {
+          gap: 7px;
+          svg {
+            width: 16px;
+            height: 16px;
+          }
+          span {
+            font-size: 14px;
+          }
+        }
+      }
+      .plusBtn {
+        .icon {
+          width: 25px;
+        }
+      }
+      .messageInput {
+        padding: 7px 8px;
+        textarea {
+          font-size: 13px;
+          &::placeholder {
+            font-size: 13px;
+          }
+        }
+      }
+      .sendVoiceMsgBtn,
+      .sendMsgBtn {
+        margin-bottom: 7px;
+        width: 21px;
+        height: 21px;
       }
     }
   }

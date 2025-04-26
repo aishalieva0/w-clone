@@ -14,7 +14,7 @@ const EmojiPicker = () => {
   const isMobile = window.innerWidth <= 768;
 
   const mobileStyle = {
-    position: "fixed",
+    // position: "fixed",
     bottom: 0,
     left: 0,
     right: 0,
